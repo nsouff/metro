@@ -1,0 +1,38 @@
+@startuml
+
+class Station {
+   + name : String
+   + line : int
+}
+
+class Parser {
+   + createGraph(path : File) : WeightedGraph<Station> {static}
+}
+
+note "The underlying graph representation may not be definitive" as GRAPH_NOTE
+WeightedGraph .. GRAPH_NOTE
+
+class WeightedGraph<T>{
+   - wGraph : HashMap<T,List<Edge<T>>>
+   + neighbors(x : T) : List<T>
+   + weight(from : T, to : T) : Double
+   + addVertex(x : T) : boolean
+   + deleteVertex(x : T) : boolean
+   + addEdge(from : T, to : T, weight : Double) : boolean
+   + removeEdge(from : T, to : T) : boolean
+}
+
+class Edge<T> {
+   + data : T
+   + weight : Double
+}
+
+
+class Dijkstra<T> {
+   + shortestPath(g : WeightedGraph, start : T, end : T) : List<T> {static}
+}
+
+
+Edge --+ WeightedGraph
+
+@enduml
