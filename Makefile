@@ -4,7 +4,7 @@ MVN=mvn
 CLASSPATH=./target/*.jar
 JAVA_OPT=-cp $(CLASSPATH)
 JAVA=java $(JAVA_OPT)
-TARGET=metro.jar
+TARGET=fr.univparis.metro.App
 
 # Target all builds the project.
 all:
