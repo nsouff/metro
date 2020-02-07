@@ -15,6 +15,9 @@ all:
 run : all
 	$(JAVA) $(TARGET)
 
+test:
+	$(MVN) test
+
 # Target clean removes all files produced during build.
 clean :
 	$(MVN) clean
