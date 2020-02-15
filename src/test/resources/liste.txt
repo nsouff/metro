@@ -225,11 +225,11 @@ Jaurès
 Bolivar
 Buttes Chaumont
 Botzaris
-[
+{
 Place des Fêtes
 /
 Danube
-]
+}
 Pré Saint-Gervais
 --
 
@@ -316,7 +316,7 @@ Mairie de Montreuil
 Ligne 10
 Boulogne - Pont de Saint-Cloud
 Boulogne - Jean Jaurès
-[
+{
 Michel-Ange - Molitor
 Chardon Lagache
 Mirabeau
@@ -324,7 +324,7 @@ Mirabeau
 Porte d'Auteuil
 Michel-Ange - Auteuil
 Eglise d'Auteuil
-]
+}
 Javel - André Citroën
 Charles Michels
 Avenue Emile Zola
@@ -390,12 +390,12 @@ Mairie d'Issy
 --
 
 Ligne 13
-[ 
-Saint-Denis - Université 		
+[
+Saint-Denis - Université
 Basilique de Saint-Denis
-Saint-Denis - Porte de Paris 		
+Saint-Denis - Porte de Paris
 Carrefour Pleyel
-Mairie de Saint-Ouen 		
+Mairie de Saint-Ouen
 Garibaldi
 Porte de Saint-Ouen
 Guy Môquet
