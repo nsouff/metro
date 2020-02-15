@@ -6,14 +6,11 @@ import java.io.*;
 public class Parser {
 
  /**
-  * String we don't use yet in the parser
-  */
-  private final static String[] spe = {"[", "]", "/", "||", "Ligne", "--"};
-
- /**
   * the default weight for the weight graph in {@link loadFrom}
   */
-  private final static Double defaultWeight = 90.0;
+  private static final Double defaultWeight = 90.0;
+
+  private static final Double defaultChangeStationWeight = 60.0;
 
  /**
   * Create a WGraph using a text file with stations on each line
@@ -24,11 +21,67 @@ public class Parser {
     Scanner sc = new Scanner (f);
     WGraph<Station> g = new WGraph<Station>();
     sc.useDelimiter("\n");
-    Station st = null;
-    while (sc.hasNext())
-      st = addNextStation(g, st, sc.next());
-    sc.close();
+    Station prec = null;
+    String s;
+    String line = "";
+    HashSet<String> createdStation = new HashSet<String>();
+    while (sc.hasNext()) {
+      s = sc.next();
+      if (s.isEmpty()) continue;
+      else if (s.startsWith("Ligne")) line = s;
+      else if (s.equals("--")) {
+        line = "";
+        prec = null;
+      }
+      else if (s.equals("{")) prec = cycle(g, sc, prec, line, createdStation);
+      else if (s.equals("["))        fork (g, sc, prec, line, createdStation);
+      else if (s.equals("}")) throw new IllegalStateException("Can't close a cycle if there isn't an open one");
+      else if (s.equals("]")) throw new IllegalStateException("Can't close a fork if there isn't an open one");
+      else if (s.equals("/")) throw new IllegalStateException("There isn't an open cycle for character \"/\"");
+      else prec = addNextStation(g, prec, s, line, true, true, createdStation);
+    }
+
     return g;
+  }
+
+  private static void fork(WGraph<Station> g, Scanner sc, Station fork, String line, HashSet<String> createdStation) {
+    if (fork == null) throw new IllegalStateException("Fork can't start with null station");
+    String s;
+    Station prec = fork;
+    while(sc.hasNext()) {
+      s = sc.next();
+      if (s.equals("]")) return;
+      else if (s.equals("||")) prec = addNextStation(g, fork, s, line, true, true, createdStation);
+      else if (s.equals("[")) fork(g, sc, prec, line, createdStation);
+      else if (s.equals("{")) cycle(g, sc, prec, line, createdStation);
+      else prec = addNextStation(g, prec, s, line, true, true, createdStation);
+    }
+  }
+
+  private static Station cycle(WGraph<Station> g, Scanner sc, Station start, String line, HashSet<String> createdStation) {
+    if (start == null) throw new IllegalStateException("Cycle can't start with a null station");
+    String s;
+    Station endOfFirst = start;
+    Station prec = start;
+    boolean comeback = false;
+    while(sc.hasNext()) {
+      s = sc.next();
+      if (s.equals("/")) {
+        if (comeback) throw new IllegalStateException();
+        comeback = true;
+        endOfFirst = prec;
+        prec = start;
+      }
+      else if (s.equals("{")) cycle(g, sc, prec, line, createdStation);
+      else if (s.equals("[")) fork(g, sc, prec, line, createdStation);
+      else if (s.equals("}")) break;
+      else addNextStation(g, prec, s, line, !comeback, comeback, createdStation);
+    }
+    if (!comeback || !sc.hasNext()) throw new IllegalStateException();
+    s = sc.next();
+    addNextStation(g, endOfFirst, s, line, true, false, createdStation);
+    addNextStation(g, prec, s, line, false, true, createdStation);
+    return new Station(s, line);
   }
 
 
@@ -41,25 +94,16 @@ public class Parser {
   * @param s the name of the station
   * @return the Station we Station we just created or prec if we didn't
   */
-  private static Station addNextStation(WGraph<Station> g, Station prec, String s) {
-    if (isStation(s)) {
-      Station act = new Station(s);
-      g.addVertex(act);
-      g.addEdge(act, prec, defaultWeight);
-      g.addEdge(prec, act, defaultWeight);
-      return act;
-    }
-    return prec;
+  private static Station addNextStation(WGraph<Station> g, Station prec, String s, String line, boolean ahead, boolean behind, HashSet<String> createdStation) {
+    Station act = new Station(s, line);
+    g.addVertex(act);
+    if (ahead && prec != null)  g.addEdge(prec, act, defaultWeight);
+    if (behind && prec != null) g.addEdge(act, prec, defaultWeight);
+    if (! createdStation.contains(s))
+      createdStation.add(s);
+    else
+      g.addDoubleEdge(act, defaultChangeStationWeight, (t -> act.sameName(t)));
+    return act;
   }
 
- /**
-  * Returns true if s is a station name
-  * @param s the String we want to know if it's station name
-  * @return true if s isn't empty and doesn't start with one of the element of {@link spe}
-  */
-  private static boolean isStation(String s) {
-    boolean res = true;
-    for (String sp : spe) res &= !s.startsWith(sp);
-    return (res && !s.isEmpty());
-  }
 }
