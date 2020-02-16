@@ -120,6 +120,7 @@ public class WGraph<T>{
      * @return true if the edge has correctly been created and added to the HashMap wGraph.
      */
     public boolean addEdge(T s, T p, Double weight){
+        if (s.equals(p)) return false;
         if(this.wGraph.containsKey(s) && this.wGraph.containsKey(p)){
             this.wGraph.get(s).add(new Edge(p, weight));
             return true;

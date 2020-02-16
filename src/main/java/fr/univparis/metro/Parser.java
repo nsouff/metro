@@ -33,7 +33,7 @@ public class Parser {
         prec = null;
       }
       else if (s.equals("{")) prec = cycle(g, sc, prec, line, createdStation);
-      else if (s.equals("["))        fork (g, sc, prec, line, createdStation);
+      else if (s.equals("[")) prec = fork (g, sc, prec, line, createdStation);
       else if (s.equals("}")) throw new IllegalStateException("Can't close a cycle if there isn't an open one");
       else if (s.equals("]")) throw new IllegalStateException("Can't close a fork if there isn't an open one");
       else if (s.equals("/")) throw new IllegalStateException("There isn't an open cycle for character \"/\"");
@@ -43,18 +43,32 @@ public class Parser {
     return g;
   }
 
-  private static void fork(WGraph<Station> g, Scanner sc, Station fork, String line, HashSet<String> createdStation) {
+  private static Station fork(WGraph<Station> g, Scanner sc, Station start, String line, HashSet<String> createdStation) {
     String s;
-    Station prec = fork;
+    Station endOfFirst = start;
+    Station prec = start;
     while(sc.hasNextLine()) {
       s = sc.nextLine();
       if (s.isEmpty()) continue;
-      if (s.equals("]")) return;
-      else if (s.equals("||")) prec = fork;
+      if (s.equals("]")) break;
+      else if (s.equals("||")){
+        endOfFirst = prec;
+        prec = start;
+      }
       else if (s.equals("[")) fork(g, sc, prec, line, createdStation);
       else if (s.equals("{")) cycle(g, sc, prec, line, createdStation);
       else prec = addNextStation(g, prec, s, line, true, true, createdStation);
     }
+    if (start != null) return null;
+    do {
+      if (!sc.hasNextLine()) throw new IllegalStateException();
+      s = sc.nextLine();
+      if (s.isEmpty()) continue;
+      addNextStation(g, endOfFirst, s, line, true, true, createdStation);
+      addNextStation(g, prec, s, line, true, true, createdStation);
+      break;
+    } while (sc.hasNextLine());
+    return new Station(s, line);
   }
 
   private static Station cycle(WGraph<Station> g, Scanner sc, Station start, String line, HashSet<String> createdStation) {
@@ -75,11 +89,11 @@ public class Parser {
       else if (s.equals("{")) cycle(g, sc, prec, line, createdStation);
       else if (s.equals("[")) fork(g, sc, prec, line, createdStation);
       else if (s.equals("}")) break;
-      else addNextStation(g, prec, s, line, !comeback, comeback, createdStation);
+      else prec = addNextStation(g, prec, s, line, !comeback, comeback, createdStation);
     }
+    if (!comeback) throw new IllegalStateException();
     do {
-      if (!comeback || !sc.hasNextLine()) throw new IllegalStateException();
-      if (line == null || line.isEmpty()) throw new IllegalStateException("WTFF");
+      if (!sc.hasNextLine()) throw new IllegalStateException();
       s = sc.nextLine();
       if (s.isEmpty()) continue;
       addNextStation(g, endOfFirst, s, line, true, false, createdStation);
