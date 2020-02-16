@@ -25,4 +25,9 @@ public class Initialize{
         System.out.println("Where do you want to go ?");
         return sc.nextLine();
     }
+
+    public static String[] store(){
+        String[] ret = {whichCity(), whereFrom(), whereTo()};
+        return ret;
+    }
 }
