@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.function.Predicate;
 
 
 public class WGraph<T>{
@@ -46,9 +47,9 @@ public class WGraph<T>{
     }
 
     public int nbVertex() {return wGraph.size();}
-    
+
     /**
-     * @param vertex 
+     * @param vertex
      * @return a list that contains all the vertices we can reach from the vertex "vertex".
      */
     public List<T> neighbors(T vertex){
@@ -119,6 +120,7 @@ public class WGraph<T>{
      * @return true if the edge has correctly been created and added to the HashMap wGraph.
      */
     public boolean addEdge(T s, T p, Double weight){
+        if (s.equals(p)) return false;
         if(this.wGraph.containsKey(s) && this.wGraph.containsKey(p)){
             this.wGraph.get(s).add(new Edge(p, weight));
             return true;
@@ -141,7 +143,7 @@ public class WGraph<T>{
                 if(e.getVertex().equals(p)){
                     rm = e;
                     break;
-                } 
+                }
             }
             l_s.remove(rm);
             return true;
@@ -149,7 +151,50 @@ public class WGraph<T>{
         return false;
     }
 
+   /**
+    * Add double edge between e and every element of the graph that evaluate true with p
+    * @param e the vertex wich we want to add Edge
+    * @param weight the weight for the added Edge
+    * @param p the Predicate we want that evaluate if we want to add an edge or not for every element of the graph
+    */
+    public boolean addDoubleEdge(T e, Double weight, Predicate<T> p) {
+      if (!wGraph.containsKey(e)) return false;
+      Set<T> set = wGraph.keySet();
+      for (T t : set) {
+        if (p.test(t)) {
+          addEdge(e, t, weight);
+          addEdge(t, e, weight);
+        }
+      }
+      return true;
+    }
 
+   /**
+    * Return the number of Vertex that evaluate true with predicate p
+    * @param p The predicate to test for every vertex
+    * @return The number of vertex that evaluate true with predicate p
+    */
+    public int nbVertex(Predicate<T> p) {
+      int res = 0;
+      Set<T> set = wGraph.keySet();
+      for (T t : set) {
+        if (p.test(t)) res++;
+      }
+      return res;
+    }
+
+   /**
+    * Return a String containing the toString funtion of every vertex that evualuate true with predicate p
+    * @param p The predicate to test xith every Vertex
+    * @return a String containing the toString funtion of every vertex that evualuate true with predicate p
+    *
+    */
+    public String vertexToString(Predicate<T> p) {
+      String res = "";
+      for (T t : wGraph.keySet()) {
+        if (p.test(t)) res += t.toString() + "\n";
+      }
+      return res;
+    }
 
 }
-
