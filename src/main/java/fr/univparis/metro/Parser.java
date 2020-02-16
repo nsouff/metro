@@ -46,10 +46,11 @@ public class Parser {
   private static void fork(WGraph<Station> g, Scanner sc, Station fork, String line, HashSet<String> createdStation) {
     String s;
     Station prec = fork;
-    while(sc.hasNext()) {
-      s = sc.next();
+    while(sc.hasNextLine()) {
+      s = sc.nextLine();
+      if (s.isEmpty()) continue;
       if (s.equals("]")) return;
-      else if (s.equals("||")) prec = addNextStation(g, fork, s, line, true, true, createdStation);
+      else if (s.equals("||")) prec = fork;
       else if (s.equals("[")) fork(g, sc, prec, line, createdStation);
       else if (s.equals("{")) cycle(g, sc, prec, line, createdStation);
       else prec = addNextStation(g, prec, s, line, true, true, createdStation);
@@ -62,8 +63,9 @@ public class Parser {
     Station endOfFirst = start;
     Station prec = start;
     boolean comeback = false;
-    while(sc.hasNext()) {
-      s = sc.next();
+    while(sc.hasNextLine()) {
+      s = sc.nextLine();
+      if (s.isEmpty()) continue;
       if (s.equals("/")) {
         if (comeback) throw new IllegalStateException();
         comeback = true;
@@ -75,11 +77,17 @@ public class Parser {
       else if (s.equals("}")) break;
       else addNextStation(g, prec, s, line, !comeback, comeback, createdStation);
     }
-    if (!comeback || !sc.hasNext()) throw new IllegalStateException();
-    s = sc.next();
-    addNextStation(g, endOfFirst, s, line, true, false, createdStation);
-    addNextStation(g, prec, s, line, false, true, createdStation);
+    do {
+      if (!comeback || !sc.hasNextLine()) throw new IllegalStateException();
+      if (line == null || line.isEmpty()) throw new IllegalStateException("WTFF");
+      s = sc.nextLine();
+      if (s.isEmpty()) continue;
+      addNextStation(g, endOfFirst, s, line, true, false, createdStation);
+      addNextStation(g, prec, s, line, false, true, createdStation);
+      break;
+    } while (sc.hasNextLine());
     return new Station(s, line);
+
   }
 
 
@@ -93,7 +101,6 @@ public class Parser {
   * @return the Station we Station we just created or prec if we didn't
   */
   private static Station addNextStation(WGraph<Station> g, Station prec, String s, String line, boolean ahead, boolean behind, HashSet<String> createdStation) {
-    System.out.println("AddNextStation " + s);
     Station act = new Station(s, line);
     g.addVertex(act);
     if (ahead && prec != null)  g.addEdge(prec, act, defaultWeight);

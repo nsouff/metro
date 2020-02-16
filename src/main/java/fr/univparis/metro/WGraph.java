@@ -168,4 +168,21 @@ public class WGraph<T>{
       return true;
     }
 
+    public int nbVertex(Predicate<T> p) {
+      int res = 0;
+      Set<T> set = wGraph.keySet();
+      for (T t : set) {
+        if (p.test(t)) res++;
+      }
+      return res;
+    }
+
+    public String printVertex(Predicate<T> p) {
+      String res = "";
+      for (T t : wGraph.keySet()) {
+        if (p.test(t)) res += t.toString() + "\n";
+      }
+      return res;
+    }
+
 }

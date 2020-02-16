@@ -12,9 +12,13 @@ public class Station {
     line = l;
   }
 
+  public String getName() {return name;}
+
+  public String getLine() {return line;}
+
   @Override
   public String toString() {
-    return "Station: " + name;
+    return "Station: " + name + ", " + line;
   }
 
   @Override

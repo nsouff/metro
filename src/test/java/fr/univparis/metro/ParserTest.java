@@ -8,15 +8,17 @@ public class ParserTest {
 
   @Test
   public void loadFromTest() throws IOException {
-    URL url1 = this.getClass().getResource("/reduce-subway.txt");
-    File f1 = new File(url1.getFile());
-    WGraph<Station> g1 = Parser.loadFrom(f1);
-    
+    URL url = this.getClass().getResource("/liste.txt");
+    File f = new File(url.getFile());
+    WGraph<Station> g = Parser.loadFrom(f);
 
-
-    URL url2 = this.getClass().getResource("/liste.txt");
-    File f2 = new File(url2.getFile());
-    WGraph<Station> g2 = Parser.loadFrom(f2);
+    assertEquals("Wrong size for Ligne 3bis, here are the station found: \n" + g.printVertex((t -> t.getLine().equals("Ligne 3bis"))), 4, g.nbVertex((t -> t.getLine().equals("Ligne 3bis"))));
+    assertEquals("Wrong size for Ligne 7bis, here are the station found: \n" + g.printVertex((t -> t.getLine().equals("Ligne 7bis"))), 8, g.nbVertex((t -> t.getLine().equals("Ligne 7bis"))));
+    int[] linesize = {25, 25, 25, 26, 22, 28, 38, 37, 37, 23, 13, 28, 32, 9};
+    for (int i = 0; i < 14; i++){
+      String line = "Ligne " + (i+1);
+      assertEquals("Wrong size for " + line + " here are the station found :\n" + g.printVertex((t -> t.getLine().equals(line))), linesize[i], g.nbVertex((t -> t.getLine().equals(line))));
+    }
 
 
   }
