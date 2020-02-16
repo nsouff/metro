@@ -20,13 +20,12 @@ public class Parser {
   public static WGraph<Station> loadFrom (File f) throws IOException {
     Scanner sc = new Scanner (f);
     WGraph<Station> g = new WGraph<Station>();
-    sc.useDelimiter("\n");
     Station prec = null;
     String s;
     String line = "";
     HashSet<String> createdStation = new HashSet<String>();
-    while (sc.hasNext()) {
-      s = sc.next();
+    while (sc.hasNextLine()) {
+      s = sc.nextLine();
       if (s.isEmpty()) continue;
       else if (s.startsWith("Ligne")) line = s;
       else if (s.equals("--")) {
@@ -45,7 +44,6 @@ public class Parser {
   }
 
   private static void fork(WGraph<Station> g, Scanner sc, Station fork, String line, HashSet<String> createdStation) {
-    if (fork == null) throw new IllegalStateException("Fork can't start with null station");
     String s;
     Station prec = fork;
     while(sc.hasNext()) {
@@ -95,6 +93,7 @@ public class Parser {
   * @return the Station we Station we just created or prec if we didn't
   */
   private static Station addNextStation(WGraph<Station> g, Station prec, String s, String line, boolean ahead, boolean behind, HashSet<String> createdStation) {
+    System.out.println("AddNextStation " + s);
     Station act = new Station(s, line);
     g.addVertex(act);
     if (ahead && prec != null)  g.addEdge(prec, act, defaultWeight);
