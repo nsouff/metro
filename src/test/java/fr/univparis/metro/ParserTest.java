@@ -21,12 +21,12 @@ public class ParserTest {
 
   @Test
   public void sizeTest() {
-    assertEquals("Wrong size for Ligne 3bis, here are the station found: \n" + g.printVertex((t -> t.getLine().equals("Ligne 3bis"))), 4, g.nbVertex((t -> t.getLine().equals("Ligne 3bis"))));
-    assertEquals("Wrong size for Ligne 7bis, here are the station found: \n" + g.printVertex((t -> t.getLine().equals("Ligne 7bis"))), 8, g.nbVertex((t -> t.getLine().equals("Ligne 7bis"))));
+    assertEquals("Wrong size for Ligne 3bis, here are the station found: \n" + g.vertexToString((t -> t.getLine().equals("Ligne 3bis"))), 4, g.nbVertex((t -> t.getLine().equals("Ligne 3bis"))));
+    assertEquals("Wrong size for Ligne 7bis, here are the station found: \n" + g.vertexToString((t -> t.getLine().equals("Ligne 7bis"))), 8, g.nbVertex((t -> t.getLine().equals("Ligne 7bis"))));
     int[] linesize = {25, 25, 25, 26, 22, 28, 38, 37, 37, 23, 13, 28, 32, 9};
     for (int i = 0; i < 14; i++){
       String line = "Ligne " + (i+1);
-      assertEquals("Wrong size for " + line + " here are the station found :\n" + g.printVertex((t -> t.getLine().equals(line))), linesize[i], g.nbVertex((t -> t.getLine().equals(line))));
+      assertEquals("Wrong size for " + line + " here are the station found :\n" + g.vertexToString((t -> t.getLine().equals(line))), linesize[i], g.nbVertex((t -> t.getLine().equals(line))));
     }
   }
 
