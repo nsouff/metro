@@ -45,13 +45,23 @@ public class PriorityQueue<E> {
 	if( index.containsKey(val) || val == null )
 	    return false;
 
-	Pair entry = new Pair(val,key);
+	Pair entry = new Pair(val, key);
 	tree.add( entry );
     
 	int i = tree.size() - 1;
 
-	/* Move entry up in the tree, as long as needed; used to restore heap condition after insertion. */
-	while(i >= 1 && tree.get((i-1)/2).key > key) {
+	siftUp(i);
+	
+	return true;
+    }
+
+    /**
+     * Move node i up in the tree, as long as needed; used to restore heap condition after insertion. 
+     */
+    private void siftUp(int i) {
+	Pair entry = tree.get(i);
+	
+	while(i >= 1 && tree.get((i-1)/2).key > entry.key) {
 	    tree.set(i, tree.get((i-1)/2)); 
 	    index.put(tree.get((i-1)/2).val, i);
 
@@ -59,10 +69,8 @@ public class PriorityQueue<E> {
 	}
 	
 	tree.set(i, entry);
-	index.put(val, i);
-	return true;
+	index.put(entry.val, i);
     }
-
     
     /** 
      * Retrieves and removes the head of this queue, or returns null if this queue is empty.
@@ -79,8 +87,7 @@ public class PriorityQueue<E> {
 	    throw new IllegalStateException();
 
 	if( !tree.isEmpty() ) {	
-	    tree.set(0, last);
-	
+	    tree.set(0, last);	
 	    index.put(last.val, 0);
 
 	    siftDown(0);
@@ -90,7 +97,7 @@ public class PriorityQueue<E> {
 
 
     /** 
-     * Move a node down in the tree; used to restore heap condition after deletion
+     * Move node i down in the tree; used to restore heap condition after deletion
      */
     private void siftDown(int i) {
 	int left = 2*i + 1;
@@ -134,13 +141,8 @@ public class PriorityQueue<E> {
 	
 	tree.get(i).key = key; // updating the key
 
-	//FIXME: Similar in add
-	while( i >= 1 && tree.get((i-1)/2).key > tree.get(i).key ) {
-	    swap((i-1)/2, i);
-	    index.put( tree.get((i-1)/2).val, i);
-	    index.put( tree.get(i).val, (i-1)/2);	    
-	    i = (i-1)/2;
-	}
+	siftUp(i);
+	
 	return true;
     }
 }
