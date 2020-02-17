@@ -24,7 +24,7 @@ public class PriorityQueueTest {
 
 	pQueue.add("D", 12.0);
 	pQueue.add("E", 15.0);
-	pQueue.add("F", 10.0);
+	pQueue.add("F", 11.0);
 	pQueue.add("G", 8.0);
     }
 
@@ -41,6 +41,20 @@ public class PriorityQueueTest {
 	assertTrue( pQueue.add("H",17.0));
 
 	assertFalse( pQueue.add("H",0.0));
+
+	pQueue.add("J", Double.NEGATIVE_INFINITY);
+	assertEquals("J", pQueue.poll());
     }
-    
+
+    @Test
+    public void pollTest() {
+	assertEquals("A", pQueue.poll());
+	assertEquals("C", pQueue.poll());
+	assertEquals("G", pQueue.poll());
+	assertEquals("B", pQueue.poll());
+	assertEquals("F", pQueue.poll());
+	assertEquals("D", pQueue.poll());
+	assertEquals("E", pQueue.poll());
+	assertNull(pQueue.poll());
+    }    
 }
