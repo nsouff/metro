@@ -25,6 +25,14 @@ public class PriorityQueue<E> {
 	index = new HashMap<E, Integer>();
     }
 
+    /**
+     * Returns true if this priority queue contains no elements.
+     * @return true if this priority queue contains no elements
+     */
+    public boolean isEmpty() {
+	return tree.isEmpty();
+    }
+    
 
     /** 
      * Inserts the specified element into this priority queue given a key (priority).

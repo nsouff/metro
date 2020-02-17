@@ -29,6 +29,14 @@ public class PriorityQueueTest {
     }
 
     @Test
+    public void isEmptyTest() {
+	PriorityQueue<String> tmp = new PriorityQueue<String>();
+	assertTrue( tmp.isEmpty() );
+
+	assertFalse( pQueue.isEmpty() );
+    }
+    
+    @Test
     public void addTest() {
 	assertTrue( pQueue.add("H",17.0));
 
