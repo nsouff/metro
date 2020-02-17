@@ -22,4 +22,11 @@ public class PriorityQueue<E> {
     private HashMap<E, Integer> index;
 
 
+    public PriorityQueue() {
+	tree = new ArrayList<Pair>();
+	index = new HashMap<E, Integer>();
+    }
+
+
+    
 }
