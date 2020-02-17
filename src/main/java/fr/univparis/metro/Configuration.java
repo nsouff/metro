@@ -1,12 +1,10 @@
 package fr.univparis.metro;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.io.File;
 import org.json.*;
 import org.apache.commons.io.FileUtils;
 import java.io.IOException;
 import java.io.FileNotFoundException;
-import java.net.URL;
 
 public class Configuration{
 
