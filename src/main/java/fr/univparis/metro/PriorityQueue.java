@@ -90,7 +90,7 @@ public class PriorityQueue<E> {
 
 
     /** 
-     * Move a node down in the tree; used to restore heap condition after deletion or replacement.
+     * Move a node down in the tree; used to restore heap condition after deletion
      */
     private void siftDown(int i) {
 	int left = 2*i + 1;
@@ -114,5 +114,33 @@ public class PriorityQueue<E> {
 	Pair tmp = tree.get(i);
 	tree.set(i, tree.get(j));
 	tree.set(j, tmp);
+    }
+
+
+    /**
+     * Update the priority of element val with key. The new key must be lesser than the old key
+     * @param val the element for which we want to update its priority
+     * @param key the new key lesser than the previous key associated to val
+     * @return true if the priority was successfully updated
+     */
+    public boolean updatePriority(E val, Double key) {
+	if( !index.containsKey(val) )
+	    return false;
+
+	int i = index.get(val); // index of val in tree
+	
+	if( key >= tree.get(i).key )
+	    return false;
+	
+	tree.get(i).key = key; // updating the key
+
+	//FIXME: Similar in add
+	while( i >= 1 && tree.get((i-1)/2).key > tree.get(i).key ) {
+	    swap((i-1)/2, i);
+	    index.put( tree.get((i-1)/2).val, i);
+	    index.put( tree.get(i).val, (i-1)/2);	    
+	    i = (i-1)/2;
+	}
+	return true;
     }
 }
