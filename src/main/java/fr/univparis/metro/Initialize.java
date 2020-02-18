@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.io.File;
 import java.io.IOException;
+import java.util.AbstractMap.SimpleEntry;
 
 public class Initialize{
 
@@ -23,7 +24,7 @@ public class Initialize{
      * Ask the user in which city he is.
      * @return the name of the city he is in.
      */
-    public static String whichCity(){
+    public static SimpleEntry<String, String> whichCity(){
         Scanner sc = new Scanner(System.in);
         System.out.println("In which city are you ?");
         String str = sc.nextLine();
@@ -31,7 +32,8 @@ public class Initialize{
             System.out.println("Wrong city name, try again");
             str = sc.nextLine();
         }
-        return str;
+        SimpleEntry<String, String> ret = new SimpleEntry<String, String>(str, Configuration.getCities().get(str));
+        return ret;
     }
 
     /**
@@ -68,13 +70,10 @@ public class Initialize{
         return str;
     }
 
-    public static String[] store(WGraph<Station> g){
-        String[] ret = {whichCity(), whereFrom(g), whereTo(g)};
-        return ret;
-    }
-
-    public static void initialize(File f) throws IOException {
-        WGraph<Station> g = Parser.loadFrom(f);
-        String[] t = store(g);
+    public static void initialize() throws IOException {
+        SimpleEntry<String, String> s = whichCity();
+        WGraph<Station> g = Parser.loadFrom(new File(s.getValue()));
+        String from = whereFrom(g);
+        String to = whereTo(g);
     }
 }
