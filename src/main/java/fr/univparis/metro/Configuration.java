@@ -8,12 +8,19 @@ import java.io.FileNotFoundException;
 
 public class Configuration{
 
+    /**
+     * Each key is a string representation of a city, the value is the name of the corresponding file that contains the metro plan
+     */
     private static HashMap<String, String> cities = new HashMap<String, String>();
 
     public static HashMap<String, String> getCities(){
         return cities;
     }
 
+    /**
+     * @param f is a json file that contains an array of pair city/file.
+     * Fills the HashMap cities.
+     */
     public static void loadFrom (File f){
         try{
             JSONObject json = new JSONObject(FileUtils.readFileToString(f, "utf8"));
