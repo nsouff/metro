@@ -3,6 +3,10 @@ package fr.univparis.metro;
 public class Station {
   private final String name;
 
+  public String getName(){
+    return this.name;
+  }
+
 
   Station(String s) {
     name = s;
