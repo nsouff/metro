@@ -1,7 +1,10 @@
 package fr.univparis.metro;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Set;
+import java.io.File;
+import java.io.IOException;
 
 public class Initialize{
 
@@ -70,7 +73,8 @@ public class Initialize{
         return ret;
     }
 
-    public static void initialize(WGraph<Station> g){
+    public static void initialize(File f) throws IOException {
+        WGraph<Station> g = Parser.loadFrom(f);
         String[] t = store(g);
     }
 }
