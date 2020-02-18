@@ -22,7 +22,7 @@ public class Initialize{
 
     /**
      * Ask the user in which city he is.
-     * @return the name of the city he is in.
+     * @return a SimpleEntry: the key is the name of a city, the value is the pathname of the file corresponding to that city.
      */
     public static SimpleEntry<String, String> whichCity(){
         Scanner sc = new Scanner(System.in);
