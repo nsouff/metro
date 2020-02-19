@@ -1,0 +1,8 @@
+{
+    "cities" : [
+        {
+            "city" : "Paris",
+            "metroPlan" : "liste.txt"
+        }
+    ]
+}
