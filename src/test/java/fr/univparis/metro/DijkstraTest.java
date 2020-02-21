@@ -1,0 +1,40 @@
+package fr.univparis.metro;
+import org.junit.*;
+import static org.junit.Assert.*;
+import java.net.*;
+import java.io.*;
+import java.util.*;
+
+public class DijkstraTest{
+
+  static WGraph<Station> w = new WGraph<Station>();
+
+  @BeforeClass
+  public static void loadFile() throws IOException {
+    URL url = ParserTest.class.getResource("/liste.txt");
+    File f = new File(url.getFile());
+    w = Parser.loadFrom(f);
+  }
+
+  @Test
+  public void pccTest(){
+    Dijkstra.Pair<Station> p          = new Dijkstra.Pair<Station>();
+    Station a1                  = new Station("Saint-Lazare", "Ligne 14");
+    Station a2                  = new Station("Châtelet", "Ligne 14");
+    Station a3                  = new Station("Châtelet", "Ligne 4");
+    Station a4                  = new Station("Saint-Placide", "Ligne 4");
+    HashMap<Station, Station> a = new HashMap<Station, Station>();
+    HashMap<Station, Double> d  = new HashMap<Station, Double>(); 
+    p = Dijkstra.shortestPath(w, a1, a, d);
+    HashMap<Station, Station> stat = p.getP();
+    HashMap<Station, Double> dist  = p.getD();
+    assertEquals((Double) 270.0,  p.getD().get(a2));
+    assertEquals((Double) 330.0, dist.get(a3));
+    assertEquals((Double) 0.0, dist.get(a1));
+    assertEquals((Double) 840.0, dist.get(a4));
+    assertEquals("Station: Montparnasse - Bienvenüe, Ligne 4", stat.get(a4).toString());
+    assertEquals("Station: Châtelet, Ligne 14", stat.get(a3).toString());
+    assertEquals("Station: Pyramides, Ligne 14", stat.get(a2).toString());
+  }
+}
+
