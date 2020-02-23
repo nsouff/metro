@@ -2,6 +2,7 @@ package fr.univparis.metro;
 
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Set;
 import java.io.File;
 import java.io.IOException;
@@ -71,9 +72,13 @@ public class Initialize{
     }
 
     public static void initialize() throws IOException {
+        Configuration.loadFrom(new File("../resources/cities.json"));
         SimpleEntry<String, String> s = whichCity();
         WGraph<Station> g = Parser.loadFrom(new File(s.getValue()));
         String from = whereFrom(g);
         String to = whereTo(g);
+        HashMap<Station, Station> prev = new HashMap<Station, Station>();
+        HashMap<Station, Double> dist = new HashMap<Station, Double>();
+        Dijkstra.Pair<Station> p = Dijkstra.shortestPath(g, new Station(from), prev, dist);
     }
 }

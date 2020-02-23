@@ -17,6 +17,12 @@ public class Station {
     line = l;
   }
 
+  public Station(String n){
+    if(n == null || n.isEmpty()) throw new IllegalArgumentException("Station name can not be null or empty");
+    this.name = n;
+    this.line = null;
+  }
+
  /**
   * Return the name of the station
   * @return the name of the station
