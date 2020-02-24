@@ -14,11 +14,8 @@ public class Initialize{
      * @param g
      * @return an ArrayList that contains all the name of the sations of the graph g.
      */
-    private static ArrayList<String> getStationsName(WGraph<Station> g){
-        Set<Station> stations = g.getVertices();
-        ArrayList<String> stationsName = new ArrayList<String>();
-        for(Station s : stations) stationsName.add(s.getName());
-        return stationsName;
+    private static Set<Station> getStationsName(WGraph<Station> g){
+        return g.getVertices();
     }
 
     /**
@@ -42,16 +39,22 @@ public class Initialize{
      * @param g a graph corresponding to the city the user is in.
      * @return the station name of the begining of his route.
      */
-    public static String whereFrom(WGraph<Station> g){
-        ArrayList<String> stationsName = getStationsName(g);
+    public static Station whereFrom(WGraph<Station> g){
+        Set<Station> stations = getStationsName(g);
         Scanner sc = new Scanner(System.in);
         System.out.println("Where are you ?");
         String str = sc.nextLine();
-        while(!stationsName.contains(str)){
+        System.out.println("On which line ?");
+        String strL = sc.nextLine();
+        Station s = new Station(str, strL);
+        while(!stations.contains(s)){
             System.out.println("This subway station does not exist, where are you ?");
             str = sc.nextLine();
+            System.out.println("On which line ?");
+            strL = sc.nextLine();
+            s = new Station(str, strL);
         }
-        return str;
+        return s;
     }
 
     /**
@@ -59,26 +62,32 @@ public class Initialize{
      * @param g a graph corresponding to the city the user is in.
      * @return the station name of the end of his route.
      */
-    public static String whereTo(WGraph<Station> g){
-        ArrayList<String> stationsName = getStationsName(g);
+    public static Station whereTo(WGraph<Station> g){
+        Set<Station> stations = getStationsName(g);
         Scanner sc = new Scanner(System.in);
         System.out.println("Where do you want to go ?");
         String str = sc.nextLine();
-        while(!stationsName.contains(str)){
+        System.out.println("On which line ?");
+        String strL = sc.nextLine();
+        Station s = new Station(str, strL);
+        while(!stations.contains(s)){
             System.out.println("Your destination does not exist, try again");
             str = sc.nextLine();
+            System.out.println("On which line ?");
+            strL = sc.nextLine();
+            s = new Station(str, strL);
         }
-        return str;
+        return s;
     }
 
     public static void initialize() throws IOException {
         Configuration.loadFrom(new File("../resources/cities.json"));
         SimpleEntry<String, String> s = whichCity();
         WGraph<Station> g = Parser.loadFrom(new File(s.getValue()));
-        String from = whereFrom(g);
-        String to = whereTo(g);
+        Station from = whereFrom(g);
+        Station to = whereTo(g);
         HashMap<Station, Station> prev = new HashMap<Station, Station>();
         HashMap<Station, Double> dist = new HashMap<Station, Double>();
-        Dijkstra.Pair<Station> p = Dijkstra.shortestPath(g, new Station(from), prev, dist);
+        Dijkstra.Pair<Station> p = Dijkstra.shortestPath(g, from, prev, dist);
     }
 }
