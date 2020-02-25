@@ -23,7 +23,7 @@ public class Initialize{
      * Ask the user in which city he is.
      * @return a SimpleEntry: the key is the name of a city, the value is the pathname of the file corresponding to that city.
      */
-    public static SimpleEntry<String, String> whichCity(){
+    private static SimpleEntry<String, String> whichCity(){
         Scanner sc = new Scanner(System.in);
         System.out.println("In which city are you ?");
         String str = sc.nextLine();
@@ -40,7 +40,7 @@ public class Initialize{
      * @param g a graph corresponding to the city the user is in.
      * @return the station name of the begining of his route.
      */
-    public static Station whereFrom(WGraph<Station> g){
+    private static Station whereFrom(WGraph<Station> g){
         Set<Station> stations = getStationsName(g);
         Scanner sc = new Scanner(System.in);
         System.out.println("Where are you ?");
@@ -63,7 +63,7 @@ public class Initialize{
      * @param g a graph corresponding to the city the user is in.
      * @return the station name of the end of his route.
      */
-    public static Station whereTo(WGraph<Station> g){
+    private static Station whereTo(WGraph<Station> g){
         Set<Station> stations = getStationsName(g);
         Scanner sc = new Scanner(System.in);
         System.out.println("Where do you want to go ?");
@@ -81,6 +81,9 @@ public class Initialize{
         return s;
     }
 
+    /**
+     * Print the path dijsktra's algorithm returns according to the destination of the user.
+     */
     public static void initialize() throws IOException {
         Configuration.loadFrom(new File("../resources/cities.json"));
         SimpleEntry<String, String> s = whichCity();
