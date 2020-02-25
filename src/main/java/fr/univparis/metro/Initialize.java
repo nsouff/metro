@@ -1,6 +1,8 @@
 package fr.univparis.metro;
 
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Set;
 import java.io.File;
@@ -88,5 +90,22 @@ public class Initialize{
         HashMap<Station, Station> prev = new HashMap<Station, Station>();
         HashMap<Station, Double> dist = new HashMap<Station, Double>();
         Dijkstra.Pair<Station> p = Dijkstra.shortestPath(g, from, prev, dist);
+        ArrayList<Station> path = new ArrayList<Station>();
+        Double travelTime = p.getD().get(to);
+        Double seconds = travelTime % 60;
+        Double minutesTmp = seconds / 60;
+        Double minutes = minutesTmp % 60;
+        Double hours = minutes / 60; 
+        Station current = to;
+        path.add(current);
+        while(current != null){
+            current = p.getP().get(current);
+            path.add(current);
+        }
+        Collections.reverse(path);
+        System.out.println("Average time to get to your destination : " + hours + " h, " + minutes + " min, " + seconds + " s.");
+        for(Station st : path){
+            System.out.print(st.getName() + "->");
+        }
     }
 }
