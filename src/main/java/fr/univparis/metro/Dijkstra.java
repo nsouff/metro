@@ -1,84 +1,52 @@
 package fr.univparis.metro;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
 
-public class Dijkstra{
+public class Dijkstra {
 
-    /**
-    * Find the T with the minimal distance in a list of T
-    * @param d HashMap of the distance which exist yet
-    * @param e ArrayList of the T which have not yet been evaluated in the HashMap default:
-    * @return the T with the minimal distance and which is in a list of T
+   /**
+    * Add all the T element in dist and priQueue that are in g
+    * The associated value for each of the element is 0 if it is equals to s, else positive infinity
     */
-    private static <T> T minimalDistance (HashMap<T, Double> d, ArrayList<T> e){
-      Double distM=Double.POSITIVE_INFINITY;
-      T a=null;
-      for (T s : d.keySet()){
-        if (distM>d.get(s) && e.contains(s)){
-          distM = d.get(s);
-          a = s;
+    private static <T> void initShortestPath(WGraph<T> g, T s, HashMap<T, Double> dist, PriorityQueue<T> priQueue) {
+      for (T st : g.getVertices()){
+        if(s.equals(st)) {
+          priQueue.add(st, 0.);
+          dist.put(st, 0.);
+        }
+        else {
+          priQueue.add(st, Double.POSITIVE_INFINITY);
+          dist.put(st, Double.POSITIVE_INFINITY);
         }
       }
-      return a;
     }
 
     /**
-    * Used to find the shortest path between a starting Station and all other stations of a graph
-    * @param g    Graph of Station
-    * @param s    Station where we begin our path
-    * @param prev HashMap where for each Station is associate the previous Station for the shortest path since s
-    * @param dist HashMap where for each Station is associate his distance to s with the shortest path to s
-    * @return a Pair composed of a HashMap of the previous Station of each Station and a HashMap with the minimal distance to the stations from the parameter s
+    * Used to find the shortest path between a starting T and all other Ts of a graph
+    * @param g    Graph of T
+    * @param s    T where we begin our path
+    * @param prev HashMap where for each T is associate the previous T for the shortest path since s
+    * @param dist HashMap where for each T is associate his distance to s with the shortest path to s
+    * @return a Pair composed of a HashMap of the previous T of each T and a HashMap with the minimal distance to the Ts from the parameter s
     */
-    public static <T> Pair<T> shortestPath (WGraph<T> g, T s, HashMap<T, T> prev, HashMap<T, Double> dist){
-      Pair<T> pair = new Pair<T>();
-      ArrayList<T> e = new ArrayList<T>();
-      prev = new HashMap<T, T>();
-      dist = new HashMap<T, Double>();
+    public static <T> void shortestPath (WGraph<T> g, T s, HashMap<T, T> prev, HashMap<T, Double> dist) {
+      PriorityQueue<T> priQueue = new PriorityQueue<T>();
+      dist.clear();
+      prev.clear();
+      initShortestPath(g, s, dist, priQueue);
 
-      for (T st : g.getVertices()){
-        e.add(st);
-        if(s.equals(st))
-          dist.put(st, 0.);
-        else {
-          dist.put(st, Double.POSITIVE_INFINITY);
-        }  
-      } 
-      while (!e.isEmpty()){
-        T u = minimalDistance(dist, e);
-        e.remove(u);
+      while (!priQueue.isEmpty()){
+        T u = priQueue.poll();
         List<T> v = g.neighbors(u);
-        for (T st : v){
-          if (dist.get(st) > dist.get(u) + g.weight(u, st)){
-            dist.put(st, dist.get(u) + g.weight(u, st));
+        Double d;
+        for (T st : v) {
+          d = dist.get(u) + g.weight(u, st);
+          if (dist.get(st) > d){
+            dist.put(st, d);
+            priQueue.updatePriority(st, d);
             prev.put(st, u);
           }
         }
       }
-      pair = new Pair<T>(prev, dist);
-      return pair; 
-    } 
-
-    static class Pair<T>{
-      
-      private HashMap<T, T> p;
-      private HashMap<T, Double> d;
-
-      public Pair (HashMap<T, T> a, HashMap<T, Double> b){
-        p = a;
-        d = b;
-      }
-
-      public Pair (){
-        p = new HashMap<T, T>();
-        d = new HashMap<T, Double>(); 
-      }
-
-      public HashMap<T, T> getP() {
-        return p;
-      }
-      public HashMap<T, Double> getD() {
-        return d;
-      }
-    } 
+    }
 }
-

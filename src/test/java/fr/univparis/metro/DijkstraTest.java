@@ -17,18 +17,15 @@ public class DijkstraTest{
   }
 
   @Test
-  public void pccTest(){
-    Dijkstra.Pair<Station> p          = new Dijkstra.Pair<Station>();
+  public void shortestPathTest(){
     Station a1                  = new Station("Saint-Lazare", "Ligne 14");
     Station a2                  = new Station("Châtelet", "Ligne 14");
     Station a3                  = new Station("Châtelet", "Ligne 4");
     Station a4                  = new Station("Saint-Placide", "Ligne 4");
-    HashMap<Station, Station> a = new HashMap<Station, Station>();
-    HashMap<Station, Double> d  = new HashMap<Station, Double>(); 
-    p = Dijkstra.shortestPath(w, a1, a, d);
-    HashMap<Station, Station> stat = p.getP();
-    HashMap<Station, Double> dist  = p.getD();
-    assertEquals((Double) 270.0,  p.getD().get(a2));
+    HashMap<Station, Station> stat = new HashMap<Station, Station>();
+    HashMap<Station, Double> dist  = new HashMap<Station, Double>();
+    Dijkstra.shortestPath(w, a1, stat, dist);
+    assertEquals((Double) 270.0,  dist.get(a2));
     assertEquals((Double) 330.0, dist.get(a3));
     assertEquals((Double) 0.0, dist.get(a1));
     assertEquals((Double) 840.0, dist.get(a4));
@@ -37,4 +34,3 @@ public class DijkstraTest{
     assertEquals("Station: Pyramides, Ligne 14", stat.get(a2).toString());
   }
 }
-
