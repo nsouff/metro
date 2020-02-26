@@ -2,7 +2,7 @@
     "cities" : [
         {
             "city" : "Paris",
-            "metroPlan" : "liste.txt"
+            "metroPlan" : "src/main/resources/liste.txt"
         }
     ]
 }

@@ -85,7 +85,7 @@ public class Initialize{
      * Print the path dijsktra's algorithm returns according to the destination of the user.
      */
     public static void initialize() throws IOException {
-        Configuration.loadFrom(new File("../resources/cities.json"));
+        Configuration.loadFrom(new File("src/main/resources/cities.json"));
         SimpleEntry<String, String> s = whichCity();
         WGraph<Station> g = Parser.loadFrom(new File(s.getValue()));
         Station from = whereFrom(g);
@@ -96,9 +96,9 @@ public class Initialize{
         ArrayList<Station> path = new ArrayList<Station>();
         Double travelTime = p.getD().get(to);
         Double seconds = travelTime % 60;
-        Double minutesTmp = seconds / 60;
+        Double minutesTmp = (travelTime - seconds) / 60;
         Double minutes = minutesTmp % 60;
-        Double hours = minutes / 60; 
+        Double hours = (minutesTmp - minutes) / 60; 
         Station current = to;
         path.add(current);
         while(current != null){
@@ -106,9 +106,13 @@ public class Initialize{
             path.add(current);
         }
         Collections.reverse(path);
-        System.out.println("Average time to get to your destination : " + hours + " h, " + minutes + " min, " + seconds + " s.");
+        System.out.println("############################# TIME ##############################");
+        System.out.println("Average time to get to your destination : " + hours + " h, " + minutes + " min, " + seconds + " s.\n");
+        System.out.println("############################# ITINERARY ##############################");
         for(Station st : path){
-            System.out.print(st.getName() + "->");
+            if(st != null) System.out.print(st.getName() + "->");
         }
+        System.out.print("FIN");
+        System.out.println();
     }
 }
