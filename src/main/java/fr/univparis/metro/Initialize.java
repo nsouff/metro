@@ -92,17 +92,17 @@ public class Initialize{
         Station to = whereTo(g);
         HashMap<Station, Station> prev = new HashMap<Station, Station>();
         HashMap<Station, Double> dist = new HashMap<Station, Double>();
-        Dijkstra.Pair<Station> p = Dijkstra.shortestPath(g, from, prev, dist);
+        Dijkstra.shortestPath(g, from, prev, dist);
         ArrayList<Station> path = new ArrayList<Station>();
-        Double travelTime = p.getD().get(to);
+        Double travelTime = dist.get(to);
         Double seconds = travelTime % 60;
         Double minutesTmp = (travelTime - seconds) / 60;
         Double minutes = minutesTmp % 60;
-        Double hours = (minutesTmp - minutes) / 60; 
+        Double hours = (minutesTmp - minutes) / 60;
         Station current = to;
         path.add(current);
         while(current != null){
-            current = p.getP().get(current);
+            current = prev.get(current);
             path.add(current);
         }
         Collections.reverse(path);
