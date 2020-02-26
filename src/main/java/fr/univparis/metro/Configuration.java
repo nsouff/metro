@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 public class Configuration{
 
     /**
-     * Each key is a string representation of a city, the value is the name of the corresponding file that contains the metro plan
+     * Each key is the name of a city, the value is the name of the corresponding file that contains the metro plan
      */
     private static HashMap<String, String> cities = new HashMap<String, String>();
 
