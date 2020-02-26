@@ -8,7 +8,7 @@ TARGET=fr.univparis.metro.App
 
 # Target all builds the project.
 all:
-	$(MVN) package
+	$(MVN) compile test assembly:single
 
 # Target run executes the program and start with target all to build the
 # project.
