@@ -103,14 +103,20 @@ public class Initialize{
         path.add(current);
         while(current != null){
             current = prev.get(current);
-            path.add(current);
+            if(current !=null) path.add(current);
         }
         Collections.reverse(path);
         System.out.println("############################# TIME ##############################");
         System.out.println("Average time to get to your destination : " + hours + " h, " + minutes + " min, " + seconds + " s.\n");
         System.out.println("############################# ITINERARY ##############################");
+        String line = "";
         for(Station st : path){
-            if(st != null) System.out.print(st.getName() + "->");
+            if(!st.getLine().equals(line)){
+                line = st.getLine();
+                System.out.print("Take " + line + ": ");
+                System.out.print(st.getName() + "->");
+            }
+            else System.out.print(st.getName() + "->");
         }
         System.out.print("FIN");
         System.out.println();
