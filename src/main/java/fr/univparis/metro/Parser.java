@@ -151,10 +151,14 @@ public class Parser {
     g.addVertex(act);
     if (ahead && prec != null)  g.addEdge(prec, act, defaultWeight);
     if (behind && prec != null) g.addEdge(act, prec, defaultWeight);
-    if (! createdStation.contains(s))
+    if (! createdStation.contains(s)) {
+      g.addVertex(new Station(s, "Meta Station Start"));
       createdStation.add(s);
-    else
-      g.addDoubleEdge(act, defaultChangeStationWeight, (t -> act.sameName(t)));
+    }
+    else {
+      g.addDoubleEdge(act, defaultChangeStationWeight, (t -> act.sameName(t) && t.getLine() != "Meta Station"));
+    }
+    g.addEdge(new Station(s, "Meta Station Start"), act, 0.0);
     return act;
   }
 
