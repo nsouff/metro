@@ -157,7 +157,7 @@ public class Parser {
       createdStation.add(s);
     }
     else {
-      g.addDoubleEdge(act, defaultChangeStationWeight, (t -> act.sameName(t) && t.getLine() != "Meta Station"));
+      g.addDoubleEdge(act, defaultChangeStationWeight, (t -> act.sameName(t) && !t.getLine().startsWith("Meta Station")));
     }
     g.addEdge(new Station(s, "Meta Station Start"), act, 0.0);
     g.addEdge(act, new Station(s, "Meta Station End"), 0.0);
