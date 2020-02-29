@@ -35,7 +35,7 @@ public class ParserTest {
     Station nation1      = new Station("Nation", "Ligne 1");
     Station nation2      = new Station("Nation", "Ligne 2");
     Station avron        = new Station("Avron", "Ligne 2");
-    assertEquals(4, g.neighbors(nation2).size());
+    assertEquals(5, g.neighbors(nation2).size());
     assertEquals(inStationWieght, g.weight(new Station("Nation", "Ligne 1"), nation2));
     assertEquals(defaultWeight, g.weight(avron, nation2));
     assertEquals(defaultWeight, g.weight(nation2, avron));
@@ -49,10 +49,11 @@ public class ParserTest {
     Station pdf      = new Station("Place des Fêtes", "Ligne 7bis");
     Station danube   = new Station("Danube", "Ligne 7bis");
     Station botzaris = new Station("Botzaris", "Ligne 7bis");
-    assertEquals(1, g.neighbors(psg).size());
-    assertEquals(2, g.neighbors(pdf).size());
-    assertEquals(1, g.neighbors(danube).size());
-    assertEquals(2, g.neighbors(botzaris).size());
+    System.out.println(g.neighbors(psg));
+    assertEquals(2, g.neighbors(psg).size());
+    assertEquals(3, g.neighbors(pdf).size());
+    assertEquals(2, g.neighbors(danube).size());
+    assertEquals(3, g.neighbors(botzaris).size());
     assertEquals(defaultWeight, g.weight(botzaris, new Station("Buttes Chaumont", "Ligne 7bis")));
     assertEquals(defaultWeight, g.weight(botzaris, pdf));
     assertEquals(inStationWieght, g.weight(pdf, new Station("Place des Fêtes", "Ligne 11")));
@@ -68,11 +69,11 @@ public class ParserTest {
     Station gm       = new Station("Guy Môquet", "Ligne 13");
     Station brochant = new Station("Brochant", "Ligne 13");
     Station lf       = new Station("La Fourche", "Ligne 13");
-    assertEquals(1, g.neighbors(sdu).size());
-    assertEquals(1, g.neighbors(aglc).size());
-    assertEquals(2, g.neighbors(gm).size());
-    assertEquals(2, g.neighbors(brochant).size());
-    assertEquals(3, g.neighbors(lf).size());
+    assertEquals(2, g.neighbors(sdu).size());
+    assertEquals(2, g.neighbors(aglc).size());
+    assertEquals(3, g.neighbors(gm).size());
+    assertEquals(3, g.neighbors(brochant).size());
+    assertEquals(4, g.neighbors(lf).size());
     assertEquals(defaultWeight, g.weight(sdu, new Station("Basilique de Saint-Denis", "Ligne 13")));
     assertEquals(defaultWeight, g.weight(aglc, new Station("Les Agnettes", "Ligne 13")));
     assertEquals(defaultWeight, g.weight(gm, lf));
@@ -82,6 +83,18 @@ public class ParserTest {
     assertEquals(defaultWeight, g.weight(lf, brochant));
     assertEquals(defaultWeight, g.weight(lf, gm));
     assertEquals(defaultWeight, g.weight(lf, new Station("Place de Clichy", "Ligne 13")));
+  }
+
+  @Test
+  public void metaStatTest() {
+    Station cStart = new Station("Châtelet", "Meta Station Start");
+    Station cEnd   = new Station("Châtelet", "Meta Station End");
+    System.out.println(g.neighbors(cStart));
+    assertEquals(5, g.neighbors(cStart).size());
+    assertEquals(0, g.neighbors(cEnd).size());
+    assertEquals((Double) 0.0, g.weight(new Station("Châtelet", "Ligne 4"), cEnd));
+    assertEquals((Double) 0.0, g.weight(cStart, new Station("Châtelet", "Ligne 4")));
+
   }
 
 }
