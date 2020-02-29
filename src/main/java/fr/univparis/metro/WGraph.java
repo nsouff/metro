@@ -9,31 +9,14 @@ import java.util.function.Predicate;
 
 public class WGraph<T>{
 
-    private HashMap<T, List<Edge>> wGraph;
+    private HashMap<T, List<Pair<T, Double>>> wGraph;
 
-    public HashMap<T, List<Edge>> getWGraph(){
+    public HashMap<T, List<Pair<T, Double>>> getWGraph(){
         return this.wGraph;
     }
 
     public WGraph(){
-        this.wGraph = new HashMap<T, List<Edge>>();
-    }
-
-    class Edge{
-
-        private Pair<T, Double> vertexAndWeight;
-
-        public T getVertex(){
-            return this.vertexAndWeight.getObj();
-        }
-
-        public Double getWeight(){
-            return this.vertexAndWeight.getValue();
-        }
-
-        public Edge(Pair<T, Double> p){
-            vertexAndWeight=p;
-        }
+        this.wGraph = new HashMap<T, List<Pair<T, Double>>>();
     }
 
     /**
@@ -51,9 +34,9 @@ public class WGraph<T>{
      */
     public List<T> neighbors(T vertex){
         ArrayList<T> ret = new ArrayList<T>();
-        List<Edge> edges = this.wGraph.get(vertex);
+        List<Pair<T, Double>> edges = this.wGraph.get(vertex);
         for(int i=0; i<edges.size(); i++){
-            ret.add(edges.get(i).getVertex());
+            ret.add(edges.get(i).getObj());
         }
         return ret;
     }
@@ -65,10 +48,10 @@ public class WGraph<T>{
      * @return the weight between the vertex s and the vertex p.
      */
     public Double weight(T s, T p){
-        List<Edge> edges = this.wGraph.get(s);
+        List<Pair<T, Double>> edges = this.wGraph.get(s);
         for(int i=0; i<edges.size(); i++){
-            Edge e = edges.get(i);
-            if(p.equals(e.getVertex())) return e.getWeight();
+            Pair<T, Double> e = edges.get(i);
+            if(p.equals(e.getObj())) return e.getValue();
         }
         return Double.NaN;
     }
@@ -80,7 +63,7 @@ public class WGraph<T>{
      */
     public boolean addVertex(T v){
         if(this.wGraph.get(v)==null){
-            this.wGraph.put(v, new ArrayList<Edge>());
+            this.wGraph.put(v, new ArrayList<Pair<T, Double>>());
             return true;
         }
         return false;
@@ -92,11 +75,11 @@ public class WGraph<T>{
      * @return true if v has been correctly deleted, false otherwise.
      */
     public boolean deleteVertex(T v){
-        Edge rm = null;
+        Pair<T, Double> rm = null;
         if(this.wGraph.containsKey(v)){
-            for(Map.Entry<T, List<Edge>> c : this.wGraph.entrySet()){
-                for(Edge e : c.getValue()){
-                    if(e.getVertex().equals(v)){
+            for(Map.Entry<T, List<Pair<T, Double>>> c : this.wGraph.entrySet()){
+                for(Pair<T, Double> e : c.getValue()){
+                    if(e.getObj().equals(v)){
                         rm = e;
                         break;
                     }
@@ -119,7 +102,7 @@ public class WGraph<T>{
     public boolean addEdge(T s, T p, Double weight){
         if (s.equals(p)) return false;
         if(this.wGraph.containsKey(s) && this.wGraph.containsKey(p)){
-            this.wGraph.get(s).add(new Edge(new Pair<T, Double>(p, weight)));
+            this.wGraph.get(s).add(new Pair<T, Double>(p, weight));
             return true;
         }
         return false;
@@ -133,11 +116,11 @@ public class WGraph<T>{
      * @return true if the edge has correctly been removed.
      */
     public boolean removeEdge(T s, T p){
-        Edge rm = null;
+        Pair<T, Double> rm = null;
         if(this.wGraph.containsKey(s) && this.wGraph.containsKey(p)){
-            List<Edge> l_s = this.wGraph.get(s);
-            for(Edge e : l_s){
-                if(e.getVertex().equals(p)){
+            List<Pair<T, Double>> l_s = this.wGraph.get(s);
+            for(Pair<T, Double> e : l_s){
+                if(e.getObj().equals(p)){
                     rm = e;
                     break;
                 }
