@@ -1,11 +1,11 @@
 package fr.univparis.metro;
 import java.util.*;
 
-public class Pair<T>{
+public class Pair<T, S>{
   private T obj;
-  private Double value;
+  private S value;
 
-  public Pair(T o, Double v){
+  public Pair(T o, S v){
     obj=o;
     value=v;
   }
@@ -13,10 +13,10 @@ public class Pair<T>{
   public T getObj(){
     return obj;
   }
-  public Double getValue(){
+  public S getValue(){
     return value;
   }
-  public void setValue(Double d){
+  public void setValue(S d){
     value=d;
   }
 

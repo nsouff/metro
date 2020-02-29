@@ -8,12 +8,12 @@ import java.lang.Integer;
 public class PriorityQueue<T> {
 
 
-    private ArrayList<Pair<T>> tree;
+    private ArrayList<Pair<T, Double>> tree;
     private HashMap<T, Integer> index;
 
 
     public PriorityQueue() {
-	tree = new ArrayList<Pair<T>>();
+	tree = new ArrayList<Pair<T, Double>>();
 	index = new HashMap<T, Integer>();
     }
 
@@ -50,7 +50,7 @@ public class PriorityQueue<T> {
      * Move node i up in the tree, as long as needed; used to restore heap condition after insertion.
      */
     private void siftUp(int i) {
-	Pair<T> entry = tree.get(i);
+	Pair<T, Double> entry = tree.get(i);
 
 	while(i >= 1 && tree.get((i-1)/2).getValue() > entry.getValue()) {
 	    tree.set(i, tree.get((i-1)/2));
@@ -71,8 +71,8 @@ public class PriorityQueue<T> {
 	if( tree.isEmpty() )
 	    return null;
 
-	Pair<T> root = tree.get(0);
-	Pair<T> last = tree.remove( tree.size() - 1 );
+	Pair<T, Double> root = tree.get(0);
+	Pair<T, Double> last = tree.remove( tree.size() - 1 );
 
 	if( null == index.remove(root.getObj()) )
 	    throw new IllegalStateException();
@@ -109,7 +109,7 @@ public class PriorityQueue<T> {
     }
 
     private void swap(int i, int j) {
-	Pair<T> tmp = tree.get(i);
+	Pair<T, Double> tmp = tree.get(i);
 	tree.set(i, tree.get(j));
 	tree.set(j, tmp);
     }

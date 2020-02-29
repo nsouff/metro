@@ -21,7 +21,7 @@ public class WGraph<T>{
 
     class Edge{
 
-        private Pair<T> vertexAndWeight;
+        private Pair<T, Double> vertexAndWeight;
 
         public T getVertex(){
             return this.vertexAndWeight.getObj();
@@ -31,7 +31,7 @@ public class WGraph<T>{
             return this.vertexAndWeight.getValue();
         }
 
-        public Edge(Pair<T> p){
+        public Edge(Pair<T, Double> p){
             vertexAndWeight=p;
         }
     }
@@ -119,7 +119,7 @@ public class WGraph<T>{
     public boolean addEdge(T s, T p, Double weight){
         if (s.equals(p)) return false;
         if(this.wGraph.containsKey(s) && this.wGraph.containsKey(p)){
-            this.wGraph.get(s).add(new Edge(new Pair<T>(p, weight)));
+            this.wGraph.get(s).add(new Edge(new Pair<T, Double>(p, weight)));
             return true;
         }
         return false;
