@@ -36,7 +36,7 @@ public class PriorityQueue<T> {
 	if( index.containsKey(val) || val == null )
 	    return false;
 
-	Pair entry = new Pair(val, key);
+	Pair<T, Double> entry = new Pair<T, Double> (val, key);
 	tree.add( entry );
 
 	int i = tree.size() - 1;
