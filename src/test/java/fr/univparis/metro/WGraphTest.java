@@ -47,17 +47,17 @@ public class WGraphTest{
     @Test
     public void deleteVertexTest(){
         g.deleteVertex("Jaures");
-        
+
         assertEquals(true, g.getWGraph().get("Laumière").isEmpty());
         assertEquals(null, g.getWGraph().get("Jaures"));
     }
 
     @Test
     public void addEdgeTest(){
-        assertEquals("Laumière", g.getWGraph().get("Ourcq").get(0).getVertex());
-        assertEquals(70.0, g.getWGraph().get("Ourcq").get(0).getWeight().doubleValue(), 0.0);
-        assertEquals("Jaures", g.getWGraph().get("Laumière").get(0).getVertex());
-        assertEquals(75.0, g.getWGraph().get("Laumière").get(0).getWeight().doubleValue(), 0.0);
+        assertEquals("Laumière", g.getWGraph().get("Ourcq").get(0).getObj());
+        assertEquals(70.0, g.getWGraph().get("Ourcq").get(0).getValue().doubleValue(), 0.0);
+        assertEquals("Jaures", g.getWGraph().get("Laumière").get(0).getObj());
+        assertEquals(75.0, g.getWGraph().get("Laumière").get(0).getValue().doubleValue(), 0.0);
     }
 
     @Test
@@ -68,4 +68,3 @@ public class WGraphTest{
     }
 
 }
-
