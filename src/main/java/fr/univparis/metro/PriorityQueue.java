@@ -136,4 +136,13 @@ public class PriorityQueue<T> {
 
 	return true;
     }
+
+    /**
+     * Returns true if this queue contains the specified element. More formally, returns true if and only if this queue contains at least one element e such that o.equals(e).
+     * @param o object to be checked for containment in this queue
+     * @return true if this queue contains the specified element
+     */
+    public boolean contains(Object o) {
+	return index.containsKey(o);
+    }
 }
