@@ -26,19 +26,20 @@ public class Pair<T, S>{
     }
 
     @Override
-    public boolean equals(Object obj) {
-	if (this == obj)
+    public boolean equals(Object o) {
+	if (this == o)
 	    return true;
-	if (obj == null)
+	if (o == null)
 	    return false;
-	if (getClass() != obj.getClass())
+	if (getClass() != o.getClass())
 	    return false;
-	Pair other = (Pair) obj;
-	return Objects.equals(obj, other.obj) && Objects.equals(value, other.value);
+
+	Pair<?, ?> other = (Pair<?, ?>) o;
+  return other.obj.equals(this.obj) && other.value.equals(this.value);
     }
 
-    
- 
+
+
 
 
 }

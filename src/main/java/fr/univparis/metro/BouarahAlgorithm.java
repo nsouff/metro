@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.function.BiPredicate;
 
 public class BouarahAlgorithm {
-    
+
     /**
      * Used to find the shortest path between a starting T and all other Ts of a graph
      * @param g    Graph of T
@@ -22,23 +22,23 @@ public class BouarahAlgorithm {
 	HashMap<Pair<Station, Integer>, Pair<Station, Integer>> pred = new HashMap<>();
 	HashMap<Pair<Station, Integer>, Double> dist = new HashMap<>();
 
-	Pair<Station, Integer> root = new Pair<>(s, 0);
+	Pair<Station, Integer> root = new Pair<Station, Integer>(s, 0);
 	frontiere.add(root, 0.0);
 	pred.put(root, null);
 	dist.put(root, 0.0);
-	
+
 	while ( !frontiere.isEmpty() ){
 	    Pair<Station, Integer> node = frontiere.poll();
-	    
+
 	    for ( Station st : g.neighbors(node.getObj()) ) {
 		int separation = node.getValue();
 		if( !equivalenceRelation.test(node.getObj(), st)) // on vérifie l'appartenance à la même classe d'équivalence
 		    separation++;
-		
+
 		if( separation > limit )
 		    continue;
-		
-		Pair<Station, Integer> child = new Pair<>(st, separation); // le noeud a ajouté		
+
+		Pair<Station, Integer> child = new Pair<Station, Integer>(st, separation); // le noeud a ajouté
 		double d = dist.get(node) + g.weight(node.getObj(), st); // sa distance par rapport à son parent
 
 		// bug : même si child est déjà dans pred, containsKey renvoie faux
