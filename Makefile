@@ -12,7 +12,7 @@ all:
 
 # Target run executes the program and start with target all to build the
 # project.
-run : all
+run :
 	$(JAVA) $(TARGET)
 
 test:
