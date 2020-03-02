@@ -45,7 +45,7 @@ public class Station {
     int res = 1;
     int prime = 31;
     res = prime * res + name.hashCode();
-    res = prime * res + ((line == null) ? 0 : line.hashCode());
+    res = prime * res + line.hashCode();
     return name.hashCode();
   }
 
