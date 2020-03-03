@@ -9,61 +9,55 @@ import java.util.function.BiPredicate;
 
 public class BouarahAlgorithm {
 
-    /**
-     * Used to find the shortest path between a starting T and all other Ts of a graph
-     * @param g    Graph of T
-     * @param s    T where we begin our path
-     * @param prev HashMap where for each T is associate the previous T for the shortest path since s
-     * @param dist HashMap where for each T is associate his distance to s with the shortest path to s
-     * @return a Pair composed of a HashMap of the previous T of each T and a HashMap with the minimal distance to the Ts from the parameter s
-     */
-    public static void shortestPath (WGraph<Station> g, Station s, int limit, BiPredicate<Station,Station> equivalenceRelation) {
-	PriorityQueue<Pair<Station, Integer>> frontiere = new PriorityQueue<>();
-	HashMap<Pair<Station, Integer>, Pair<Station, Integer>> pred = new HashMap<>();
-	HashMap<Pair<Station, Integer>, Double> dist = new HashMap<>();
+    private static void initShortestPath(WGraph<Station> g, Station s, int limit, HashMap<Pair<Station, Integer>, Double> dist, PriorityQueue<Pair<Station,Integer>> priQueue) {
+	for ( Station st : g.getVertices() ) {
+	    if( s.equals(st) ) {
+		Pair<Station, Integer> root = new Pair<>(st, 0);
+		priQueue.add(root, 0.0);
+		dist.put(root, 0.0);
+		for(int i=1; i <= limit; i++) {
+		    root = new Pair<>(st, i);
+		    priQueue.add(root, Double.POSITIVE_INFINITY);
+		    dist.put(root, Double.POSITIVE_INFINITY);
+		}
+	    }
+	    else {		
+		for(int i=0; i <= limit; i++) {
+		    Pair<Station, Integer> p = new Pair<>(st, i);
+		    priQueue.add(p, Double.POSITIVE_INFINITY);
+		    dist.put(p, Double.POSITIVE_INFINITY);
+		}
+	    }
+	}
+    }
 
-	Pair<Station, Integer> root = new Pair<Station, Integer>(s, 0);
-	frontiere.add(root, 0.0);
-	pred.put(root, null);
-	dist.put(root, 0.0);
+    public static void shortestPath (WGraph<Station> g, Station s, int limit, BiPredicate<Station,Station> equivalenceRelation,
+				     HashMap<Pair<Station, Integer>, Pair<Station, Integer>> prev, HashMap<Pair<Station, Integer>, Double> dist) {
+	PriorityQueue<Pair<Station, Integer>> frontiere = new PriorityQueue<>();
+	prev.clear();
+	dist.clear();
+
+	initShortestPath(g, s, limit, dist, frontiere);
 
 	while ( !frontiere.isEmpty() ){
 	    Pair<Station, Integer> node = frontiere.poll();
 
 	    for ( Station st : g.neighbors(node.getObj()) ) {
 		int separation = node.getValue();
-		if( !equivalenceRelation.test(node.getObj(), st)) // on vérifie l'appartenance à la même classe d'équivalence
+		if( !equivalenceRelation.test(node.getObj(), st)) // on vérifie l'appartenance à la même classe d'équivalence entre la parent et le fils
 		    separation++;
 
 		if( separation > limit )
 		    continue;
 
-		Pair<Station, Integer> child = new Pair<Station, Integer>(st, separation); // le noeud a ajouté
-		double d = dist.get(node) + g.weight(node.getObj(), st); // sa distance par rapport à son parent
-
-		// bug : même si child est déjà dans pred, containsKey renvoie faux
-		if( !pred.containsKey(child) ) {
-		    System.out.println("("+child.getObj()+", "+child.getValue()+")");
-		    System.out.println("\tchild.hashCode() : "+child.hashCode());
-		    pred.put(child, node);
+		double d = dist.get(node) + g.weight(node.getObj(), st); // distance de st à son parent + depuis l'origine
+		Pair<Station, Integer> child = new Pair<Station, Integer>(st, separation); // le noeud correspondant
+		if( dist.get(child) > d ) {
 		    dist.put(child, d);
-		    frontiere.add(child, d);
-		}
+		    frontiere.updatePriority(child, d);
+		    prev.put(child, node);
+		}		
 	    }
-	}
-
-	for (Map.Entry<Pair<Station, Integer>, Pair<Station, Integer>> entry : pred.entrySet()) {
-	    Pair<Station, Integer> key = entry.getKey();
-	    Pair<Station, Integer> value = entry.getValue();
-	    if(value != null)
-		System.out.println(value.getObj().getName()+":"+value.getValue()+"-->"+key.getObj().getName()+":"+value.getValue());
-	}
-
-	for (Map.Entry<Pair<Station, Integer>, Double> entry : dist.entrySet()) {
-	    Pair<Station, Integer> key = entry.getKey();
-	    Double value = entry.getValue();
-	    if(value != null)
-		System.out.println("("+key.getObj().getName()+":"+key.getValue()+"):"+value);
 	}
     }
 }

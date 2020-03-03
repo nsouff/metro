@@ -1,10 +1,15 @@
 package fr.univparis.metro;
 
+import java.io.*;
+import java.lang.Double;
+import java.lang.Integer;
+import java.net.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.BiPredicate;
 import org.junit.*;
 import static org.junit.Assert.*;
-import java.net.*;
-import java.io.*;
-import java.util.function.BiPredicate;
 
 public class BouarahAlgorithmTest {
     static WGraph<Station> g;
@@ -19,8 +24,20 @@ public class BouarahAlgorithmTest {
 
     @Test
     public void shortestPathTest() {
-	Station a1 = new Station("Courcelles", "Ligne 2");
-	BouarahAlgorithm.shortestPath(g, a1, 0, sameLine);
+	Station start = new Station("Courcelles", "Ligne 2");
+	Station stop1 = new Station("La Défense - Grande Arche", "Ligne 1");
+	
+	int limit = 1;
+	HashMap<Pair<Station, Integer>, Pair<Station, Integer>> prev = new HashMap<>();
+	HashMap<Pair<Station, Integer>, Double> dist = new HashMap<>();
+	
+	BouarahAlgorithm.shortestPath(g, start, limit, sameLine, prev, dist);
+
+	Pair<Station, Integer> tmp = new Pair<>(stop1, 1);
+	assertEquals(780.0, dist.get(tmp), 0.0);
+
+	tmp = new Pair<>(stop1, 0);
+	assertEquals(Double.POSITIVE_INFINITY, dist.get(tmp), 0.0);
     }
 
 }
