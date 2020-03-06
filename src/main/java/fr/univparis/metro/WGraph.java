@@ -167,7 +167,7 @@ public class WGraph<T>{
     * Return a String containing the toString funtion of every vertex that evualuate true with predicate p
     * @param p The predicate to test xith every Vertex
     * @return a String containing the toString funtion of every vertex that evualuate true with predicate p
-    *
+    * 
     */
     public String vertexToString(Predicate<T> p) {
       String res = "";
