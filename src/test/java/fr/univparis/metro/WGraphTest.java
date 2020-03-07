@@ -143,3 +143,4 @@ public class WGraphTest{
                     g.vertexToString(t -> g.getWGraph().get("Ourcq").get(1).getValue().doubleValue()!=0));
     }
 }
+
