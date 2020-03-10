@@ -2,21 +2,6 @@ package fr.univparis.metro;
 
 public class LimitedConnectionSearch {
 
-    /**
-     * @param g the graph from which we suppress some stations.
-     * @param line suppress all the sations that are not on this line.
-     * @return a graph whose sations are all on the same line.
-     * FIXME: the complexity of this method is O(n^3) (in the worst case), n being the number of stations in the graph g.
-     */
-    public static WGraph<Station> createGraphLine(WGraph<Station> g, String line){
-        WGraph<Station> ret = new WGraph<Station>();
-        ret.getWGraph().putAll(g.getWGraph());
-        for(Station s : g.getVertices()){
-            if(!s.getLine().equals(line)) ret.deleteVertex(s);
-        }
-        return ret;
-    }
-
     static int[][] floyd(int[][] c) {
         int n = c.length;
         int[][] d = new int[n][n];
