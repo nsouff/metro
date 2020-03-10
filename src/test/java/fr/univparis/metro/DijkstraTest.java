@@ -32,5 +32,31 @@ public class DijkstraTest{
     assertEquals("Station: Montparnasse - Bienvenüe, 4", stat.get(a4).toString());
     assertEquals("Station: Châtelet, 14", stat.get(a3).toString());
     assertEquals("Station: Pyramides, 14", stat.get(a2).toString());
+
+
+    // Stations that had bugs
+    Station laumS = new Station("Laumière", "Meta Station Start");
+    Station mdiS = new Station("Mairie d'Issy", "Meta Station Start");
+    Station mdiE = new Station("Mairie d'Issy", "Meta Station End");
+    Station aglcS = new Station("Asnières - Gennevilliers - Les Courtilles", "Meta Station Start");
+    Station cpS = new Station("Créteil - Préfecture", "Meta Station Start");
+    Station gS = new Station("Gallieni", "Meta Station Start");
+    Station afS = new Station("Anatole France", "Meta Station Start");
+    Dijkstra.shortestPath(w, laumS, stat, dist);
+    assertEquals((Double) 2340.0, dist.get(mdiE));
+
+    /*
+    Station[] set = {laumS, mdiS, aglcS, cpS, gS, afS};
+    for (Station st : set) {
+      Dijkstra.shortestPath(w, st, stat, dist);
+      for (Station s : w.getVertices()) {
+        if (s.getLine() != "Meta Station Start"){
+          Double d = dist.get(s);
+          assertTrue("" + st + s, d != Double.NaN && d != Double.POSITIVE_INFINITY);
+          assertNotNull(stat.get(s));
+        }
+      }
+    }
+    */
   }
 }
