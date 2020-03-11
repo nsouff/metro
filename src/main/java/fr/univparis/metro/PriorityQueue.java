@@ -39,8 +39,8 @@ public class PriorityQueue<T> {
 	Pair<T, Double> entry = new Pair<T, Double> (val, key);
 	tree.add( entry );
 
-	int i = tree.size() - 1;
-
+	int i = tree.size() - 1;	
+	
 	siftUp(i);
 
 	return true;
@@ -52,9 +52,9 @@ public class PriorityQueue<T> {
     private void siftUp(int i) {
 	Pair<T, Double> entry = tree.get(i);
 
-	while(i >= 1 && tree.get((i-1)/2).getValue() > entry.getValue()) {
+	while(i >= 1 && tree.get((i-1)/2).getValue().compareTo(entry.getValue()) > 0) {
 	    tree.set(i, tree.get((i-1)/2));
-	    index.put(tree.get((i-1)/2).getObj(), i);
+	    index.put(tree.get(i).getObj(), i);
 
 	    i = (i-1)/2;
 	}
@@ -95,15 +95,15 @@ public class PriorityQueue<T> {
 	int right = 2*i + 2;
 	int win = i;
 
-	if( left < tree.size() && tree.get(left).getValue() < tree.get(win).getValue() )
+	if( left < tree.size() && tree.get(left).getValue().compareTo(tree.get(win).getValue()) < 0 )
 	    win = left;
-        if ( right < tree.size() && tree.get(right).getValue() < tree.get(win).getValue() )
+        if ( right < tree.size() && tree.get(right).getValue().compareTo(tree.get(win).getValue()) < 0 )
 	    win = right;
 
 	if( win != i ) {
 	    swap(win, i);
-	    index.put( tree.get(i).getObj(), win);
-	    index.put( tree.get(win).getObj(), i);
+	    index.put( tree.get(i).getObj(), i);
+	    index.put( tree.get(win).getObj(), win);
 	    siftDown(win);
 	}
     }
@@ -127,7 +127,7 @@ public class PriorityQueue<T> {
 
 	int i = index.get(val); // index of val in tree
 
-	if( key >= tree.get(i).getValue() )
+	if( key.compareTo(tree.get(i).getValue()) >= 0 )
 	    return false;
 
 	tree.get(i).setValue(key); // updating the key

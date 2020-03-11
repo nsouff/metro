@@ -49,7 +49,7 @@ public class Initialize{
         while(!stations.contains(s)){
             System.out.println("This subway station does not exist, where are you ?");
             str = sc.nextLine();
-            s = new Station(str, "Meta Station End");
+            s = new Station(str, "Meta Station Start");
         }
         return s;
     }

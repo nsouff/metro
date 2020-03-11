@@ -153,6 +153,7 @@ public class WGraph<T>{
     * Return the number of Vertex that evaluate true with predicate p
     * @param p The predicate to test for every vertex
     * @return The number of vertex that evaluate true with predicate p
+    *
     */
     public int nbVertex(Predicate<T> p) {
       int res = 0;

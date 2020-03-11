@@ -30,45 +30,24 @@ public class Dijkstra {
     * @return a Pair composed of a HashMap of the previous T of each T and a HashMap with the minimal distance to the Ts from the parameter s
     */
     public static <T> void shortestPath (WGraph<T> g, T s, HashMap<T, T> prev, HashMap<T, Double> dist) {
+      PriorityQueue<T> priQueue = new PriorityQueue<T>();
       dist.clear();
       prev.clear();
-      ArrayList<T> e = new ArrayList<T>();
+      initShortestPath(g, s, dist, priQueue);
 
-      for (T st : g.getVertices()){
-        e.add(st);
-        if(s.equals(st))
-          dist.put(st, 0.);
-        else {
-          dist.put(st, Double.POSITIVE_INFINITY);
-        }
-      }
-      while (!e.isEmpty()){
-        T u = minimalDistance(dist, e);
-        if (u == null) {
-          System.out.println(dist);
-          System.out.println(e);
-        }
-        e.remove(u);
+      while (!priQueue.isEmpty()){
+        T u = priQueue.poll();
         List<T> v = g.neighbors(u);
-        for (T st : v){
-          if (dist.get(st) > dist.get(u) + g.weight(u, st)){
-            dist.put(st, dist.get(u) + g.weight(u, st));
+        Double d;
+        for (T st : v) {
+          d = dist.get(u) + g.weight(u, st);
+          if (dist.get(st) > d){
+            dist.put(st, d);
+            priQueue.updatePriority(st, d);
             prev.put(st, u);
           }
         }
       }
-
-    }
-    private static <T> T minimalDistance (HashMap<T, Double> d, ArrayList<T> e){
-      Double distM=Double.POSITIVE_INFINITY;
-      T a=null;
-      for (T s : d.keySet()){
-        if (distM>=d.get(s) && e.contains(s)){
-          distM = d.get(s);
-          a = s;
-        }
-      }
-      return a;
     }
 
 }
