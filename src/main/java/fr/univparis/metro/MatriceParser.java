@@ -40,11 +40,12 @@ public class MatriceParser{
         }
         Double[][] ret = new Double[nbStationsInLine][nbStationsInLine];
         for(int i = 0; i<ret.length; i++){
+            System.out.print(stations.get(i). getName());
             for(int j = 0; j<ret[i].length; j++){
                 if(j == i + 1) ret[i][j] = defaultWeight;
                 else if(j == i - 1) ret[i][j] = defaultWeight;
                 else if(j == i) ret[i][j] = defaultChangeStationWeight;
-                else ret[i][j] = Double.POSITIVE_INFINITY;
+                else ret[i][j] = /*Double.POSITIVE_INFINITY*/0.0;
                 System.out.print(ret[i][j] + " ");
             }
             System.out.println();
