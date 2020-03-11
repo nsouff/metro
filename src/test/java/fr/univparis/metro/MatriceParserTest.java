@@ -9,6 +9,6 @@ public class MatriceParserTest{
 
     @Test
     public void createMatriceLineTest() throws IOException{
-        MatriceParser.createMatriceLine(new File("src/main/resources/liste.txt"), "Ligne 7");
+        MatriceParser.createMatriceLine(new File("src/main/resources/liste.txt"), "Ligne 1");
     }
 }

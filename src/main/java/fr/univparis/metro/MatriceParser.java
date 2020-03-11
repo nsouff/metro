@@ -7,12 +7,12 @@ import java.util.HashMap;
 
 public class MatriceParser{
 
-    private static Double defaultWeight = 90.0;
-    private static Double infiniteWeight = Double.POSITIVE_INFINITY;
+    private static final Double defaultWeight = 90.0;
+    private static final Double defaultChangeStationWeight = 60.0;
     private static HashMap<Integer, Station> stations = new HashMap<Integer, Station>();
     private static int nbStations = stations.size();
 
-    public static int[][] createMatriceLine(File f, String l) throws IOException {
+    public static Double[][] createMatriceLine(File f, String l) throws IOException {
         Scanner sc = new Scanner(f);
         String textLine = "";
         String currentLine = "";
@@ -38,7 +38,17 @@ public class MatriceParser{
                 }
             }
         }
-        int[][] ret = new int[nbStationsInLine][nbStationsInLine];
+        Double[][] ret = new Double[nbStationsInLine][nbStationsInLine];
+        for(int i = 0; i<ret.length; i++){
+            for(int j = 0; j<ret[i].length; j++){
+                if(j == i + 1) ret[i][j] = defaultWeight;
+                else if(j == i - 1) ret[i][j] = defaultWeight;
+                else if(j == i) ret[i][j] = defaultChangeStationWeight;
+                else ret[i][j] = Double.POSITIVE_INFINITY;
+                System.out.print(ret[i][j] + " ");
+            }
+            System.out.println();
+        }
         return ret;
     }
 
