@@ -24,8 +24,8 @@ public class BouarahAlgorithmTest {
 
     @Test
     public void shortestPathTest() {
-	Station start = new Station("Courcelles", "Ligne 2");
-	Station stop1 = new Station("La Défense - Grande Arche", "Ligne 1");
+	Station start = new Station("Courcelles", "2");
+	Station stop1 = new Station("La Défense - Grande Arche", "1");
 	
 	int limit = 1;
 	HashMap<Pair<Station, Integer>, Pair<Station, Integer>> prev = new HashMap<>();

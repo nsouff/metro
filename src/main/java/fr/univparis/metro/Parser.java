@@ -32,7 +32,7 @@ public class Parser {
     while (sc.hasNextLine()) {
       s = sc.nextLine();
       if (s.isEmpty()) continue;
-      else if (s.startsWith("Ligne")) line = s;
+      else if (s.startsWith("Ligne")) line = s.substring(6);
       else if (s.equals("--")) {
         line = "";
         prec = null;

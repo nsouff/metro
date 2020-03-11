@@ -49,7 +49,7 @@ public class Initialize{
         while(!stations.contains(s)){
             System.out.println("This subway station does not exist, where are you ?");
             str = sc.nextLine();
-            s = new Station(str, "Meta Station End");
+            s = new Station(str, "Meta Station Start");
         }
         return s;
     }
@@ -96,7 +96,6 @@ public class Initialize{
           current = prev.get(current);
           path.add(current);
         }
-        System.out.println(path);
         Collections.reverse(path);
         System.out.println("############################# TIME ##############################");
         System.out.println("Average time to get to your destination : " + hours + " h, " + minutes + " min, " + seconds + " s.\n");
@@ -111,26 +110,6 @@ public class Initialize{
             line = st.getLine();
           }
         }
-        // Station sta = path.getFirst(); // Meta Station
-        // String line = path.get(0).getLine();
-        // Iterator<Station> it = path.iterator();
-        // Station st = it.next(); // == Meta Station Start
-        // System.out.print(st.getName() + "->");
-        // while (it.hasNext()) {
-          // Station next = it.next();
-          // if (next.getLine().equals(st.getLine()))
-            // System.out.print(st.getName() + "->");
-          // else {
-            // System.out.print(next.getLine() + "->>");
-          // }
-          // st = next;
-        // }
-            // if (line.equals(st.getLine())) System.out.print(st.getName() + "->");
-            // else {
-              // System.out.print();
-            // }
-        // }
-        System.out.print("FIN");
-        System.out.println();
+        System.out.println("FIN");
     }
 }
