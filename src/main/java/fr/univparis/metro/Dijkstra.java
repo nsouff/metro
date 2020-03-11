@@ -1,6 +1,6 @@
 package fr.univparis.metro;
 import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Dijkstra {
 
@@ -49,4 +49,5 @@ public class Dijkstra {
         }
       }
     }
+
 }
