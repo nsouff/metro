@@ -1,29 +1,28 @@
 package fr.univparis.metro;
 
 import java.util.HashMap;
-import java.util.List;
 import java.lang.Integer;
 import java.lang.Double;
-import java.util.Map;
 import java.util.function.BiPredicate;
 
 public class BouarahAlgorithm {
 
-    private static void initShortestPath(WGraph<Station> g, Station s, int limit, HashMap<Pair<Station, Integer>, Double> dist, PriorityQueue<Pair<Station,Integer>> priQueue) {
-	for ( Station st : g.getVertices() ) {
-	    if( s.equals(st) ) {
-		Pair<Station, Integer> root = new Pair<>(st, 0);
-		priQueue.add(root, 0.0);
-		dist.put(root, 0.0);
+    private static <T> void initShortestPath(WGraph<T> graph, T start, int limit, HashMap<Pair<T, Integer>, Double> dist, PriorityQueue<Pair<T,Integer>> priQueue) {
+	Pair<T, Integer> p;
+	for ( T vertex : graph.getVertices() ) {
+	    if( start.equals(vertex) ) {		
+		p = new Pair<T, Integer>(vertex, 0);
+		priQueue.add(p, 0.0);
+		dist.put(p, 0.0);
 		for(int i=1; i <= limit; i++) {
-		    root = new Pair<>(st, i);
-		    priQueue.add(root, Double.POSITIVE_INFINITY);
-		    dist.put(root, Double.POSITIVE_INFINITY);
+		    p = new Pair<T, Integer>(vertex, i);
+		    priQueue.add(p, Double.POSITIVE_INFINITY);
+		    dist.put(p, Double.POSITIVE_INFINITY);
 		}
 	    }
 	    else {		
 		for(int i=0; i <= limit; i++) {
-		    Pair<Station, Integer> p = new Pair<>(st, i);
+		    p = new Pair<T, Integer>(vertex, i);
 		    priQueue.add(p, Double.POSITIVE_INFINITY);
 		    dist.put(p, Double.POSITIVE_INFINITY);
 		}
@@ -31,30 +30,32 @@ public class BouarahAlgorithm {
 	}
     }
 
-    public static void shortestPath (WGraph<Station> g, Station s, int limit, BiPredicate<Station,Station> equivalenceRelation,
-				     HashMap<Pair<Station, Integer>, Pair<Station, Integer>> prev, HashMap<Pair<Station, Integer>, Double> dist) {
-	PriorityQueue<Pair<Station, Integer>> frontiere = new PriorityQueue<>();
+    
+
+    public static <T> void shortestPath (WGraph<T> graph, T start, int limit, BiPredicate<T,T> equivalenceRelation,
+					 HashMap<Pair<T, Integer>, Pair<T, Integer>> prev, HashMap<Pair<T, Integer>, Double> dist) {
+	PriorityQueue<Pair<T, Integer>> priQueue = new PriorityQueue<Pair<T, Integer>>();
 	prev.clear();
 	dist.clear();
 
-	initShortestPath(g, s, limit, dist, frontiere);
+	initShortestPath(graph, start, limit, dist, priQueue);
 
-	while ( !frontiere.isEmpty() ){
-	    Pair<Station, Integer> node = frontiere.poll();
+	while ( !priQueue.isEmpty() ){
+	    Pair<T, Integer> node = priQueue.poll();
 
-	    for ( Station st : g.neighbors(node.getObj()) ) {
+	    for ( T n : graph.neighbors(node.getObj()) ) {
 		int separation = node.getValue();
-		if( !equivalenceRelation.test(node.getObj(), st)) // on vérifie l'appartenance à la même classe d'équivalence entre la parent et le fils
+		if( !equivalenceRelation.test(node.getObj(), n)) // on vérifie l'appartenance à la même classe d'équivalence entre la parent et le fils
 		    separation++;
 
 		if( separation > limit )
 		    continue;
 
-		double d = dist.get(node) + g.weight(node.getObj(), st); // distance de st à son parent + depuis l'origine
-		Pair<Station, Integer> child = new Pair<Station, Integer>(st, separation); // le noeud correspondant
+		double d = dist.get(node) + graph.weight(node.getObj(), n); // distance de st à son parent + depuis l'origine
+		Pair<T, Integer> child = new Pair<T, Integer>(n, separation); // le noeud correspondant
 		if( dist.get(child) > d ) {
 		    dist.put(child, d);
-		    frontiere.updatePriority(child, d);
+		    priQueue.updatePriority(child, d);
 		    prev.put(child, node);
 		}		
 	    }
