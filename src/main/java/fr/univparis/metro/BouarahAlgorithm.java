@@ -5,13 +5,16 @@ import java.lang.Integer;
 import java.lang.Double;
 import java.util.function.BiPredicate;
 
+/**
+ * @author Romain BOUARAH
+ */
 public class BouarahAlgorithm {
 
     /**
      * Initialize *dist* and *priQueue*
-     * For each pair <V,k> where V is a vertex in *graph* and k is an integer between 0 and *limit*
-     * <V,k> is added to *dist* with +infininty if V != *start* else 0.0
-     * <V,k> is added into *priQueue* with priority dist[<V,k>]
+     * For each pair (V,k) where V is a vertex in *graph* and k is an integer between 0 and *limit*
+     * (V,k) is added to *dist* with value infinity if V != *start*. If V == start then (V,0) is added with value 0.0 and for k greater than 1, (V,k) with infinity
+     * (V,k) is added into *priQueue* with priority dist[(V,k)]
      */
     private static <T> void initShortestPath(WGraph<T> graph, T start, int limit, HashMap<Pair<T, Integer>, Double> dist, PriorityQueue<Pair<T,Integer>> priQueue) {
 	Pair<T, Integer> p;
@@ -38,13 +41,17 @@ public class BouarahAlgorithm {
 
     
     /**
-     * Find the shortest path with a
-     * @param graph A weighted and oriented graph
-     * @param start The start of research
-     * @param limit The number of passage between equivalence classes allowed
-     * @param equivalentRelation An equivalence relation i.e. a binary relation that is reflexive, symmetric and transitive 
-     * @param prev A HashMap associating a pair <V,k> to the previous pair <W,i>. W is a neighbor of V and i=k iff W and V are in the same equivalence classes
-     * @param dist A HashMap associating a pair <V,k> to his distance from start with a shortest path between <start,0> and <V,k>
+     * Find the shortest path with a limit on the number of transitions between equivalence classes. 
+     * Each vertex of the graph is associated with an integer k going from 0 to limit, so (V,5) mean vertex V with exactly 5 transitions.
+     * As a result, the number of vertices is multiplied by (limit+1).
+     *
+     * @param graph                 A weighted and oriented graph
+     * @param start                 The starting vertex for research
+     * @param limit                 The number of transitions allowed between equivalence classes
+     * @param equivalenceRelation   An equivalence relation i.e. a binary relation that is reflexive, symmetric and transitive 
+     * @param prev                  A HashMap associating a pair (V,k) to a pair (W,i) where W is a neighbor of V and i==k iff W and V are in the same equivalence classes
+     * @param dist                  A HashMap associating a pair (V,k) at its minimum distance from start
+     * @param <T>                   The type of vertices
      */
     public static <T> void shortestPath (WGraph<T> graph, T start, int limit, BiPredicate<T,T> equivalenceRelation,
 					 HashMap<Pair<T, Integer>, Pair<T, Integer>> prev, HashMap<Pair<T, Integer>, Double> dist) {
