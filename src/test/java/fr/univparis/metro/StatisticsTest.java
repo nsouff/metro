@@ -5,6 +5,7 @@ import java.net.*;
 import java.io.*;
 import java.io.IOException;
 import java.util.*;
+import java.lang.Double;
 
 public class StatisticsTest{
   static WGraph<Station> g;
@@ -19,8 +20,9 @@ public class StatisticsTest{
   @Test
   public void mostDistantStationsTest(){
     Pair<Pair<Station, Station>, Double> res= Statistics.mostDistantStations(g, (s -> !s.getLine().equals("Meta Station Start")), (t -> t.getLine().equals("Meta Station End")));
-    System.out.println("Les deux stations les plus éloignées du réseau\nStation de départ : "+res.getObj().getObj()+"\nStation d'arrivée : "+res.getObj().getValue()+"\nDurée : "+res.getValue());
+    assertEquals((Double)3270. , res.getValue());
+    assertEquals("Pont de Sèvres", res.getObj().getObj().toString());
+    assertEquals("Créteil - Préfecture", res.getObj().getValue().toString());
   }
 }
-
 
