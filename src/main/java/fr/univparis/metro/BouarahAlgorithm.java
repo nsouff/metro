@@ -5,9 +5,6 @@ import java.lang.Integer;
 import java.lang.Double;
 import java.util.function.BiPredicate;
 
-/**
- * @author Romain BOUARAH
- */
 public class BouarahAlgorithm {
 
     /**
