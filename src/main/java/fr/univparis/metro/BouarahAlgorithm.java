@@ -48,7 +48,7 @@ public class BouarahAlgorithm {
      */
     public static <T> void shortestPath (WGraph<T> graph, T start, int limit, BiPredicate<T,T> equivalenceRelation,
 					 HashMap<Pair<T, Integer>, Pair<T, Integer>> prev, HashMap<Pair<T, Integer>, Double> dist) {
-	PriorityQueue<Pair<T, Integer>> priQueue = new PriorityQueue<Pair<T, Integer>>();
+	PriorityQueue<Pair<T, Integer>> priQueue = new PriorityQueue<Pair<T, Integer>>( (limit+1)*graph.nbVertex() );
 	prev.clear();
 	dist.clear();
 
