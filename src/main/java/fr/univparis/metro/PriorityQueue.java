@@ -16,7 +16,11 @@ public class PriorityQueue<T> {
 	tree = new ArrayList<Pair<T, Double>>();
 	index = new HashMap<T, Integer>();
     }
-
+    
+    public PriorityQueue(int initialCapacity) {
+	tree = new ArrayList<Pair<T, Double>>(initialCapacity);
+	index = new HashMap<T, Integer>(initialCapacity);
+    }
 
     /**
      * Returns true if this priority queue contains no elements.
