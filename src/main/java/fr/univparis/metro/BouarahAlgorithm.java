@@ -14,25 +14,21 @@ public class BouarahAlgorithm {
      * (V,k) is added into *priQueue* with priority dist[(V,k)]
      */
     private static <T> void initShortestPath(WGraph<T> graph, T start, int limit, HashMap<Pair<T, Integer>, Double> dist, PriorityQueue<Pair<T,Integer>> priQueue) {
-	Pair<T, Integer> p;
+	Pair<T, Integer> p = new Pair<T, Integer>(start, 0);	
+
+	dist.put(p, 0.0);
+	for(int i=1; i <= limit; i++) {
+	    p = new Pair<T,Integer>(start, i);
+	    dist.put(p, Double.POSITIVE_INFINITY);
+	}
+	
 	for ( T vertex : graph.getVertices() ) {
-	    if( start.equals(vertex) ) {		
-		p = new Pair<T, Integer>(vertex, 0);
-		priQueue.add(p, 0.0);
-		dist.put(p, 0.0);
-		for(int i=1; i <= limit; i++) {
-		    p = new Pair<T, Integer>(vertex, i);
-		    priQueue.add(p, Double.POSITIVE_INFINITY);
+	    for(int i=0; i <= limit; i++) {
+		p = new Pair<T, Integer>(vertex, i);
+		if( !vertex.equals(start) )		    
 		    dist.put(p, Double.POSITIVE_INFINITY);
-		}
-	    }
-	    else {		
-		for(int i=0; i <= limit; i++) {
-		    p = new Pair<T, Integer>(vertex, i);
-		    priQueue.add(p, Double.POSITIVE_INFINITY);
-		    dist.put(p, Double.POSITIVE_INFINITY);
-		}
-	    }
+		priQueue.add( p, dist.get(p));
+	    }	    
 	}
     }
 
