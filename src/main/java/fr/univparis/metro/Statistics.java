@@ -1,6 +1,7 @@
 package fr.univparis.metro;
 import java.util.HashMap;
 import java.util.function.Predicate;
+import java.util.function.BiPredicate;
 
 /**
   * Class for statistics about our networks
@@ -36,5 +37,32 @@ public class Statistics{
     }
     res = new Pair<Pair<T,T>, Double>(stations, biggestTime);
     return res;
+  }
+
+
+  public static <T> int minimumCorrespondance(WGraph<T> g, Predicate<T> start, Predicate<T> end, BiPredicate<T, T> p) {
+
+    HashMap<Pair<T, Integer>, Pair<T, Integer>> prev = new HashMap<>();
+    HashMap<Pair<T, Integer>, Double> dist = new HashMap<>();
+
+    int limit = 0;
+    Pair<T, Integer> pair;
+    while (true) {
+      for (T s : g.getVertices()) {
+        if (! start.test(s)) continue;
+        pair = new Pair<>(s, limit);
+
+        BouarahAlgorithm.shortestPath(g, s, limit, p, prev, dist);
+        for (T e : g.getVertices()) {
+          pair = new Pair<>(e, limit);
+          if (! end.test(e)) continue;
+          if (dist.get(pair).equals(Double.POSITIVE_INFINITY)) {
+            limit++;
+            break;
+          }
+        }
+      }
+      return limit;
+    }
   }
 }
