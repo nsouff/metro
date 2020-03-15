@@ -149,4 +149,30 @@ public class PriorityQueue<T> {
     public boolean contains(Object o) {
 	return index.containsKey(o);
     }
+
+    /**
+     * Removes a single instance of the specified element from this queue, if it is present. 
+     * More formally, removes an element e such that o.equals(e), if this queue contains one or more such elements.
+     * Returns true if and only if this queue contained the specified element (or equivalently, if this queue changed as a result of the call).
+     * @param o the element to be removed from this queue, if present
+     * @return true if this queue changed as a result of the call
+     */
+    public boolean remove(Object o) {
+	if( !index.containsKey(o) )
+	    return false;
+
+	Pair<T, Double> last = tree.remove( tree.size() - 1 );
+	int pos = index.remove(o);
+
+	if ( pos == tree.size() )
+	    return true;
+	
+	if( !tree.isEmpty() ) {
+	    tree.set(pos, last);
+	    index.put(last.getObj(), pos);
+
+	    siftDown(pos);
+	}
+	return true;
+    }
 }
