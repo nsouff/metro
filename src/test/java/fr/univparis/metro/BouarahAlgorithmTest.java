@@ -29,7 +29,7 @@ public class BouarahAlgorithmTest {
 	Station stop2 = new Station("Nation", "Meta Station End");
 	Station stop3 = new Station("Créteil - Préfecture", "Meta Station End");
 	
-	int limit = 1000;
+	int limit = 2;
 	HashMap<Pair<Station, Integer>, Pair<Station, Integer>> prev = new HashMap<>();
 	HashMap<Pair<Station, Integer>, Double> dist = new HashMap<>();
 	
@@ -59,9 +59,9 @@ public class BouarahAlgorithmTest {
 	assertEquals(2640.0, dist.get(tmp), 0.0);  // Courcelles(2) -> ... -> Charles de Gaulle Etoile(1,2,6) -> ... -> Reuilly-Diderot(1,8) -> ...  -> Créteil - Préfecture (8)
 	assertNotNull(prev.get(tmp));
 
-	// tmp = new Pair<>(stop3, 3);
-	// assertNull(dist.get(tmp));
-	// assertNull(prev.get(tmp));
+	tmp = new Pair<>(stop3, 3);
+	assertNull(dist.get(tmp));
+	assertNull(prev.get(tmp));
     }
 
 }
