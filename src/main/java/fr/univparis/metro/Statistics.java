@@ -39,8 +39,15 @@ public class Statistics{
     return res;
   }
 
-
-  public static <T> int minimumCorrespondance(WGraph<T> g, Predicate<T> start, Predicate<T> end, BiPredicate<T, T> p) {
+ /**
+  * Return the minimum correspondence to go from any start vertex to any end vertex
+  * @param g the Graph
+  * @param start indicates wich vertex are start vertex
+  * @param end indicates wich vertex are end vertex
+  * @param p indicates what is consider as a correspondence
+  * @return the number of minimum correspondence
+  */
+  public static <T> int minimumCorrespondence(WGraph<T> g, Predicate<T> start, Predicate<T> end, BiPredicate<T, T> p) {
 
     HashMap<Pair<T, Integer>, Pair<T, Integer>> prev = new HashMap<>();
     HashMap<Pair<T, Integer>, Double> dist = new HashMap<>();

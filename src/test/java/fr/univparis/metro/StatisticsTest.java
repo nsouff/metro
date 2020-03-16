@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 import java.net.*;
 import java.io.*;
 import java.io.IOException;
-import java.util.*;
 import java.lang.Double;
 
 public class StatisticsTest{
@@ -23,6 +22,6 @@ public class StatisticsTest{
     assertEquals((Double)3270. , res.getValue());
     assertEquals("Pont de Sèvres", res.getObj().getObj().toString());
     assertEquals("Créteil - Préfecture", res.getObj().getValue().toString());
-    System.out.println(Statistics.minimumCorrespondance(g, (s -> s.getLine().equals("Meta Station Start")), s -> s.getLine().equals("Meta Station End") , (Station s1, Station s2) -> s1.getLine().equals(s2.getLine()) || s1.getLine().startsWith("Meta Station") || s2.getLine().startsWith("Meta Station")));
+    assertEquals(3, Statistics.minimumCorrespondence(g, (s -> s.getLine().equals("Meta Station Start")), s -> s.getLine().equals("Meta Station End") , (Station s1, Station s2) -> s1.getLine().equals(s2.getLine()) || s1.getLine().startsWith("Meta Station") || s2.getLine().startsWith("Meta Station")));
   }
 }
