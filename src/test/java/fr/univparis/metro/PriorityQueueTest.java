@@ -67,4 +67,21 @@ public class PriorityQueueTest {
 	assertTrue( pQueue.updatePriority("Z", Double.NEGATIVE_INFINITY));
 	assertEquals( "Z", pQueue.poll());
     }
+
+    @Test
+    public void removeTest() {			
+	assertTrue( pQueue.remove("A") );
+	assertFalse( pQueue.remove("A") );
+			
+	assertEquals("C", pQueue.poll() );
+	
+	assertTrue( pQueue.remove("B") );				
+	assertTrue( pQueue.remove("F") );			
+	assertTrue( pQueue.remove("E") );
+	
+	assertEquals("G", pQueue.poll() );			
+	assertEquals("D", pQueue.poll() );
+
+	assertFalse( pQueue.remove("G"));
+    }
 }
