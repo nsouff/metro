@@ -32,9 +32,9 @@ public class DijkstraTest{
     assertEquals((Double) 330.0, dist.get(a3));
     assertEquals((Double) 0.0, dist.get(a1));
     assertEquals((Double) 840.0, dist.get(a4));
-    assertEquals("Station: Montparnasse - Bienvenüe, 4", prev.get(a4).toString());
-    assertEquals("Station: Châtelet, 14", prev.get(a3).toString());
-    assertEquals("Station: Pyramides, 14", prev.get(a2).toString());
+    assertEquals("Montparnasse - Bienvenüe", prev.get(a4).getName());
+    assertEquals("Châtelet", prev.get(a3).getName());
+    assertEquals("Pyramides", prev.get(a2).getName());
     Dijkstra.shortestPath(w, laumS, prev, dist);
     assertEquals((Double) 2340.0, dist.get(mdiE));
 

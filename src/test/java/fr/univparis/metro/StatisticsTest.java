@@ -20,8 +20,8 @@ public class StatisticsTest{
     public void mostDistantStationsTest(){
       Pair<Pair<Station, Station>, Double> res= Statistics.mostDistantStations(g, (s -> !s.getLine().equals("Meta Station Start")), (t -> t.getLine().equals("Meta Station End")));
       assertEquals((Double)3270. , res.getValue());
-      assertEquals("Pont de Sèvres", res.getObj().getObj().toString());
-      assertEquals("Créteil - Préfecture", res.getObj().getValue().toString());
+      assertEquals("Pont de Sèvres", res.getObj().getObj().getName());
+      assertEquals("Créteil - Préfecture", res.getObj().getValue().getName());
     }
 
     @Test
