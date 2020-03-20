@@ -76,71 +76,70 @@ public class WGraphTest{
 
     @Test
     public void addVertexTest(){
-        assertEquals(true, g.getWGraph().containsKey("Ourcq"));
-        assertEquals(true, g.getWGraph().containsKey("Laumière")&& g.getWGraph().containsKey("Porte de Pantin"));
-        assertEquals(true, g.getWGraph().containsKey("Jaures"));
+        assertEquals(true, g.containsKey("Ourcq"));
+        assertEquals(true, g.containsKey("Laumière")&& g.containsKey("Porte de Pantin"));
+        assertEquals(true, g.containsKey("Jaures"));
 
-        assertEquals(false, g.getWGraph().containsKey("Gare du Nord"));
+        assertEquals(false, g.containsKey("Gare du Nord"));
     }
 
     @Test
     public void deleteVertexTest(){
         g.deleteVertex("Jaures");
 
-        assertEquals(true, g.getWGraph().get("Laumière").isEmpty());
-        assertEquals(null, g.getWGraph().get("Jaures"));
+        assertEquals(true, g.get("Laumière").isEmpty());
+        assertEquals(null, g.get("Jaures"));
     }
 
     @Test
     public void addEdgeTest(){
-        assertEquals("Laumière", g.getWGraph().get("Ourcq").get(0).getObj());
-        assertEquals(70.0, g.getWGraph().get("Ourcq").get(0).getValue().doubleValue(), 0.0);
-        assertEquals("Jaures", g.getWGraph().get("Laumière").get(0).getObj());
-        assertEquals(75.0, g.getWGraph().get("Laumière").get(0).getValue().doubleValue(), 0.0);
+        assertEquals("Laumière", g.get("Ourcq").get(0).getObj());
+        assertEquals(70.0, g.get("Ourcq").get(0).getValue().doubleValue(), 0.0);
+        assertEquals("Jaures", g.get("Laumière").get(0).getObj());
+        assertEquals(75.0, g.get("Laumière").get(0).getValue().doubleValue(), 0.0);
     }
 
     @Test
     public void removeEdgeTest(){
         g.removeEdge("Ourcq", "Laumière");
         g.removeEdge("Ourcq", "Porte de Pantin");
-        assertEquals(true, g.getWGraph().get("Ourcq").isEmpty());
+        assertEquals(true, g.get("Ourcq").isEmpty());
     }
 
     @Test
     public void addDoubleEdgeTest(){
-      assertEquals("Ourcq" , g.getWGraph().get("Porte de Pantin").get(0).getObj());
-      assertEquals(60.0, g.getWGraph().get("Ourcq").get(1).getValue().doubleValue(), 0.0);
-      assertEquals("Porte de Pantin" , g.getWGraph().get("Ourcq").get(1).getObj());
-      assertEquals(60.0, g.getWGraph().get("Porte de Pantin").get(0).getValue().doubleValue(), 0.0);
-      assertEquals(70.0, g.getWGraph().get("Ourcq").get(0).getValue().doubleValue(), 0.0);
-      assertEquals("Jaures", g.getWGraph().get("Stade de rugby").get(0).getObj());
-      assertEquals("Stade de rugby", g.getWGraph().get("Jaures").get(0).getObj());
-      assertEquals("Fac des Maths-Info", g.getWGraph().get("Stade de rugby").get(1).getObj());
-      assertEquals("Stade de rugby", g.getWGraph().get("Fac des Maths-Info").get(0).getObj());
-      assertEquals("Rattrapages", g.getWGraph().get("Fac des Maths-Info").get(1).getObj());
-      assertEquals("Fac des Maths-Info", g.getWGraph().get("Rattrapages").get(0).getObj());
-      assertEquals("Objectif 20/20 au projet", g.getWGraph().get("Rattrapages").get(1).getObj());
-      assertEquals("Rattrapages", g.getWGraph().get("Objectif 20/20 au projet").get(0).getObj());
-      assertEquals(60.0, g.getWGraph().get("Ourcq").get(1).getValue().doubleValue(), 0.0);
-      assertEquals(50.0, g.getWGraph().get("Jaures").get(0).getValue().doubleValue(), 0.0);
-      assertEquals(50.0, g.getWGraph().get("Stade de rugby").get(0).getValue().doubleValue(), 0.0);
-      assertEquals(100.0, g.getWGraph().get("Stade de rugby").get(1).getValue().doubleValue(), 0.0);
-      assertEquals(100.0, g.getWGraph().get("Fac des Maths-Info").get(0).getValue().doubleValue(), 0.0);
-      assertEquals(20.0, g.getWGraph().get("Fac des Maths-Info").get(1).getValue().doubleValue(), 0.0);
-      assertEquals(20.0, g.getWGraph().get("Rattrapages").get(1).getValue().doubleValue(), 0.0);
-      assertEquals(20.0, g.getWGraph().get("Rattrapages").get(0).getValue().doubleValue(), 0.0);
-      assertEquals(20.0, g.getWGraph().get("Objectif 20/20 au projet").get(0).getValue().doubleValue(), 0.0);
+      assertEquals("Ourcq" , g.get("Porte de Pantin").get(0).getObj());
+      assertEquals(60.0, g.get("Ourcq").get(1).getValue().doubleValue(), 0.0);
+      assertEquals("Porte de Pantin" , g.get("Ourcq").get(1).getObj());
+      assertEquals(60.0, g.get("Porte de Pantin").get(0).getValue().doubleValue(), 0.0);
+      assertEquals(70.0, g.get("Ourcq").get(0).getValue().doubleValue(), 0.0);
+      assertEquals("Jaures", g.get("Stade de rugby").get(0).getObj());
+      assertEquals("Stade de rugby", g.get("Jaures").get(0).getObj());
+      assertEquals("Fac des Maths-Info", g.get("Stade de rugby").get(1).getObj());
+      assertEquals("Stade de rugby", g.get("Fac des Maths-Info").get(0).getObj());
+      assertEquals("Rattrapages", g.get("Fac des Maths-Info").get(1).getObj());
+      assertEquals("Fac des Maths-Info", g.get("Rattrapages").get(0).getObj());
+      assertEquals("Objectif 20/20 au projet", g.get("Rattrapages").get(1).getObj());
+      assertEquals("Rattrapages", g.get("Objectif 20/20 au projet").get(0).getObj());
+      assertEquals(60.0, g.get("Ourcq").get(1).getValue().doubleValue(), 0.0);
+      assertEquals(50.0, g.get("Jaures").get(0).getValue().doubleValue(), 0.0);
+      assertEquals(50.0, g.get("Stade de rugby").get(0).getValue().doubleValue(), 0.0);
+      assertEquals(100.0, g.get("Stade de rugby").get(1).getValue().doubleValue(), 0.0);
+      assertEquals(100.0, g.get("Fac des Maths-Info").get(0).getValue().doubleValue(), 0.0);
+      assertEquals(20.0, g.get("Fac des Maths-Info").get(1).getValue().doubleValue(), 0.0);
+      assertEquals(20.0, g.get("Rattrapages").get(1).getValue().doubleValue(), 0.0);
+      assertEquals(20.0, g.get("Rattrapages").get(0).getValue().doubleValue(), 0.0);
+      assertEquals(20.0, g.get("Objectif 20/20 au projet").get(0).getValue().doubleValue(), 0.0);
     }
 
     @Test
     public void nbVertexTest(){
-      assertEquals(8, g.nbVertex(t -> g.getWGraph().get(t).get(0).getValue().doubleValue()!=0));
+      assertEquals(8, g.nbVertex(t -> g.get(t).get(0).getValue().doubleValue()!=0));
     }
 
     @Test
     public void vertexToStringTest(){
       assertEquals("Laumière\nObjectif 20/20 au projet\nRattrapages\nJaures\nFac des Maths-Info\nOurcq\nPorte de Pantin\nStade de rugby\n",
-                    g.vertexToString(t -> g.getWGraph().get("Ourcq").get(1).getValue().doubleValue()!=0));
+                    g.vertexToString(t -> g.get("Ourcq").get(1).getValue().doubleValue()!=0));
     }
 }
-
