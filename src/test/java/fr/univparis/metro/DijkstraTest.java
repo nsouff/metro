@@ -32,9 +32,6 @@ public class DijkstraTest{
     assertEquals((Double) 330.0, dist.get(a3));
     assertEquals((Double) 0.0, dist.get(a1));
     assertEquals((Double) 840.0, dist.get(a4));
-    assertEquals("Montparnasse - Bienvenüe", prev.get(a4).getName());
-    assertEquals("Châtelet", prev.get(a3).getName());
-    assertEquals("Pyramides", prev.get(a2).getName());
     assertEquals(new Station("Montparnasse - Bienvenüe", "4"), prev.get(a4));
     assertEquals(new Station("Châtelet", "14"), prev.get(a3));
     assertEquals(new Station("Pyramides", "14"), prev.get(a2));
