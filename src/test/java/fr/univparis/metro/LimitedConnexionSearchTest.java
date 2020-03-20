@@ -6,55 +6,55 @@ import static org.junit.Assert.*;
 
 public class LimitedConnexionSearchTest{
 
-    Double[][] graph;
+    Double[][] direct;
     Integer[][] via;
     Integer[][] intermediate;
 
     @Before
-    public void initializeGraphMatrice(){
-        graph = new Double[6][6];
+    public void initializedirectMatrice(){
+        direct = new Double[6][6];
 
-        graph[0][0] = 0.0;
-        graph[0][1] = 2.0;
-        graph[0][2] = 1.0;
-        graph[0][3] = Double.POSITIVE_INFINITY;
-        graph[0][4] = Double.POSITIVE_INFINITY;
-        graph[0][5] = 10.0;
+        direct[0][0] = 0.0;
+        direct[0][1] = 2.0;
+        direct[0][2] = 1.0;
+        direct[0][3] = Double.POSITIVE_INFINITY;
+        direct[0][4] = Double.POSITIVE_INFINITY;
+        direct[0][5] = 10.0;
 
-        graph[1][0] = Double.POSITIVE_INFINITY;
-        graph[1][1] = 0.0;
-        graph[1][2] = 1.0;
-        graph[1][3] = 2.0;
-        graph[1][4] = 3.0;
-        graph[1][5] = Double.POSITIVE_INFINITY;
+        direct[1][0] = Double.POSITIVE_INFINITY;
+        direct[1][1] = 0.0;
+        direct[1][2] = 1.0;
+        direct[1][3] = 2.0;
+        direct[1][4] = 3.0;
+        direct[1][5] = Double.POSITIVE_INFINITY;
 
-        graph[2][0] = Double.POSITIVE_INFINITY;
-        graph[2][1] = Double.POSITIVE_INFINITY;
-        graph[2][2] = 0.0;
-        graph[2][3] = 2.0;
-        graph[2][4] = Double.POSITIVE_INFINITY;
-        graph[2][5] = Double.POSITIVE_INFINITY;
+        direct[2][0] = Double.POSITIVE_INFINITY;
+        direct[2][1] = Double.POSITIVE_INFINITY;
+        direct[2][2] = 0.0;
+        direct[2][3] = 2.0;
+        direct[2][4] = Double.POSITIVE_INFINITY;
+        direct[2][5] = Double.POSITIVE_INFINITY;
 
-        graph[3][0] = 2.0;
-        graph[3][1] = Double.POSITIVE_INFINITY;
-        graph[3][2] = Double.POSITIVE_INFINITY;
-        graph[3][3] = 0.0;
-        graph[3][4] = Double.POSITIVE_INFINITY;
-        graph[3][5] = Double.POSITIVE_INFINITY;
+        direct[3][0] = 2.0;
+        direct[3][1] = Double.POSITIVE_INFINITY;
+        direct[3][2] = Double.POSITIVE_INFINITY;
+        direct[3][3] = 0.0;
+        direct[3][4] = Double.POSITIVE_INFINITY;
+        direct[3][5] = Double.POSITIVE_INFINITY;
 
-        graph[4][0] = Double.POSITIVE_INFINITY;
-        graph[4][1] = Double.POSITIVE_INFINITY;
-        graph[4][2] = 4.0;
-        graph[4][3] = Double.POSITIVE_INFINITY;
-        graph[4][4] = 0.0;
-        graph[4][5] = 1.0;
+        direct[4][0] = Double.POSITIVE_INFINITY;
+        direct[4][1] = Double.POSITIVE_INFINITY;
+        direct[4][2] = 4.0;
+        direct[4][3] = Double.POSITIVE_INFINITY;
+        direct[4][4] = 0.0;
+        direct[4][5] = 1.0;
 
-        graph[5][0] = Double.POSITIVE_INFINITY;
-        graph[5][1] = Double.POSITIVE_INFINITY;
-        graph[5][2] = Double.POSITIVE_INFINITY;
-        graph[5][3] = Double.POSITIVE_INFINITY;
-        graph[5][4] = Double.POSITIVE_INFINITY;
-        graph[5][5] = 0.0;
+        direct[5][0] = Double.POSITIVE_INFINITY;
+        direct[5][1] = Double.POSITIVE_INFINITY;
+        direct[5][2] = Double.POSITIVE_INFINITY;
+        direct[5][3] = Double.POSITIVE_INFINITY;
+        direct[5][4] = Double.POSITIVE_INFINITY;
+        direct[5][5] = 0.0;
     }
 
     @Before
@@ -153,9 +153,9 @@ public class LimitedConnexionSearchTest{
 
     @Test
     public void floydTest(){
-        LimitedConnectionSearch.floydAndVia(graph, via, intermediate);
+        LimitedConnectionSearch.floydAndVia(direct, via, intermediate);
 
-        Double[][] b = new Double[graph.length][graph.length];
+        Double[][] b = new Double[direct.length][direct.length];
 
         b[0][0] = 0.0;
         b[0][1] = 2.0;
@@ -169,24 +169,35 @@ public class LimitedConnexionSearchTest{
         b[1][2] = 1.0;
         b[1][3] = 2.0;
         b[1][4] = 3.0;
+        b[1][5] = 4.0;
 
         b[2][0] = 4.0;
         b[2][1] = 6.0;
         b[2][2] = 0.0;
         b[2][3] = 2.0;
         b[2][4] = 9.0;
+        b[2][5] = 14.0;
 
         b[3][0] = 2.0;
         b[3][1] = 4.0;
         b[3][2] = 3.0;
         b[3][3] = 0.0;
         b[3][4] = 7.0;
+        b[3][5] = 12.0;
 
         b[4][0] = 8.0;
         b[4][1] = 10.0;
         b[4][2] = 4.0;
         b[4][3] = 6.0;
         b[4][4] = 0.0;
+        b[4][5] = 1.0;
+
+        b[5][0] = Double.POSITIVE_INFINITY;
+        b[5][1] = Double.POSITIVE_INFINITY;
+        b[5][2] = Double.POSITIVE_INFINITY;
+        b[5][3] = Double.POSITIVE_INFINITY;
+        b[5][4] = Double.POSITIVE_INFINITY;
+        b[5][5] = 0.0;
 
         Integer[][] v = new Integer[via.length][via.length];
 
@@ -195,29 +206,44 @@ public class LimitedConnexionSearchTest{
         v[0][2] = 1;
         v[0][3] = 3;
         v[0][4] = 2;
+        v[0][5] = 1;
 
         v[1][0] = 4;
         v[1][1] = 2;
         v[1][2] = 2;
         v[1][3] = 2;
         v[1][4] = 2;
+        v[1][5] = 5;
 
         v[2][0] = 4;
         v[2][1] = 1;
         v[2][2] = 3;
         v[2][3] = 3;
         v[2][4] = 2;
+        v[2][5] = 1;
 
         v[3][0] = 4;
         v[3][1] = 1;
         v[3][2] = 1;
         v[3][3] = 4;
         v[3][4] = 2;
+        v[3][5] = 1;
 
         v[4][0] = 4;
         v[4][1] = 1;
         v[4][2] = 5;
         v[4][3] = 3;
         v[4][4] = 5;
+        v[4][5] = 5;
+
+        v[5][0] = null;
+        v[5][1] = null;
+        v[5][2] = null;
+        v[5][3] = null;
+        v[5][4] = null;
+        v[5][5] = 6;
+
+        assertArrayEquals(b, direct);
+        assertArrayEquals(v, via);
     }
 }

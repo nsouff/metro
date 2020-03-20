@@ -27,7 +27,7 @@ public class LimitedConnectionSearch {
         }
     }
 
-    public static  <T extends Object> LinkedList<T> getPath(Double[][] direct, T[][] via, Integer[][] intermediate, T start, T end){
+    public static  <T> LinkedList<T> getPath(Double[][] direct, T[][] via, Integer[][] intermediate, T start, T end){
         LinkedList<T> ret = new LinkedList<T>();
         floydAndVia(direct, via, intermediate);
         return ret;
