@@ -101,15 +101,13 @@ public class Initialize{
         System.out.println("Average time to get to your destination : " + hours + " h, " + minutes + " min, " + seconds + " s.\n");
         System.out.println("############################# ITINERARY ##############################");
         String line = path.getFirst().getLine();
-        System.out.print(line + "->");
+        System.out.print("Departure : "+from+"\n\n"+"line "+line+" : "+from+" -> ");
         for (Station st : path) {
-          if (st.getLine().equals(line))
-            System.out.print(st.getName() + "->");
-          else {
-            System.out.print(st.getLine() + "->");
+          if (!st.getLine().equals(line)){
+            System.out.print(st.getName()+"\n"+"line "+st.getLine()+" : "+st.getName()+" -> ");
             line = st.getLine();
           }
         }
-        System.out.println("FIN");
+        System.out.println(to+"\n\nArrival : "+to);
     }
 }
