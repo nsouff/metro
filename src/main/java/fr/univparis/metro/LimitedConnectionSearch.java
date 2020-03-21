@@ -32,9 +32,9 @@ public class LimitedConnectionSearch {
         }
     }
 
-    public static  <T> LinkedList<T> getPath(Double[][] direct, T[][] via, Integer[][] intermediate, T start, T end){
+    public static  <T> LinkedList<T> getPath(MatriceWGraph g, T start, T end){
+        floydAndVia(g.getDirect(), g.getVia(), g.getIntermediate());
         LinkedList<T> ret = new LinkedList<T>();
-        floydAndVia(direct, via, intermediate);
         return ret;
     }
 }
