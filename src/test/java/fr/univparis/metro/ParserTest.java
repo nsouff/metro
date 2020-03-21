@@ -49,7 +49,6 @@ public class ParserTest {
     Station pdf      = new Station("Place des Fêtes", "7bis");
     Station danube   = new Station("Danube", "7bis");
     Station botzaris = new Station("Botzaris", "7bis");
-    System.out.println(g.neighbors(psg));
     assertEquals(2, g.neighbors(psg).size());
     assertEquals(3, g.neighbors(pdf).size());
     assertEquals(2, g.neighbors(danube).size());
@@ -89,7 +88,6 @@ public class ParserTest {
   public void metaStatTest() {
     Station cStart = new Station("Châtelet", "Meta Station Start");
     Station cEnd   = new Station("Châtelet", "Meta Station End");
-    System.out.println(g.neighbors(cStart));
     assertEquals(5, g.neighbors(cStart).size());
     assertEquals(0, g.neighbors(cEnd).size());
     assertEquals((Double) 0.0, g.weight(new Station("Châtelet", "4"), cEnd));
