@@ -4,6 +4,11 @@ import java.util.LinkedList;
 
 public class LimitedConnectionSearch {
 
+    /**
+     * @param direct is a matrice in which the coefficient direct(x, y) is the time it takes to get to the station n°y from the sation n°x.
+     * @param via is a matrice in which via(x, y) is the last station we get through to get to the sation n°y from the station n°x
+     * @param intermediate is a matrice in which intermediate(x, y) is the number of station we get through to get to the station n°y from the station n°x
+     */
     public static <T> void floydAndVia(Double[][] direct, T[][] via, Integer[][] intermediate){
         int n = direct.length;
         for (int k = 0; k < n; k++) {
