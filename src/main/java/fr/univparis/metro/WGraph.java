@@ -11,10 +11,6 @@ public class WGraph<T>{
 
     private HashMap<T, List<Pair<T, Double>>> wGraph;
 
-    public HashMap<T, List<Pair<T, Double>>> getWGraph(){
-        return this.wGraph;
-    }
-
     public WGraph(){
         this.wGraph = new HashMap<T, List<Pair<T, Double>>>();
     }
@@ -23,7 +19,7 @@ public class WGraph<T>{
      * @return the set of all the keys contained in the HashMap wGraph.
      */
     public Set<T> getVertices(){
-        return this.getWGraph().keySet();
+        return this.wGraph.keySet();
     }
 
     public int nbVertex() {return wGraph.size();}
@@ -176,6 +172,14 @@ public class WGraph<T>{
         if (p.test(t)) res += t.toString() + "\n";
       }
       return res;
+    }
+
+    public boolean containsKey(T s){
+      return wGraph.containsKey(s);
+    }
+
+    public List<Pair<T, Double>> get(T s){
+      return wGraph.get(s);
     }
 
 }
