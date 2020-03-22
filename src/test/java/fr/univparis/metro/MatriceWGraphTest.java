@@ -20,7 +20,7 @@ public class MatriceWGraphTest{
     @Test
     public void matriceWGraphTest(){
         MatriceWGraph m = new MatriceWGraph(g);
-        LinkedList<String> l = LimitedConnectionSearch.getPath(m, "Ourcq", "Mairie d'Issy");
+        LinkedList<String> l = LimitedConnectionSearch.getPath(m, "Malakoff - Plateau de Vanves", "Anatole France");
         for(String s : l) System.out.println(s);
 
     }
