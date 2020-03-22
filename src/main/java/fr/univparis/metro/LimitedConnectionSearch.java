@@ -32,9 +32,19 @@ public class LimitedConnectionSearch {
         }
     }
 
-    public static  <T> LinkedList<T> getPath(MatriceWGraph g, T start, T end){
+    public static LinkedList<String> getPath(MatriceWGraph g, String start, String end){
         floydAndVia(g.getDirect(), g.getVia(), g.getIntermediate());
-        LinkedList<T> ret = new LinkedList<T>();
+        int numStart = g.getSetOfVertices().get(start);
+        int numEnd = g.getSetOfVertices().get(end);
+        LinkedList<String> ret = new LinkedList<String>();
+        ret.add(end);
+        String current = end;
+        int n = g.getSetOfVertices().get(end);
+        while(!start.equals(current)){
+            current = g.getVia()[numStart][n].getName();
+            ret.add(current);
+            n = g.getSetOfVertices().get(current);
+        }
         return ret;
     }
 }

@@ -26,12 +26,19 @@ public class MatriceWGraph{
         return this.intermediate;
     }
 
+    public MatriceWGraph(Double[][] d, Station[][] v, Integer[][] i){
+        this.direct = d;
+        this.via = v;
+        this.intermediate = i;
+    }
+
     public MatriceWGraph(WGraph<Station> g){
         int n = g.getWGraph().size();
         int numVertex = 0;
         this.setOfVertices = new HashMap<String, Integer>();
         this.direct = new Double[n][n];
         this.via = new Station[n][n];
+        this.intermediate = new Integer[n][n];
         for(Map.Entry<Station, List<Pair<Station, Double>>> edge : g.getWGraph().entrySet()){
             String vertexName = edge.getKey().getName();
             if(!this.setOfVertices.containsKey(vertexName)){
@@ -42,6 +49,9 @@ public class MatriceWGraph{
         for(Map.Entry<Station, List<Pair<Station, Double>>> edge : g.getWGraph().entrySet()){
             Station vertex = edge.getKey();
             String vertexName = vertex.getName();
+            this.direct[this.setOfVertices.get(vertexName)][this.setOfVertices.get(vertexName)] = 0.0;
+            this.via[this.setOfVertices.get(vertexName)][this.setOfVertices.get(vertexName)] = vertex;
+            this.intermediate[this.setOfVertices.get(vertexName)][this.setOfVertices.get(vertexName)] = 0;
             List<Pair<Station, Double>> verticesN = edge.getValue();
             for(Pair<Station, Double> p : verticesN){
                 this.direct[this.setOfVertices.get(vertexName)][this.setOfVertices.get(p.getObj().getName())] = p.getValue();
