@@ -21,7 +21,5 @@ public class MatriceWGraphTest{
     public void matriceWGraphTest(){
         MatriceWGraph m = new MatriceWGraph(g);
         LinkedList<String> l = LimitedConnectionSearch.getPath(m, "Malakoff - Plateau de Vanves", "Anatole France");
-        for(String s : l) System.out.println(s);
-
     }
 }
