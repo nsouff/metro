@@ -9,7 +9,7 @@ public class LimitedConnectionSearch {
      * @param via is a matrice in which via(x, y) is the last station we get through to get to the sation n°y from the station n°x
      * @param intermediate is a matrice in which intermediate(x, y) is the number of station we get through to get to the station n°y from the station n°x
      */
-    public static <T> void floydAndVia(Double[][] direct, T[][] via, Integer[][] intermediate){
+    public static <T> void floyd(Double[][] direct, T[][] via, Integer[][] intermediate){
         int n = direct.length;
         for (int k = 0; k < n; k++) {
             for (int i = 0; i < n; i++) {
@@ -33,7 +33,7 @@ public class LimitedConnectionSearch {
     }
 
     public static LinkedList<String> getPath(MatriceWGraph g, String start, String end){
-        floydAndVia(g.getDirect(), g.getVia(), g.getIntermediate());
+        floyd(g.getDirect(), g.getVia(), g.getIntermediate());
         int numStart = g.getSetOfVertices().get(start);
         int numEnd = g.getSetOfVertices().get(end);
         LinkedList<String> ret = new LinkedList<String>();

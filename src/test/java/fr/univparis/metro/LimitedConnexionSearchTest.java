@@ -153,7 +153,7 @@ public class LimitedConnexionSearchTest{
 
     @Test
     public void floydTest(){
-        LimitedConnectionSearch.floydAndVia(direct, via, intermediate);
+        LimitedConnectionSearch.floyd(direct, via, intermediate);
 
         Double[][] b = new Double[direct.length][direct.length];
 
