@@ -13,7 +13,7 @@ all: datamodel webserver
 # Target run executes the program and start with target all to build the
 # project.
 datamodel:
-	cd datamodel && $(MVN) compile test assembly:single
+	cd datamodel && $(MVN) package install
 
 webserver:
 	cd webserver && $(MVN) compile test assembly:single
@@ -21,8 +21,9 @@ webserver:
 run :
 	cd webserver && $(JAVA) $(TARGET)
 
+
 run_terminal :
-	cd datamodel && $(JAVA) $(TERMINAL_TARGET)
+	cd webserver && $(JAVA) $(TERMINAL_TARGET)
 
 
 test:
