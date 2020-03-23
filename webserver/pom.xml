@@ -5,10 +5,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>fr.univparis.metro</groupId>
-  <artifactId>metro</artifactId>
-  <version>1.0</version>
+  <artifactId>webserver</artifactId>
+  <version>0.1</version>
 
-  <name>metro</name>
+  <name>webserver</name>
 
   <url>https://gaufre.informatique.univ-paris-diderot.fr/nsouff/metro</url>
 
@@ -34,6 +34,26 @@
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
       <version>2.6</version>
+    </dependency>
+    <dependency>
+      <groupId>fr.univparis.metro</groupId>
+      <artifactId>datamodel</artifactId>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.freemarker</groupId>
+      <artifactId>freemarker</artifactId>
+      <version>2.3.28</version>
+    </dependency>
+    <dependency>
+      <groupId>io.javalin</groupId>
+      <artifactId>javalin</artifactId>
+      <version>3.5.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>1.7.26</version>
     </dependency>
   </dependencies>
 
