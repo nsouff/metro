@@ -1,6 +1,7 @@
 package fr.univparis.metro;
 
 import java.util.LinkedList;
+import java.util.HashMap;
 
 public class LimitedConnectionSearch {
 
@@ -22,7 +23,12 @@ public class LimitedConnectionSearch {
                     if (dik == Double.POSITIVE_INFINITY || dkj == Double.POSITIVE_INFINITY) continue;
                     Double u = dik + dkj;
                     int v = intermediateIK + intermediateKJ;
-                    if (u < direct[i][j] && v <= intermediate[i][j]){
+                    if (v < intermediate[i][j]){
+                        direct[i][j] = u;
+                        via[i][j] = vkj;
+                        intermediate[i][j] = v;
+                    }
+                    else if(v == intermediate[i][j] && u < direct[i][j]){
                         direct[i][j] = u;
                         via[i][j] = vkj;
                         intermediate[i][j] = v;
@@ -32,17 +38,42 @@ public class LimitedConnectionSearch {
         }
     }
 
-    public static LinkedList<String> getPath(MatriceWGraph g, String start, String end){
+    public static Double[][] floyd(Double[][] d){
+        int n = d.length;
+        Double[][] ret = new Double[n][n];
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                ret[i][j] = d[i][j];
+            }
+        }
+        for(int k = 0; k < n; k++){
+            for(int i = 0; i < n; i++){
+                for(int j = 0; j < n; j++){
+                    Double dik = ret[i][k];
+                    Double dkj = ret[j][k];
+                    if(dik == Double.POSITIVE_INFINITY || dkj == Double.POSITIVE_INFINITY) continue;
+                    Double u = dik + dkj;
+                    if(u < ret[i][j]) ret[i][j] = u;
+                }
+            }
+        }
+        return ret;
+    }
+
+        public static LinkedList<Pair<String, String>> getPath(MatriceWGraph g, String start, String end){
         floyd(g.getDirect(), g.getVia(), g.getIntermediate());
         int numStart = g.getSetOfVertices().get(start);
         int numEnd = g.getSetOfVertices().get(end);
-        LinkedList<String> ret = new LinkedList<String>();
-        ret.add(end);
+        LinkedList<Pair<String, String>> ret = new LinkedList<Pair<String, String>>();
         String current = end;
-        int n = g.getSetOfVertices().get(end);
+        String currentLine = "FIN";
+        ret.add(new Pair(current, currentLine));
+        int n = numEnd;
         while(!start.equals(current)){
             current = g.getVia()[numStart][n].getName();
-            ret.add(current);
+            currentLine = g.getVia()[numStart][n].getLine();
+            Pair<String, String> p = new Pair<String, String>(current, currentLine);
+            ret.add(p);
             n = g.getSetOfVertices().get(current);
         }
         return ret;
