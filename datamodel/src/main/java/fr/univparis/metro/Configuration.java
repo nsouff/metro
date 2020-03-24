@@ -5,6 +5,7 @@ import org.json.*;
 import org.apache.commons.io.FileUtils;
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.util.Set;
 
 public class Configuration{
 
@@ -13,8 +14,10 @@ public class Configuration{
      */
     private static HashMap<String, String> cities = new HashMap<String, String>();
 
-    public static HashMap<String, String> getCities(){
-        return cities;
+    public static String getFileName(String s){return cities.get(s);}
+
+    public static Set<String> getCitiesName() {
+      return cities.keySet();
     }
 
     /**
