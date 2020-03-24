@@ -21,6 +21,6 @@ public class MatriceWGraphTest{
     public void matriceWGraphTest(){
         MatriceWGraph m = new MatriceWGraph(g);
         LinkedList<Pair<String, String>> l = LimitedConnectionSearch.getPath(m, "Mairie d'Issy", "Pierre et Marie Curie");
-        for(Pair<String, String> s : l) System.out.println(s.getValue() + " -> " + s.getObj());
+        //for(Pair<String, String> s : l) System.out.println(s.getValue() + " -> " + s.getObj());
     }
 }
