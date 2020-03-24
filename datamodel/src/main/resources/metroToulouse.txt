@@ -1,0 +1,130 @@
+Ligne A
+
+Basso Cambo
+
+Bellefontaine
+
+Reynerie
+
+Mirail-Université
+
+Bagatelle
+
+Mermoz
+
+Fontaine Lestang
+
+Arènes
+
+Patte d'Oie
+
+Saint-Cyprien - République
+
+Esquirol
+
+Capitole
+
+Jean Jaurès
+
+Marengo - SNCF
+
+Jolimont
+
+Roseraie
+
+Argoulets
+
+Balma-Gramont
+
+--
+
+Ligne B
+
+Borderouge
+
+Trois Cocus
+
+La Vache
+
+Barrière de Paris
+
+Minimes - Claude Nougaro
+
+Canal du Midi
+
+Compans Caffarelli
+
+Jeanne d'Arc
+
+Jean Jaurès
+
+François Verdier
+
+Carmes
+
+Palais de Justice
+
+Saint-Michel - Marcel Langer
+
+Empalot
+
+Saint-Agne - SNCF
+
+Saouzelong
+
+Rangueil
+
+Faculté de Pharmacie
+
+Université Paul Sabatier
+
+Ramonville
+
+--
+
+Ligne TAE
+
+Colomiers-Gare
+
+Airbus Colomiers Ramassiers
+
+Airbus Saint-Martin
+
+Jean-Maga
+
+Sept-Deniers Stade Toulousain
+
+Boulevard-de-Suisse - Ponts-Jumeaux
+
+Fondeyre
+
+La Vache - Nord Toulousain
+
+Toulouse-Lautrec
+
+Raynal
+
+Bonnefoy
+
+Marengo-Matabiau
+
+François Verdier
+
+Jean-Rieux
+
+Limayrac - Cité de l'Espace
+
+L'Ormereau
+
+Montaudran - Piste des Géants
+
+Montaudran Innovation Campus Airbus Defense & Space
+
+INPT
+
+Labège Enova
+
+Labège La Cadène
+
+--
+

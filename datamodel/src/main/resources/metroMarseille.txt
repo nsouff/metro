@@ -1,0 +1,69 @@
+Ligne 1
+
+La Rose
+
+Frais Vallon
+
+Malpassé
+
+Saint-Just
+
+Chartreux
+
+Cinq-Avenues - Longchamp
+
+Réformés - Canebière
+
+Saint-Charles
+
+Colbert
+
+Vieux-Port
+
+Estrangin
+
+Castellane
+
+Baille
+
+La Timone
+
+La Blancarde
+
+Louis Armand
+
+Saint-Barnabé
+
+La Fourragère
+
+--
+
+Ligne 2
+
+Gèze
+
+Bougainville
+
+National
+
+Désirée Clary
+
+Joliette
+
+Jules Guesdes
+
+Saint-Charles
+
+Noailles
+
+Notre-Dame-du-Mont - Cours Julien
+
+Castellane
+
+Périer
+
+Rond-point du Prado
+
+Sainte-Marguerite Dromel
+
+--
