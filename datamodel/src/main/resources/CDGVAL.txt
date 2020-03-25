@@ -1,0 +1,23 @@
+Ligne 1
+
+Terminal 1
+
+Parc de stationnement PR
+
+Terminal 3 - Roissypole
+
+Parc de stationnment PX
+
+Terminal 2 - Gare
+
+--
+
+Ligne 2
+
+Satellite S4
+
+Satellite S3
+
+Terminal 2E
+
+--
