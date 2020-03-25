@@ -35,9 +35,10 @@ public class WebserverLib {
 
   public static String time(Double time) {
     Double seconds = time % 60;
-    Double minutesTmp = time - seconds / 60;
+    Double minutesTmp = (time - seconds) / 60;
     Double minutes = minutesTmp % 60;
     Double hours = (minutesTmp - minutes) / 60;
-    return "Average time to get to your destination : " + hours + " h, "  + minutes + " min, " + seconds + " s.";
+
+        return "Average time to get to your destination : " + hours + " h, "  + minutes + " min, " + seconds + " s.";
   }
 }
