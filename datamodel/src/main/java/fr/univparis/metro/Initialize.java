@@ -27,11 +27,11 @@ public class Initialize{
         Scanner sc = new Scanner(System.in);
         System.out.println("In which city are you ?");
         String str = sc.nextLine();
-        while(!Configuration.getCities().containsKey(str)){
+        while(Configuration.getFileName(str) == null){
             System.out.println("Wrong city name, try again");
             str = sc.nextLine();
         }
-        SimpleEntry<String, String> ret = new SimpleEntry<String, String>(str, Configuration.getCities().get(str));
+        SimpleEntry<String, String> ret = new SimpleEntry<String, String>(str, Configuration.getFileName(str));
         return ret;
     }
 
