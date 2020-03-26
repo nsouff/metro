@@ -105,6 +105,6 @@ public class MatriceWGraphTest{
         assertEquals(i.get(3).getObj(), "Porte Dauphine");
         assertEquals(i.get(3).getValue(), "Ligne 2");
        
-        //for(Pair<String, String> p : i) System.out.println(p.getValue() + " -> " + p.getObj());
+        //gfor(Pair<String, String> p : i) System.out.println(p.getValue() + " -> " + p.getObj());
     }
 }
