@@ -1,6 +1,6 @@
 package fr.univparis.metro;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class LimitedConnectionSearch {
@@ -60,11 +60,11 @@ public class LimitedConnectionSearch {
         return ret;
     }
 
-        public static LinkedList<Pair<String, String>> getPath(MatriceWGraph g, String start, String end){
+        public static ArrayList<Pair<String, String>> getPath(MatriceWGraph g, String start, String end){
         floyd(g.getDirect(), g.getVia(), g.getIntermediate());
         int numStart = g.getSetOfVertices().get(start);
         int numEnd = g.getSetOfVertices().get(end);
-        LinkedList<Pair<String, String>> ret = new LinkedList<Pair<String, String>>();
+        ArrayList<Pair<String, String>> ret = new ArrayList<Pair<String, String>>();
         String current = end;
         String currentLine = "FIN";
         ret.add(new Pair(current, currentLine));
