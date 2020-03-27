@@ -3,6 +3,7 @@ package fr.univparis.metro;
 import java.io.FileWriter;
 import java.io.File;
 import java.io.IOException;
+import java.util.function.Function;
 
 public class GraphExporter {
 
@@ -12,17 +13,15 @@ public class GraphExporter {
      * @param path The path where to put the result.
      * @param T The type of vertex.
      */
-    public static <T> void exportToDOT(WGraph<T> graph, File path) throws IOException {
+    public static <T> void exportToDOT(WGraph<T> graph, File path, Function<T, String> desc) throws IOException {
 	FileWriter fw = new FileWriter(path);
 
 	fw.write("digraph");
 	fw.write(" {\n");
 	
-	String vertexName;
 	for(T vertex : graph.getVertices() ) {
-	    vertexName = "\"" + vertex.toString() + "\"";
 	    for( T n : graph.neighbors(vertex) ) {
-		fw.write(vertexName + " -> \"" + n.toString() + "\";\n");
+		fw.write("\"" + desc.apply(vertex) + "\" -> \"" + desc.apply(n) + "\";\n");
 	    }
 	}
 
