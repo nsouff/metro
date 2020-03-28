@@ -109,7 +109,7 @@ public class Initialize{
           }
         }
         System.out.println(to+"\n\nArrival : "+to);
-        System.out.println("Do you want the detail of your traject ? (y or n)");
+        System.out.println("Do you want the detail of your traject ? Tap y (for yes) or n (for no) ");
         Scanner sc = new Scanner(System.in);
         if(sc.nextLine().equals("y")){
           System.out.println("#########################TRAJECT'S DETAIL###############################");
