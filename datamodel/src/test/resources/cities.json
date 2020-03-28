@@ -1,0 +1,36 @@
+{
+    "cities" : [
+        {
+            "city" : "Paris",
+            "metroPlan" : "liste.txt"
+        },
+	{
+		"city" : "Marseille",
+		"metroPlan" : "src/main/resources/metroMarseille.txt"
+	},
+	{
+		"city" : "Lyon",
+		"metroPlan" : "src/main/resources/metroLyon.txt"
+	},
+	{
+		"city" : "Lille",
+		"metroPlan" : "src/main/resources/metroLille.txt"
+	},
+	{
+		"city" : "Toulouse",
+		"metroPlan" : "src/main/resources/metroToulouse.txt"
+	},
+	{
+		"city" : "Rennes",
+		"metroPlan" : "src/main/resources/metroRennes.txt"
+	},
+	{
+		"city" : "Orly",
+		"metroPlan" : "src/main/resources/OrlyVal.txt"
+	},
+	{
+		"city" : "CDG Airport",
+		"metroPlan" : "src/main/resources/CDGVAL.txt"
+	}
+    ]
+}

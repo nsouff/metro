@@ -1,0 +1,67 @@
+Ligne A
+
+J.F. Kennedy
+
+Villejean-Université
+
+Pontchaillou
+
+Anatole France
+
+Sainte-Anne
+
+République
+
+Charles de Gaulle
+
+Gares
+
+Jacques Cartier
+
+Clemenceau
+
+Henri Fréville
+
+Italie
+
+Triangle
+
+Le Blosne
+
+La Poterie
+
+--
+
+Ligne B
+
+Saint-Jacques-Gaîté
+
+La Courrouze
+
+Cleunay
+
+Mabilais
+
+Colombier
+
+Gares
+
+Saint-Germain
+
+Sainte-Anne
+
+Jules Ferry
+
+Gros Chêne
+
+Les Gayeulles
+
+Joliot-Curie - Chateaubriand
+
+Beaulieu-Université
+
+Atalante
+
+Cesson-Viasilva
+
+--

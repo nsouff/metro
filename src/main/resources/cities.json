@@ -1,8 +1,0 @@
-{
-    "cities" : [
-        {
-            "city" : "Paris",
-            "metroPlan" : "src/main/resources/liste.txt"
-        }
-    ]
-}

@@ -1,0 +1,103 @@
+Ligne A
+
+Perrache
+
+Ampère - Victor Hugo
+
+Bellecour
+
+Cordeliers
+
+Hôtel de Ville - Louis Pradel
+
+Foch
+
+Masséna
+
+Charpennes - Charles Hernu
+
+République - Villeurbanne
+
+Gratte-Ciel
+
+Flachet - Alain Gilles
+
+Cusset
+
+Laurent Bonnevay - Astroballe
+
+Vaulx-en-Velin - La Soie
+
+--
+
+Ligne B
+
+Charpennes - Charles Hernu
+
+Brotteaux
+
+Gare Part-Dieu - Vivier Merle
+
+Place Guichard - Bourse du Travail
+
+Saxe - Gambetta
+
+Jean Macé
+
+Place Jean Jaurès
+
+Debourg
+
+Stade de Gerland
+
+Gare d'Oullins
+
+--
+
+Ligne C
+
+Hôtel de Ville - Louis Pradel
+
+Croix-Paquet
+
+Croix-Rousse
+
+Hénon
+
+Cuire
+
+--
+
+Ligne D
+
+Gare de Vaise
+
+Valmy
+
+Gorge de Loup
+
+Vieux Lyon - Cathédrale Saint-Jean
+
+Bellecour
+
+Guillotière - Gabriel Péri
+
+Saxe - Gambetta
+
+Garibaldi
+
+Sans Souci
+
+Monplaisir - Lumière
+
+Grange Blanche
+
+Laënnec
+
+Mermoz - Pinel
+
+Parilly
+
+Gare de Vénissieux
+
+--
