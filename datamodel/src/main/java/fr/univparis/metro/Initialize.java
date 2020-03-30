@@ -118,6 +118,7 @@ public class Initialize{
           System.out.println("Departure :"+ from);
           System.out.print("\n\nline " + line + " : " + from );
           for (Station st : path) {
+		if(st.getName().equals(from.getName()))continue;
             if (st.getLine().equals(line)){
               System.out.print(" -> " + st.getName());
               i++;
