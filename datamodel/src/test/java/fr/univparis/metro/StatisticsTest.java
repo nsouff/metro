@@ -28,4 +28,10 @@ public class StatisticsTest{
     public void minimumCorrespondenceTest(){
       assertEquals(3, Statistics.minimumCorrespondence(g, (s -> s.getLine().equals("Meta Station Start")), s -> s.getLine().equals("Meta Station End") , (Station s1, Station s2) -> s1.getLine().equals(s2.getLine()) || s1.getLine().startsWith("Meta Station") || s2.getLine().startsWith("Meta Station")));
     }
+
+    @Test
+    public void extremumLineTest() {
+      assertEquals("3bis", Statistics.extremumLine(g, false));
+      assertEquals("7", Statistics.extremumLine(g, true));
+    }
 }
