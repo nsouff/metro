@@ -11,6 +11,10 @@ public class WGraph<T>{
 
     private HashMap<T, List<Pair<T, Double>>> wGraph;
 
+    public HashMap<T, List<Pair<T, Double>>> getWGraph(){
+        return this.wGraph;
+    }
+
     public WGraph(){
         this.wGraph = new HashMap<T, List<Pair<T, Double>>>();
     }
@@ -98,7 +102,7 @@ public class WGraph<T>{
     public boolean addEdge(T s, T p, Double weight){
         if (s.equals(p)) return false;
         if(this.wGraph.containsKey(s) && this.wGraph.containsKey(p) && this.weight(s, p).equals(Double.NaN)) {
-	    this.wGraph.get(s).add(new Pair<T, Double>(p, weight));
+	        this.wGraph.get(s).add(new Pair<T, Double>(p, weight));
             return true;
         }
         return false;
