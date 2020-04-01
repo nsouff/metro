@@ -109,5 +109,27 @@ public class Initialize{
           }
         }
         System.out.println(to+"\n\nArrival : "+to);
+        System.out.println("Do you want the detail of your traject ? Tap y (for yes) or n (for no) ");
+        Scanner sc = new Scanner(System.in);
+        if(sc.nextLine().equals("y")){
+          System.out.println("#########################TRAJECT'S DETAIL###############################");
+          int i = 0;
+          line = path.getFirst().getLine();
+          System.out.println("Departure :"+ from);
+          System.out.print("\n\nline " + line + " : " + from );
+          for (Station st : path) {
+		if(st.getName().equals(from.getName()))continue;
+            if (st.getLine().equals(line)){
+              System.out.print(" -> " + st.getName());
+              i++;
+            }else {
+              line = st.getLine();
+              System.out.print("  ( " + i + " stops )\n\nline " + line + " : " + st.getName());
+              i = 0;
+            }
+          }
+          System.out.println( "  ( " + i + " stops )" );
+          System.out.println("\n\nArrival : " + to);
+        }
     }
 }
