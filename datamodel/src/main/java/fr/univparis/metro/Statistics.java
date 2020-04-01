@@ -111,19 +111,21 @@ public class Statistics{
   }
 
   /**
-    * Return a HashMap with all the lines of a subway plan and the time of travel between the terminus of lines
+    * Return the time average on each line
     * @param g the graph of a subway which is evaluated for statistics
     * return the HashMap of the lines and their average time of travel
     */
-
-  public static HashMap<String, Double> averageTimeOnEachLine(WGraph<Station> g){
-        HashMap<String, Double> res = new HashMap<String, Double>();
+  public static int averageTimeOnEachLine(WGraph<Station> g, HashMap<String, Double> res){
+        res.clear();
         HashMap<Pair<Station, Integer>, Pair<Station, Integer>> prev = new HashMap<Pair<Station, Integer>, Pair<Station, Integer>>();
         HashMap<Pair<Station, Integer>, Double> dist = new HashMap<Pair<Station, Integer>, Double>();
         String s = "";
-        Double d = 0.;
+        double d = 0.;
+        int nb = 0;
         for( Station st : g.getVertices()){
+          if (st.getLine().startsWith("Meta Station")) continue;
           if(!res.containsKey(st.getLine())){
+            nb++;
             s = st.getLine();
             BouarahAlgorithm.shortestPath(g, st, 0, (Station s1, Station s2) -> s1.getLine().equals(s2.getLine()) || s1.getLine().startsWith("Meta Station") || s2.getLine().startsWith("Meta Station") , prev, dist);
             for( Station tt : g.getVertices() ){
@@ -150,8 +152,38 @@ public class Statistics{
             d = 0.;
           }
         }
-        return res;
+        for( String string : res.keySet() )
+            d += res.get(string);
+        return (int)d / nb;
     }
 
-    
+    public static String shortestTimeTravelLine(WGraph<Station> g){
+      HashMap<String, Double> res = new HashMap<String, Double>();
+      int i = averageTimeOnEachLine(g, res);
+      String shortest = "";
+      Double d = Double.POSITIVE_INFINITY;
+      for(String s : res.keySet()){
+        if(res.get(s) < d){
+          d = res.get(s);
+          shortest = s;
+        }
+      }
+      return shortest;
+    }
+
+    public static String longestTimeTravelLine(WGraph<Station> g){
+      HashMap<String, Double> res = new HashMap<String, Double>();
+      int i = averageTimeOnEachLine(g, res);
+      String shortest = "";
+      Double d = 0.;
+      for(String s : res.keySet()){
+        if(res.get(s) > d){
+          d = res.get(s);
+          shortest = s;
+        }
+      }
+      return shortest;
+    }
+
+
 }

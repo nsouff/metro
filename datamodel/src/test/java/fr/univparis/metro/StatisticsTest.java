@@ -39,7 +39,7 @@ public class StatisticsTest{
     @Test
     public void averageTimeOnEachLineTest(){
       HashMap<String, Double> res = new HashMap<String, Double>();
-      res = Statistics.averageTimeOnEachLine(g);
+      int n = Statistics.averageTimeOnEachLine(g, res);
       assertEquals((Double)2160. , (Double)res.get("1"));
       assertEquals((Double)2160. , (Double)res.get("2"));
       assertEquals((Double)2160. , (Double)res.get("3"));
@@ -56,5 +56,16 @@ public class StatisticsTest{
       assertEquals((Double)2430. , (Double)res.get("12"));
       assertEquals((Double)2250. , (Double)res.get("13"));
       assertEquals((Double)720. , (Double)res.get("14"));
+      assertEquals(1985 , n);
+    }
+
+    @Test
+    public void shortestTimeTravelLineTest(){
+      assertEquals("3bis", Statistics.shortestTimeTravelLine(g));
+    }
+
+    @Test
+    public void longestTimeTravelLineTest(){
+      assertEquals("8", Statistics.longestTimeTravelLine(g));
     }
 }
