@@ -109,4 +109,41 @@ public class Statistics{
     }
     return res;
   }
+
+  public static HashMap<String, Double> averageTimeOnEachLine(WGraph<Station> g){
+        HashMap<String, Double> res = new HashMap<String, Double>();
+        HashMap<Pair<Station, Integer>, Pair<Station, Integer>> prev = new HashMap<Pair<Station, Integer>, Pair<Station, Integer>>();
+        HashMap<Pair<Station, Integer>, Double> dist = new HashMap<Pair<Station, Integer>, Double>();
+        String s = "";
+        Double d = 0.;
+        for( Station st : g.getVertices()){
+          if(!res.containsKey(st.getLine())){
+            s = st.getLine();
+            BouarahAlgorithm.shortestPath(g, st, 0, (Station s1, Station s2) -> s1.getLine().equals(s2.getLine()) || s1.getLine().startsWith("Meta Station") || s2.getLine().startsWith("Meta Station") , prev, dist);
+            for( Station tt : g.getVertices() ){
+              if(tt.getLine().equals(s)){
+                Pair<Station, Integer> p = new Pair<Station, Integer>(tt, 0);
+                if(dist.get(p) > d) d = dist.get(p);
+              }
+            }
+            res.put(s, d);
+            d = 0.;
+          }
+          else{
+            s = st.getLine();
+            d = res.get(s);
+            BouarahAlgorithm.shortestPath(g, st, 0, (Station s1, Station s2) -> s1.getLine().equals(s2.getLine()) || s1.getLine().startsWith("Meta Station") || s2.getLine().startsWith("Meta Station") , prev, dist);
+            for( Station tt : g.getVertices() ){
+              if(tt.getLine().equals(s)){
+                Pair<Station, Integer> p = new Pair<Station, Integer>(tt, 0);
+                if(dist.get(p) > d) d = dist.get(p);
+              }
+            }
+            if(res.get(s) < d)
+              res.put(s, d);
+            d = 0.;
+          }
+        }
+        return res;
+    }
 }

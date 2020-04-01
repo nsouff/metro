@@ -5,6 +5,7 @@ import java.net.*;
 import java.io.*;
 import java.io.IOException;
 import java.lang.Double;
+import java.util.HashMap;
 
 public class StatisticsTest{
     static WGraph<Station> g;
@@ -33,5 +34,27 @@ public class StatisticsTest{
     public void extremumLineTest() {
       assertEquals("3bis", Statistics.extremumLine(g, false));
       assertEquals("7", Statistics.extremumLine(g, true));
+    }
+
+    @Test
+    public void averageTimeOnEachLineTest(){
+      HashMap<String, Double> res = new HashMap<String, Double>();
+      res = Statistics.averageTimeOnEachLine(g);
+      assertEquals((Double)2160. , (Double)res.get("1"));
+      assertEquals((Double)2160. , (Double)res.get("2"));
+      assertEquals((Double)2160. , (Double)res.get("3"));
+      assertEquals((Double)270. , (Double)res.get("3bis"));
+      assertEquals((Double)2250. , (Double)res.get("4"));
+      assertEquals((Double)1890. , (Double)res.get("5"));
+      assertEquals((Double)2430. , (Double)res.get("6"));
+      assertEquals((Double)2970. , (Double)res.get("7"));
+      assertEquals((Double)630. , (Double)res.get("7bis"));
+      assertEquals((Double)3240. , (Double)res.get("8"));
+      assertEquals((Double)3240. , (Double)res.get("9"));
+      assertEquals((Double)1890. , (Double)res.get("10"));
+      assertEquals((Double)1080. , (Double)res.get("11"));
+      assertEquals((Double)2430. , (Double)res.get("12"));
+      assertEquals((Double)2250. , (Double)res.get("13"));
+      assertEquals((Double)720. , (Double)res.get("14"));
     }
 }
