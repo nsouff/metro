@@ -110,6 +110,12 @@ public class Statistics{
     return res;
   }
 
+  /**
+    * Return a HashMap with all the lines of a subway plan and the time of travel between the terminus of lines
+    * @param g the graph of a subway which is evaluated for statistics
+    * return the HashMap of the lines and their average time of travel
+    */
+
   public static HashMap<String, Double> averageTimeOnEachLine(WGraph<Station> g){
         HashMap<String, Double> res = new HashMap<String, Double>();
         HashMap<Pair<Station, Integer>, Pair<Station, Integer>> prev = new HashMap<Pair<Station, Integer>, Pair<Station, Integer>>();
@@ -146,4 +152,6 @@ public class Statistics{
         }
         return res;
     }
+
+    
 }
