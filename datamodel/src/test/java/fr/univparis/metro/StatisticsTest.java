@@ -2,6 +2,7 @@ package fr.univparis.metro;
 import org.junit.*;
 import static org.junit.Assert.*;
 import java.net.*;
+import java.beans.Transient;
 import java.io.*;
 import java.io.IOException;
 import java.lang.Double;
@@ -33,5 +34,10 @@ public class StatisticsTest{
     public void extremumLineTest() {
       assertEquals("3bis", Statistics.extremumLine(g, false));
       assertEquals("7", Statistics.extremumLine(g, true));
+    }
+
+    @Test
+    public void averageNbOfStationPerLine(){
+      assertEquals(23, Statistics.averageNbOfStationPerLine(g));
     }
 }
