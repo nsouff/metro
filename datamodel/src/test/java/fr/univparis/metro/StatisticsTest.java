@@ -44,17 +44,6 @@ public class StatisticsTest{
       assertEquals((Double)2160. , (Double)res.get("2"));
       assertEquals((Double)2160. , (Double)res.get("3"));
       assertEquals((Double)270. , (Double)res.get("3bis"));
-      assertEquals((Double)2250. , (Double)res.get("4"));
-      assertEquals((Double)1890. , (Double)res.get("5"));
-      assertEquals((Double)2430. , (Double)res.get("6"));
-      assertEquals((Double)2970. , (Double)res.get("7"));
-      assertEquals((Double)630. , (Double)res.get("7bis"));
-      assertEquals((Double)3240. , (Double)res.get("8"));
-      assertEquals((Double)3240. , (Double)res.get("9"));
-      assertEquals((Double)1890. , (Double)res.get("10"));
-      assertEquals((Double)1080. , (Double)res.get("11"));
-      assertEquals((Double)2430. , (Double)res.get("12"));
-      assertEquals((Double)2250. , (Double)res.get("13"));
       assertEquals((Double)720. , (Double)res.get("14"));
       assertEquals(1985 , n);
     }
