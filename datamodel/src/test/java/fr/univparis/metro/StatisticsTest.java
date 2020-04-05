@@ -2,6 +2,7 @@ package fr.univparis.metro;
 import org.junit.*;
 import static org.junit.Assert.*;
 import java.net.*;
+import java.beans.Transient;
 import java.io.*;
 import java.io.IOException;
 import java.lang.Double;
@@ -56,5 +57,10 @@ public class StatisticsTest{
     @Test
     public void longestTimeTravelLineTest(){
       assertEquals("8", Statistics.longestTimeTravelLine(g));
+    }
+    
+    public void averageNbOfStationPerLine(){
+      assertEquals(23, Statistics.averageNbOfStationPerLine(g));
+
     }
 }

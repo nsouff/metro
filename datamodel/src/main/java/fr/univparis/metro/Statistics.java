@@ -186,4 +186,14 @@ public class Statistics{
     }
 
 
+  public static int averageNbOfStationPerLine(WGraph<Station> g){
+    HashMap<String, MatriceWGraph> h = MatriceWGraph.initializeAllLineGraphs(g);
+    int nbStation = 0;
+    int nbLine = 0;
+    for(String stationName : h.keySet()){
+      nbLine++;
+      nbStation += h.get(stationName).getDirect().length;
+    }
+    return (int) nbStation/nbLine;
+  }
 }
