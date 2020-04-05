@@ -36,7 +36,7 @@ public class GraphExporterTest {
 	}
 	return result;
     }
-    
+
     @Test
     public void exportToDOTTest() throws IOException {
 	WGraph<Station> graph = new WGraph<Station>();
@@ -44,14 +44,14 @@ public class GraphExporterTest {
 	URL url = this.getClass().getResource("/liste.txt");
 	File f = new File(url.getFile());
 	graph = Parser.loadFrom(f);
-	
+
 	try {
 	    File out = new File("./graph.dot");
 	    GraphExporter.exportToDOT(graph, out, Station::toString);
 
 	    String actual = getMD5Checksum(out);
-	    assertEquals("28d9e404a1b95d03c415b90be2180355", actual);
-	    
+	    assertEquals("941357386a179ecae3a67d5b9153a61e", actual);
+
 	    out.delete();
 	} catch(Exception e) {
 	    e.printStackTrace();

@@ -37,7 +37,7 @@ public class Dijkstra {
 
       while (!priQueue.isEmpty()){
         T u = priQueue.poll();
-        List<T> v = g.neighbors(u);
+        Set<T> v = g.neighbors(u);
         Double d;
         for (T st : v) {
           d = dist.get(u) + g.weight(u, st);
