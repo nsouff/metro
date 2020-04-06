@@ -43,6 +43,27 @@ public class TraficsTest {
 
 
   @Test
+  public void lineSlowDownTest() {
+    WGraph<Station> g = Trafics.getGraph("Paris");
+    Station b = new Station("Bastille", "1");
+    Station gdl = new Station("Gare de Lyon", "1");
+    Trafics.addPertubation("Paris", Trafics.Perturbation.LINE_SLOW_DOWN, "Line 1 slow down", new Pair<String, Double>("1", 2.0));
+    assertEquals(180.0, g.weight(b, gdl), 0.0);
+    assertEquals(180.0, g.weight(gdl, b), 0.0);
+    assertEquals(0.0, g.weight(b, new Station("Bastille", "Meta Station End")), 0.0);
+    assertEquals(60.0, g.weight(b, new Station("Bastille", "5")), 0.0);
+
+    Trafics.revertPertubation("Paris", Trafics.Perturbation.LINE_SLOW_DOWN, "Line 1 slow down");
+    assertEquals(90.0, g.weight(b, gdl), 0.0);
+    assertEquals(90.0, g.weight(gdl, b), 0.0);
+    assertEquals(0.0, g.weight(b, new Station("Bastille", "Meta Station End")), 0.0);
+    assertEquals(60.0, g.weight(b, new Station("Bastille", "5")), 0.0);
+
+
+  }
+
+
+  @Test
   public void entireStationShutDownTest() {
     WGraph<Station> g = Trafics.getGraph("Paris");
     Trafics.addPertubation("Paris", Trafics.Perturbation.ENTIRE_STATION_SHUT_DOWN, "Bastille shutdown", "Bastille");
@@ -67,7 +88,6 @@ public class TraficsTest {
       assertEquals(0.0, g.weight(new Station("Bastille", "Meta Station Start"), new Station("Bastille", line)), 0.0);
     }
 
-
   }
 
   @Test
@@ -76,7 +96,5 @@ public class TraficsTest {
     assertEquals(Double.POSITIVE_INFINITY, Trafics.getGraph("Paris").weight(new Station("Bastille", "1"), new Station("Gare de Lyon", "1")), 0.0);
     Trafics.revertPertubation("Paris", Trafics.Perturbation.LINE_SHUTDOWN, "Line 1 shutdown");
     assertEquals(90.0, Trafics.getGraph("Paris").weight(new Station("Bastille", "1"), new Station("Gare de Lyon", "1")), 0.0);
-
-
   }
 }

@@ -52,6 +52,10 @@ public class Trafics {
         revert = lineShutdown(trafics.get(city), (String) parameter);
         break;
       case LINE_SLOW_DOWN:
+        if (! (parameter instanceof Pair<?, ?>)) throw new IllegalArgumentException();
+        Pair<?,?> p = (Pair<?,?>) parameter;
+        if (! (p.getObj() instanceof String || ! (p.getValue() instanceof Double) )) throw new IllegalArgumentException();
+        revert = lineSlowDown(trafics.get(city), (String) p.getObj(), (Double) p.getValue());
         break;
       case ENTIRE_STATION_SHUT_DOWN:
         if (! (parameter instanceof String)) throw new IllegalArgumentException();
@@ -78,8 +82,8 @@ public class Trafics {
 
   /**
   * Modify the graph g so that we can't take a line
-  * @param g is the graph we want to modify
-  * @param line is the line we want to shutdown
+  * @param g the graph we want to modify
+  * @param line the line we want to shutdown
   * @return a WGraph that we can use to revert this perturbation
   */
   public static WGraph<Station> lineShutdown(WGraph<Station> g, String line) {
@@ -97,6 +101,35 @@ public class Trafics {
     return revert;
   }
 
+ /**
+  * Modify the time between stations in a graph
+  * @param g the graph we want to modify
+  * @param line the line affected by the perturbation
+  * @param times the time between every station of the line will be multipclated by it
+  * @return a WGraph that can be use to revert this perturbation
+  */
+  public static WGraph<Station> lineSlowDown(WGraph<Station> g, String line, double times) {
+    WGraph<Station> revert = new WGraph<Station>();
+    for (Station s : g.getVertices()) {
+      if (! s.getLine().equals(line)) continue;
+      if (! revert.containsVertex(s)) revert.addVertex(s);
+      for (Station n : g.neighbors(s)) {
+        if (! n.getLine().equals(line)) continue;
+        if (! revert.containsVertex(n)) revert.addVertex(n);
+        revert.addEdge(s, n, g.weight(s, n));
+        g.setWeight(s, n, g.weight(s, n) * times);
+      }
+    }
+    return revert;
+  }
+
+  /**
+  * Modify the graph g so that we stop or start by a station
+  * Passing over the station will still be possible
+  * @param g the graph we want to modify
+  * @param station the station we want to shutdown
+  * @return a WGraph that we can use to revert this perturbation
+  */
   public static WGraph<Station> entireStationShutDown(WGraph<Station> g, String station) {
     WGraph<Station> revert = new WGraph<Station>();
     for (Station s : g.getVertices()) {
@@ -105,7 +138,6 @@ public class Trafics {
       for (Station n : g.neighbors(s)) {
         if (! n.getName().equals(station)) continue; // The line must be able to pass by the station
         if (! revert.containsVertex(n)) revert.addVertex(n);
-        System.out.println(g.weight(s, n));
         revert.addEdge(s, n, g.weight(s, n));
         g.setWeight(s, n, Double.POSITIVE_INFINITY);
       }
