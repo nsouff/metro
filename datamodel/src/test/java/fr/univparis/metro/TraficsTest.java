@@ -20,7 +20,7 @@ public class TraficsTest {
   public void lineShutdownTest() {
     WGraph<Station> g = Trafics.getGraph("Paris");
     WGraph<Station> revert;
-    revert = Trafics.lineShutdown(g, "1");
+    revert = Trafics.lineShutdown("Paris", "1");
     Station b = new Station("Bastille", "1");
     Station gdl = new Station("Gare de Lyon", "1");
     assertEquals(Double.POSITIVE_INFINITY, g.weight(b, gdl), 0.0);

@@ -14,22 +14,27 @@ public class Trafics {
     PART_STATION_SHUT_DOWN;
   }
 
-  private static HashMap< String , WGraph<Station> > trafics;
+  private static HashMap< String , WGraph<Station> > actualTrafics;
+  private static HashMap< String , WGraph<Station> > initialTrafics;
   private static HashMap<String , HashMap< Pair<Perturbation, String> , WGraph<Station>>> reverts;
 
   public static WGraph<Station> getGraph(String city) {
-    return trafics.get(city);
+    return actualTrafics.get(city);
   }
 
   public static Set<Pair<Perturbation, String>> getPertubation(String city) {return reverts.get(city).keySet();}
 
-  public static Set<String> getCities() {return trafics.keySet();}
+  public static Set<String> getCities() {return actualTrafics.keySet();}
 
   public static void initTrafics() throws IOException {
-    trafics = new HashMap< String , WGraph<Station> > ();
+    /* FIXME: we are parsing twice every file, cloning might be quicker at runtime */
+    actualTrafics = new HashMap< String , WGraph<Station> > ();
+    initialTrafics = new HashMap< String , WGraph<Station> > ();
+
     reverts = new HashMap<String , HashMap< Pair<Perturbation, String> , WGraph<Station>>> ();
     for (String city : Configuration.getCitiesName()) {
-      trafics.put(city, Parser.loadFrom(new File(Configuration.getFileName(city))));
+      actualTrafics.put(city, Parser.loadFrom(new File(Configuration.getFileName(city))));
+      initialTrafics.put(city, Parser.loadFrom(new File(Configuration.getFileName(city))));
       reverts.put(city, new HashMap<Pair<Perturbation, String>, WGraph<Station>>());
     }
   }
@@ -44,26 +49,26 @@ public class Trafics {
   * @param parameter is the paramerer of the pertubation (for example the name of the line not working)
   */
   public static void addPertubation(String city, Perturbation type, String name, Object parameter) {
-    if (! trafics.containsKey(city)) throw new IllegalArgumentException();
+    if (! actualTrafics.containsKey(city)) throw new IllegalArgumentException();
     WGraph<Station> revert = null;
     switch (type) {
       case LINE_SHUTDOWN:
         if (! ( parameter instanceof String)) throw new IllegalArgumentException();
-        revert = lineShutdown(trafics.get(city), (String) parameter);
+        revert = lineShutdown(city, (String) parameter);
         break;
       case LINE_SLOW_DOWN:
         if (! (parameter instanceof Pair<?, ?>)) throw new IllegalArgumentException();
         Pair<?,?> p = (Pair<?,?>) parameter;
         if (! (p.getObj() instanceof String || ! (p.getValue() instanceof Double) )) throw new IllegalArgumentException();
-        revert = lineSlowDown(trafics.get(city), (String) p.getObj(), (Double) p.getValue());
+        revert = lineSlowDown(city, (String) p.getObj(), (Double) p.getValue());
         break;
       case ENTIRE_STATION_SHUT_DOWN:
         if (! (parameter instanceof String)) throw new IllegalArgumentException();
-        revert = entireStationShutDown(trafics.get(city), (String) parameter);
+        revert = entireStationShutDown(city, (String) parameter);
         break;
       case PART_STATION_SHUT_DOWN:
         if (! (parameter instanceof Station)) throw new IllegalArgumentException();
-        revert = partOfStationShutDown(trafics.get(city), (Station) parameter);
+        revert = partOfStationShutDown(city, (Station) parameter);
         break;
     }
     if (revert != null) reverts.get(city).put(new Pair<Perturbation, String>(type, name), revert);
@@ -78,26 +83,28 @@ public class Trafics {
   public static void revertPertubation(String city, Perturbation type, String name) {
     Pair<Perturbation, String> p = new Pair<Perturbation, String>(type, name);
     if (! reverts.containsKey(city) || !reverts.get(city).containsKey(p)) return;
-    trafics.get(city).apply(reverts.get(city).get(p));
+    actualTrafics.get(city).apply(reverts.get(city).get(p));
   }
 
 
   /**
   * Modify the graph g so that we can't take a line
-  * @param g the graph we want to modify
+  * @param city the city in which we want to modify trafics
   * @param line the line we want to shutdown
   * @return a WGraph that we can use to revert this perturbation
   */
-  public static WGraph<Station> lineShutdown(WGraph<Station> g, String line) {
+  public static WGraph<Station> lineShutdown(String city, String line) {
+    WGraph<Station> actualG = actualTrafics.get(city);
+    WGraph<Station> initialG = initialTrafics.get(city);
     WGraph<Station> revert = new WGraph<Station>();
-    for (Station s : g.getVertices()) {
+    for (Station s : actualG.getVertices()) {
       if (! s.getLine().equals(line)) continue;
       if (! revert.containsVertex(s)) revert.addVertex(s);
-      for (Station n : g.neighbors(s)) {
+      for (Station n : actualG.neighbors(s)) {
         if (! n.getLine().equals(line)) continue;
         if (! revert.containsVertex(n)) revert.addVertex(n);
-        revert.addEdge(s, n, g.weight(s, n));
-        g.setWeight(s, n, Double.POSITIVE_INFINITY);
+        revert.addEdge(s, n, initialG.weight(s, n));
+        actualG.setWeight(s, n, Double.POSITIVE_INFINITY);
       }
     }
     return revert;
@@ -105,21 +112,23 @@ public class Trafics {
 
  /**
   * Modify the time between stations in a graph
-  * @param g the graph we want to modify
+  * @param city the city in which we want to modify trafics
   * @param line the line affected by the perturbation
   * @param times the time between every station of the line will be multipclated by it
   * @return a WGraph that can be use to revert this perturbation
   */
-  public static WGraph<Station> lineSlowDown(WGraph<Station> g, String line, double times) {
+  public static WGraph<Station> lineSlowDown(String city, String line, double times) {
+    WGraph<Station> actualG = actualTrafics.get(city);
+    WGraph<Station> initialG = initialTrafics.get(city);
     WGraph<Station> revert = new WGraph<Station>();
-    for (Station s : g.getVertices()) {
+    for (Station s : actualG.getVertices()) {
       if (! s.getLine().equals(line)) continue;
       if (! revert.containsVertex(s)) revert.addVertex(s);
-      for (Station n : g.neighbors(s)) {
+      for (Station n : actualG.neighbors(s)) {
         if (! n.getLine().equals(line)) continue;
         if (! revert.containsVertex(n)) revert.addVertex(n);
-        revert.addEdge(s, n, g.weight(s, n));
-        g.setWeight(s, n, g.weight(s, n) * times);
+        revert.addEdge(s, n, initialG.weight(s, n));
+        actualG.setWeight(s, n, initialG.weight(s, n) * times);
       }
     }
     return revert;
@@ -128,20 +137,22 @@ public class Trafics {
   /**
   * Modify the graph g so that we can't stop or start by a station
   * Passing over the station will still be possible
-  * @param g the graph we want to modify
+  * @param city the city in which we want to modify trafics
   * @param station the station we want to shutdown
   * @return a WGraph that we can use to revert this perturbation
   */
-  public static WGraph<Station> entireStationShutDown(WGraph<Station> g, String station) {
+  public static WGraph<Station> entireStationShutDown(String city, String station) {
+    WGraph<Station> actualG = actualTrafics.get(city);
+    WGraph<Station> initialG = initialTrafics.get(city);
     WGraph<Station> revert = new WGraph<Station>();
-    for (Station s : g.getVertices()) {
+    for (Station s : actualG.getVertices()) {
       if (! s.getName().equals(station)) continue;
       if (! revert.containsVertex(s)) revert.addVertex(s);
-      for (Station n : g.neighbors(s)) {
+      for (Station n : actualG.neighbors(s)) {
         if (! n.getName().equals(station)) continue; // The line must be able to pass by the station
         if (! revert.containsVertex(n)) revert.addVertex(n);
-        revert.addEdge(s, n, g.weight(s, n));
-        g.setWeight(s, n, Double.POSITIVE_INFINITY);
+        revert.addEdge(s, n, initialG.weight(s, n));
+        actualG.setWeight(s, n, Double.POSITIVE_INFINITY);
       }
     }
     return revert;
@@ -149,25 +160,27 @@ public class Trafics {
 
  /**
   * Modify the graph g so that we can't take one line of a station
-  * @param g the graph we want to modify
+  * @param city the city in which we want to modify trafics
   * @param st the station (name and line) we can't stop by
   * @return a WGraph that we can use to revert this perturbation
   */
-  public static WGraph<Station> partOfStationShutDown(WGraph<Station> g, Station st) {
+  public static WGraph<Station> partOfStationShutDown(String city, Station st) {
+    WGraph<Station> actualG = actualTrafics.get(city);
+    WGraph<Station> initialG = initialTrafics.get(city);
     WGraph<Station> revert = new WGraph<Station>();
-    for (Station s :g.getVertices()) {
+    for (Station s :actualG.getVertices()) {
       if (! s.getName().equals(st.getName())) continue;
-      if (g.neighbors(s).contains(st)) {
+      if (actualG.neighbors(s).contains(st)) {
         if (! revert.containsVertex(s)) revert.addVertex(s);
-        revert.addEdge(s, st, g.weight(s, st));
-        g.setWeight(s, st, Double.POSITIVE_INFINITY);
+        revert.addEdge(s, st, initialG.weight(s, st));
+        actualG.setWeight(s, st, Double.POSITIVE_INFINITY);
       }
     }
-    for (Station n : g.neighbors(st)) {
+    for (Station n : actualG.neighbors(st)) {
       if (n.getLine().equals(st.getLine())) continue;
       if (! revert.containsVertex(n)) revert.addVertex(n);
-      revert.addEdge(st, n, g.weight(st, n));
-      g.setWeight(st, n, Double.POSITIVE_INFINITY);
+      revert.addEdge(st, n, initialG.weight(st, n));
+      actualG.setWeight(st, n, Double.POSITIVE_INFINITY);
     }
     return revert;
   }
