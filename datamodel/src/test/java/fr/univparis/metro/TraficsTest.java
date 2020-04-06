@@ -91,6 +91,20 @@ public class TraficsTest {
   }
 
   @Test
+  public void partOfStationShutDownTest() {
+    WGraph<Station> g = Trafics.getGraph("Paris");
+    Station b = new Station("Bastille", "1");
+    Trafics.addPertubation("Paris", Trafics.Perturbation.PART_STATION_SHUT_DOWN, "Bastille 1 shutdown", b);
+    assertEquals(Double.POSITIVE_INFINITY, g.weight(new Station("Bastille", "Meta Station Start"), b), 0.0);
+    assertEquals(Double.POSITIVE_INFINITY, g.weight(b, new Station("Bastille", "Meta Station End")), 0.0);
+    assertEquals(Double.POSITIVE_INFINITY, g.weight(b, new Station("Bastille", "5")), 0.0);
+    assertEquals(Double.POSITIVE_INFINITY, g.weight(new Station("Bastille", "5"), b), 0.0);
+    assertEquals(90.0, g.weight(new Station("Gare de Lyon", "1"), b), 0.0);
+    assertEquals(90.0, g.weight(b, new Station("Gare de Lyon", "1")), 0.0);
+    
+  }
+
+  @Test
   public void addAndRevertPertubationTest() {
     Trafics.addPertubation("Paris", Trafics.Perturbation.LINE_SHUTDOWN, "Line 1 shutdown", "1");
     assertEquals(Double.POSITIVE_INFINITY, Trafics.getGraph("Paris").weight(new Station("Bastille", "1"), new Station("Gare de Lyon", "1")), 0.0);

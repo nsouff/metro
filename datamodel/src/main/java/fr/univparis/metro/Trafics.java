@@ -62,6 +62,8 @@ public class Trafics {
         revert = entireStationShutDown(trafics.get(city), (String) parameter);
         break;
       case PART_STATION_SHUT_DOWN:
+        if (! (parameter instanceof Station)) throw new IllegalArgumentException();
+        revert = partOfStationShutDown(trafics.get(city), (Station) parameter);
         break;
     }
     if (revert != null) reverts.get(city).put(new Pair<Perturbation, String>(type, name), revert);
@@ -124,7 +126,7 @@ public class Trafics {
   }
 
   /**
-  * Modify the graph g so that we stop or start by a station
+  * Modify the graph g so that we can't stop or start by a station
   * Passing over the station will still be possible
   * @param g the graph we want to modify
   * @param station the station we want to shutdown
@@ -141,6 +143,31 @@ public class Trafics {
         revert.addEdge(s, n, g.weight(s, n));
         g.setWeight(s, n, Double.POSITIVE_INFINITY);
       }
+    }
+    return revert;
+  }
+
+ /**
+  * Modify the graph g so that we can't take one line of a station
+  * @param g the graph we want to modify
+  * @param st the station (name and line) we can't stop by
+  * @return a WGraph that we can use to revert this perturbation
+  */
+  public static WGraph<Station> partOfStationShutDown(WGraph<Station> g, Station st) {
+    WGraph<Station> revert = new WGraph<Station>();
+    for (Station s :g.getVertices()) {
+      if (! s.getName().equals(st.getName())) continue;
+      if (g.neighbors(s).contains(st)) {
+        if (! revert.containsVertex(s)) revert.addVertex(s);
+        revert.addEdge(s, st, g.weight(s, st));
+        g.setWeight(s, st, Double.POSITIVE_INFINITY);
+      }
+    }
+    for (Station n : g.neighbors(st)) {
+      if (n.getLine().equals(st.getLine())) continue;
+      if (! revert.containsVertex(n)) revert.addVertex(n);
+      revert.addEdge(st, n, g.weight(st, n));
+      g.setWeight(st, n, Double.POSITIVE_INFINITY);
     }
     return revert;
   }
