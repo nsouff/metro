@@ -83,9 +83,7 @@ public class WGraph<T>{
   */
   public boolean addEdge(T s, T p, Double weight){
     if (s.equals(p)) return false;
-    if(this.wGraph.containsKey(s) &&
-    this.wGraph.containsKey(p)
-    && this.weight(s, p).equals(Double.NaN)) {
+    if(this.wGraph.containsKey(s) && this.wGraph.containsKey(p) && this.weight(s, p).equals(Double.NaN)) {
       this.wGraph.get(s).put(p, weight);
       return true;
     }
@@ -157,7 +155,7 @@ public class WGraph<T>{
 
   public void setWeight(T s, T p, Double weight) {
     if (! wGraph.get(s).containsKey(p)) return;
-
+    this.wGraph.get(s).put(p, weight);
   }
 
  /**
@@ -165,7 +163,7 @@ public class WGraph<T>{
   * Previous weight will be overwritten
   * @param g the graph containing all the modification that we want to apply to the isntance graph
   */
-  public void apply(final WGraph<T> g) {
+  public void apply( WGraph<T> g) {
     for (T t : g.getVertices()) {
       if (! this.containsVertex(t)) this.addVertex(t);
       for (T n : g.neighbors(t)) {

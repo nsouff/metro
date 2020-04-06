@@ -122,6 +122,11 @@ public class WGraphTest{
     assertEquals(10.0, g.weight("Ourcq", "Porte de Pantin"), 0.0);
     assertEquals(5.0, g.weight("Porte de Pantin", "Bastille"), 0.0);
 
+    // other not modified test
+    assertEquals(3, other.nbVertex());
+    assertEquals(21.0, other.weight("Bastille", "Ourcq"), 0.0);
+    assertEquals(5.0, other.weight("Porte de Pantin", "Bastille"), 0.0);
+    assertEquals(10.0, other.weight("Ourcq", "Porte de Pantin"), 0.0);
   }
 
 }
