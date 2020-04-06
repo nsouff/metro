@@ -101,7 +101,9 @@ public class TraficsTest {
     assertEquals(Double.POSITIVE_INFINITY, g.weight(new Station("Bastille", "5"), b), 0.0);
     assertEquals(90.0, g.weight(new Station("Gare de Lyon", "1"), b), 0.0);
     assertEquals(90.0, g.weight(b, new Station("Gare de Lyon", "1")), 0.0);
-    
+
+    Trafics.revertPertubation("Paris", Trafics.Perturbation.PART_STATION_SHUT_DOWN, "Bastille 1 shutdown");
+
   }
 
   @Test
