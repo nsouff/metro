@@ -26,5 +26,8 @@
       <input type="radio" name="type" value="shortest" required id="shortest"> <label for="shortest">Shortest</label><br>
       <input type="submit">
     </form>
+
+    <h2>Current perturbation</h2>
+    <a href="perturbation"></a>
   </body>
 </html>

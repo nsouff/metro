@@ -1,25 +1,26 @@
 package fr.univparis.metro;
 
 
+import java.util.HashMap;
+import java.io.IOException;
 import java.io.File;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.BeforeClass;;
 
 public class TraficsTest {
-  static WGraph<Station> g;
 
   @BeforeClass
-  public static void initTest() {
+  public static void initTest() throws IOException {
     Configuration.loadFrom(new File(Trafics.class.getResource("/cities.json").getFile()));
     Trafics.initTrafics();
   }
 
   @Test
-  public void shutdownLineTest() {
+  public void lineShutdownTest() {
     WGraph<Station> g = Trafics.getGraph("Paris");
     WGraph<Station> revert;
-    revert = Trafics.shutdownLine(g, "1");
+    revert = Trafics.lineShutdown(g, "1");
     Station b = new Station("Bastille", "1");
     Station gdl = new Station("Gare de Lyon", "1");
     assertEquals(Double.POSITIVE_INFINITY, g.weight(b, gdl), 0.0);
@@ -37,6 +38,35 @@ public class TraficsTest {
     g.apply(revert);
     assertEquals(90.0, g.weight(b, gdl), 0.0);
     assertEquals(90.0, g.weight(gdl, b), 0.0);
+
+  }
+
+
+  @Test
+  public void entireStationShutDownTest() {
+    WGraph<Station> g = Trafics.getGraph("Paris");
+    Trafics.addPertubation("Paris", Trafics.Perturbation.ENTIRE_STATION_SHUT_DOWN, "Bastille shutdown", "Bastille");
+    assertEquals(Double.POSITIVE_INFINITY, g.weight(new Station("Bastille", "5"), new Station("Bastille", "1")), 0.0);
+    String[] lines = {"1", "5", "8"};
+    for (String line : lines) {
+      assertEquals(Double.POSITIVE_INFINITY, g.weight(new Station("Bastille", line), new Station("Bastille", "Meta Station End")), 0.0);
+      assertEquals(Double.POSITIVE_INFINITY, g.weight(new Station("Bastille", "Meta Station Start"), new Station("Bastille", line)), 0.0);
+    }
+    // Still able to pass by the station Test:
+    HashMap<Station, Double> dist = new HashMap<Station, Double>();
+    HashMap<Station, Station> prev = new HashMap<Station, Station>();
+    Dijkstra.shortestPath(g, new Station("Gare de Lyon", "1"), prev, dist);
+    assertEquals(180.0, dist.get(new Station("Saint-Paul", "1")), 0.0);
+    Dijkstra.shortestPath(g, new Station("Saint-Paul", "1"), prev, dist);
+    assertEquals(180.0, dist.get(new Station("Gare de Lyon", "1")), 0.0);
+
+    Trafics.revertPertubation("Paris", Trafics.Perturbation.ENTIRE_STATION_SHUT_DOWN, "Bastille shutdown");
+    assertEquals(60.0, g.weight(new Station("Bastille", "5"), new Station("Bastille", "1")), 0.0);
+    for (String line : lines) {
+      assertEquals(0.0, g.weight(new Station("Bastille", line), new Station("Bastille", "Meta Station End")), 0.0);
+      assertEquals(0.0, g.weight(new Station("Bastille", "Meta Station Start"), new Station("Bastille", line)), 0.0);
+    }
+
 
   }
 

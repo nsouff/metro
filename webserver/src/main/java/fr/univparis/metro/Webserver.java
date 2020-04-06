@@ -1,4 +1,5 @@
 package fr.univparis.metro;
+import java.io.IOException;
 import java.io.File;
 import io.javalin.plugin.rendering.template.TemplateUtil;
 import io.javalin.*;
@@ -6,7 +7,7 @@ import java.util.HashMap;
 
 
 public class Webserver {
-  public static void main(String[] args) {
+  public static void main(String[] args) throws IOException {
     Trafics.initTrafics();
     Configuration.loadFrom(new File("src/main/resources/cities.json"));
     Javalin app = launch();
