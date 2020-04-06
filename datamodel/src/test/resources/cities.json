@@ -2,7 +2,7 @@
     "cities" : [
         {
             "city" : "Paris",
-            "metroPlan" : "liste.txt"
+            "metroPlan" : "src/main/resources/liste.txt"
         },
 	{
 		"city" : "Marseille",
@@ -26,7 +26,7 @@
 	},
 	{
 		"city" : "Orly",
-		"metroPlan" : "src/main/resources/OrlyVal.txt"
+		"metroPlan" : "src/main/resources/Orlyval.txt"
 	},
 	{
 		"city" : "CDG Airport",

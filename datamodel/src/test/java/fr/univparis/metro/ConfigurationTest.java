@@ -12,6 +12,6 @@ public class ConfigurationTest{
         URL url = this.getClass().getResource("/cities.json");
         File input = new File(url.getFile());
         Configuration.loadFrom(input);
-        assertEquals("liste.txt", Configuration.getFileName("Paris"));
+        assertEquals("src/main/resources/liste.txt", Configuration.getFileName("Paris"));
     }
 }
