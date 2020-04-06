@@ -102,4 +102,26 @@ public class WGraphTest{
     assertEquals(2, g.nbVertex(t -> t.startsWith("O")));
   }
 
+  @Test
+  public void applyTest() {
+    WGraph<String> other = new WGraph<String>();
+    other.addVertex("Bastille");
+    other.addVertex("Ourcq");
+    other.addVertex("Porte de Pantin");
+    other.addEdge("Bastille", "Ourcq", 21.0);
+    other.addEdge("Porte de Pantin", "Bastille", 5.0);
+    other.addEdge("Ourcq", "Porte de Pantin", 10.0);
+
+    g.apply(other);
+    assertTrue(g.containsVertex("Bastille"));
+    assertEquals(21.0, g.weight("Bastille", "Ourcq"), 0.0);
+    assertEquals(Double.NaN, g.weight("Ourcq", "Bastille"), 0.0);
+    assertEquals(60.0, g.weight("Porte de Pantin", "Ourcq"), 0.0);
+    assertEquals(10.0, g.weight("Ourcq", "Porte de Pantin"), 0.0);
+    assertEquals(1, g.neighbors("Bastille").size());
+    assertEquals(10.0, g.weight("Ourcq", "Porte de Pantin"), 0.0);
+    assertEquals(5.0, g.weight("Porte de Pantin", "Bastille"), 0.0);
+
+  }
+
 }

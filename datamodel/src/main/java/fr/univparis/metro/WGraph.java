@@ -155,4 +155,25 @@ public class WGraph<T>{
   }
 
 
+  public void setWeight(T s, T p, Double weight) {
+    if (! wGraph.get(s).containsKey(p)) return;
+
+  }
+
+ /**
+  * Add or modify the vertices that are in g into the instance object
+  * Previous weight will be overwritten
+  * @param g the graph containing all the modification that we want to apply to the isntance graph
+  */
+  public void apply(final WGraph<T> g) {
+    for (T t : g.getVertices()) {
+      if (! this.containsVertex(t)) this.addVertex(t);
+      for (T n : g.neighbors(t)) {
+        if (! this.containsVertex(n)) this.addVertex(n);
+        this.wGraph.get(t).put(n, g.weight(t, n));
+      }
+    }
+  }
+
+
 }
