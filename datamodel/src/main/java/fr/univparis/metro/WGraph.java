@@ -150,7 +150,7 @@ public class WGraph<T>{
     return res;
   }
 
-  public boolean containsKey(T s){
+  public boolean containsVertex(T s){
     return wGraph.containsKey(s);
   }
 

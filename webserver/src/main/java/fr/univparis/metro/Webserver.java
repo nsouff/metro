@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 public class Webserver {
   public static void main(String[] args) {
+    Trafics.initTrafics();
     Configuration.loadFrom(new File("src/main/resources/cities.json"));
     Javalin app = launch();
     installIndex(app);

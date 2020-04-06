@@ -46,18 +46,18 @@ public class WGraphTest{
 
   @Test
   public void addVertexTest(){
-    assertEquals(true, g.containsKey("Ourcq"));
-    assertEquals(true, g.containsKey("Laumière")&& g.containsKey("Porte de Pantin"));
-    assertEquals(true, g.containsKey("Jaures"));
+    assertEquals(true, g.containsVertex("Ourcq"));
+    assertEquals(true, g.containsVertex("Laumière")&& g.containsVertex("Porte de Pantin"));
+    assertEquals(true, g.containsVertex("Jaures"));
 
-    assertEquals(false, g.containsKey("Gare du Nord"));
+    assertEquals(false, g.containsVertex("Gare du Nord"));
   }
 
   @Test
   public void deleteVertexTest() {
     g.deleteVertex("Jaures");
 
-    assertFalse(g.containsKey("Jaures"));
+    assertFalse(g.containsVertex("Jaures"));
     assertEquals(Double.NaN, g.weight("Laumière", "Jaures"), 0.0);
   }
 
