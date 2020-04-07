@@ -5,7 +5,7 @@ import io.javalin.plugin.rendering.template.TemplateUtil;
 import io.javalin.*;
 import java.util.HashMap;
 import java.util.Set;
-
+import java.util.List;
 
 public class Webserver {
   public static void main(String[] args) throws IOException {
@@ -17,6 +17,7 @@ public class Webserver {
     installToCity(app);
     InstallItinerary(app);
     installAddPerturbation(app);
+    installRemovePerturbation(app);
   }
 
 
@@ -104,6 +105,14 @@ public class Webserver {
   }
 
   public static void installRemovePerturbation(Javalin app) {
+    app.post("/:city/removePerturbation", ctx -> {
+      String city = ctx.pathParam("city");
+      List<String> l = ctx.formParams("removePerturbation");
+      for (String s : l) {
+        Trafics.revertPerturbation(city, s);
+      }
+      ctx.redirect("/" + city);
+    });
   }
 
 

@@ -16,13 +16,13 @@ public class Trafics {
 
   private static HashMap< String , WGraph<Station> > actualTrafics;
   private static HashMap< String , WGraph<Station> > initialTrafics;
-  private static HashMap<String , HashMap< Pair<Perturbation, String> , WGraph<Station>>> reverts;
+  private static HashMap<String , HashMap<String , WGraph<Station>>> reverts;
 
   public static WGraph<Station> getGraph(String city) {
     return actualTrafics.get(city);
   }
 
-  public static Set<Pair<Perturbation, String>> getPerturbation(String city) {return reverts.get(city).keySet();}
+  public static Set<String> getPerturbation(String city) {return reverts.get(city).keySet();}
 
   public static Set<String> getCities() {return actualTrafics.keySet();}
 
@@ -31,11 +31,11 @@ public class Trafics {
     actualTrafics = new HashMap< String , WGraph<Station> > ();
     initialTrafics = new HashMap< String , WGraph<Station> > ();
 
-    reverts = new HashMap<String , HashMap< Pair<Perturbation, String> , WGraph<Station>>> ();
+    reverts = new HashMap<String , HashMap<String , WGraph<Station>>> ();
     for (String city : Configuration.getCitiesName()) {
       actualTrafics.put(city, Parser.loadFrom(new File(Configuration.getFileName(city))));
       initialTrafics.put(city, Parser.loadFrom(new File(Configuration.getFileName(city))));
-      reverts.put(city, new HashMap<Pair<Perturbation, String>, WGraph<Station>>());
+      reverts.put(city, new HashMap<String, WGraph<Station>>());
     }
   }
 
@@ -71,7 +71,7 @@ public class Trafics {
         revert = partOfStationShutDown(city, (Station) parameter);
         break;
     }
-    if (revert != null) reverts.get(city).put(new Pair<Perturbation, String>(type, name), revert);
+    if (revert != null) reverts.get(city).put(name, revert);
   }
 
   /**
@@ -80,10 +80,14 @@ public class Trafics {
   * @param type the type of the perturbation
   * @param name the name of the perturbation
   */
-  public static void revertPerturbation(String city, Perturbation type, String name) {
-    Pair<Perturbation, String> p = new Pair<Perturbation, String>(type, name);
-    if (! reverts.containsKey(city) || !reverts.get(city).containsKey(p)) return;
-    actualTrafics.get(city).apply(reverts.get(city).get(p));
+  public static void revertPerturbation(String city, String name) {
+    if (! reverts.containsKey(city) || !reverts.get(city).containsKey(name)) {
+      System.out.println(city);
+      System.out.println(name);
+      return;
+    }
+    actualTrafics.get(city).apply(reverts.get(city).get(name));
+    reverts.get(city).remove(name);
   }
 
 

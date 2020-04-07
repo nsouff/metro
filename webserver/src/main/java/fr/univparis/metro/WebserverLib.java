@@ -44,12 +44,12 @@ public class WebserverLib {
 
 
   public static String perturbationToHtml(String city) {
-    Set<Pair<Trafics.Perturbation, String>> set = Trafics.getPerturbation(city);
+    Set<String> set = Trafics.getPerturbation(city);
     if (set.isEmpty()) return "";
     String res = "<h4>Here are the actual perturbation, select the one you want to remove</h4>\n" +
-    "<form action=\"" + city + "\"/removePerturbation method=\"post\">\n";
-    for (Pair<Trafics.Perturbation, String> p : set) {
-      res += "<input type=\"checkbox\" id=\"" + p.getValue() + "\"><label for=\"" + p.getValue() + "\">" + p.getValue() + "</label><br>";
+    "<form action=\"" + city + "/removePerturbation\" method=\"post\">\n";
+    for (String s : set) {
+      res += "<input type=\"checkbox\" id=\"" + s + "\" value=\"" + s + "\" name=\"removePerturbation\"><label for=\"" + s + "\">" + s + "</label><br>";
     }
     res += "<input type=\"submit\">\n" +
     "</form>";
