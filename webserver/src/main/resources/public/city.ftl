@@ -26,11 +26,11 @@
       <input type="submit">
     </form>
 
-    <h2>Trafic's Perturbation</h2>
+    <h2>Trafics Perturbation</h2>
     <h3>Current Perturbation</h3>
     ${perturbation}
-    <h3>Add pertubation</h3>
-    <form class="form" action="/${city}/addPertubation" method="post">
+    <h3>Add perturbation</h3>
+    <form class="form" action="/${city}/addPerturbation" method="post">
 
       <table>
         <tr>

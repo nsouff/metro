@@ -50,7 +50,7 @@ public class Webserver {
       }
       ctx.render("/public/city.ftl", TemplateUtil.model(
         "city", city,
-        "perturbation", WebserverLib.perturbationToHtml(Trafics.getPertubation(city))
+        "perturbation", WebserverLib.perturbationToHtml(city)
       ));
     });
   }
@@ -78,7 +78,7 @@ public class Webserver {
   }
 
   public static void installAddPerturbation(Javalin app) {
-    app.post("/:city/addPertubation", ctx -> {
+    app.post("/:city/addPerturbation", ctx -> {
       String city = ctx.pathParam("city");
       String name = ctx.formParam("name");
       Trafics.Perturbation type = Trafics.Perturbation.valueOf(ctx.formParam("type"));
@@ -98,9 +98,12 @@ public class Webserver {
           break;
       }
 
-      Trafics.addPertubation(city, type, name, parameter);
+      Trafics.addPerturbation(city, type, name, parameter);
       ctx.redirect("/" + city);
     });
+  }
+
+  public static void installRemovePerturbation(Javalin app) {
   }
 
 

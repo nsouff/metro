@@ -22,7 +22,7 @@ public class Trafics {
     return actualTrafics.get(city);
   }
 
-  public static Set<Pair<Perturbation, String>> getPertubation(String city) {return reverts.get(city).keySet();}
+  public static Set<Pair<Perturbation, String>> getPerturbation(String city) {return reverts.get(city).keySet();}
 
   public static Set<String> getCities() {return actualTrafics.keySet();}
 
@@ -46,9 +46,9 @@ public class Trafics {
   * @param city the city in which the perturbation occured
   * @param type the type of the perturbation
   * @param name the name of the perturbation
-  * @param parameter is the paramerer of the pertubation (for example the name of the line not working)
+  * @param parameter is the paramerer of the perturbation (for example the name of the line not working)
   */
-  public static void addPertubation(String city, Perturbation type, String name, Object parameter) {
+  public static void addPerturbation(String city, Perturbation type, String name, Object parameter) {
     if (! actualTrafics.containsKey(city)) throw new IllegalArgumentException();
     WGraph<Station> revert = null;
     switch (type) {
@@ -80,7 +80,7 @@ public class Trafics {
   * @param type the type of the perturbation
   * @param name the name of the perturbation
   */
-  public static void revertPertubation(String city, Perturbation type, String name) {
+  public static void revertPerturbation(String city, Perturbation type, String name) {
     Pair<Perturbation, String> p = new Pair<Perturbation, String>(type, name);
     if (! reverts.containsKey(city) || !reverts.get(city).containsKey(p)) return;
     actualTrafics.get(city).apply(reverts.get(city).get(p));
