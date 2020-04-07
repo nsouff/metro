@@ -9,25 +9,12 @@
   </head>
   <body>
     <h1>Welcome on Metro</h1>
-    <h2>Itinerary search</h2>
-    <form class="form" action="itinerary" method="post" class="form">
-
+    <form class="form" action="toCity" method="post" class="form">
       <label for="city">Which city</label>
       <select name="city" id="city">
         ${cities}
       </select>
-      <br>
-      <label for="start">From</label>
-      <input id="start" type="text" name="start" required>
-      <br>
-      <label for="end">To</label>
-      <input id="end" type="text" name="end" required>
-      <br>
-      <input type="radio" name="type" value="shortest" required id="shortest"> <label for="shortest">Shortest</label><br>
       <input type="submit">
     </form>
-
-    <h2>Current perturbation</h2>
-    <a href="perturbation"></a>
   </body>
 </html>

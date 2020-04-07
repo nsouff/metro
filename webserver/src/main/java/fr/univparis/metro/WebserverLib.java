@@ -41,4 +41,14 @@ public class WebserverLib {
 
         return "Average time to get to your destination : " + hours + " h, "  + minutes + " min, " + seconds + " s.";
   }
+
+
+  public static String perturbationToHtml(Set<Pair<Trafics.Perturbation, String>> set) {
+    if (set.isEmpty()) return "Aucune perturbation actuellement";
+    String res = "";
+    for (Pair<Trafics.Perturbation, String> p : set) {
+      res += p.getValue() + "<br>";
+    }
+    return res;
+  }
 }
