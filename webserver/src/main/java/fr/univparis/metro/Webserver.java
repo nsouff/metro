@@ -69,9 +69,20 @@ public class Webserver {
             HashMap<Station, Station> prev = new HashMap<Station, Station>();
             HashMap<Station, Double> dist = new HashMap<Station, Double>();
             Dijkstra.shortestPath(g, start, prev, dist);
+            String body;
+            try {
+              String time = WebserverLib.time(dist.get(end));
+              String itinerary = WebserverLib.path(prev, end);
+              body =
+                "<h2>Time</h2>\n" +
+                time + "\n" +
+                "<h2>Itinerary</h2>\n" +
+                itinerary;
+            } catch(NullPointerException e) {
+              body = "Due to actual trafics perturbation we couldn't find any path from " + start.getName() + " to " + end.getName();
+            }
             ctx.render("/public/itinerary.ftl", TemplateUtil.model(
-            "time", WebserverLib.time(dist.get(end)),
-            "itinerary", WebserverLib.path(prev, end)
+            "body", body
             ));
           }
         }
