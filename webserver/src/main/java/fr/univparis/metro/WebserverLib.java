@@ -33,6 +33,21 @@ public class WebserverLib {
     return res;
   }
 
+  public static String path(ArrayList<Pair<String, String>> l, String from, String to){
+    String ret = "Departure " + from + "<br><br>";
+    int i = 1;
+    for(Pair<String, String> p : l){
+      if(i == l.size() - 1) {
+        ret += "line : " + p.getValue() + " : " + p.getObj() + " -> " + l.get(i).getObj() + "<br><br>";
+        ret += "Arrival : " + to;
+        break;
+      }
+      ret += "line : " + p.getValue() + " : " + p.getObj() + " -> " + l.get(i).getObj() + "<br>";
+      i++;
+    }
+    return ret;
+  }
+
   public static String time(Double time) {
     Double seconds = time % 60;
     Double minutesTmp = (time - seconds) / 60;

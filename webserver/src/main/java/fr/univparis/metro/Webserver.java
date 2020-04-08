@@ -3,6 +3,7 @@ import java.io.File;
 import io.javalin.plugin.rendering.template.TemplateUtil;
 import io.javalin.*;
 import java.util.HashMap;
+import java.util.*;
 
 
 public class Webserver {
@@ -45,6 +46,14 @@ public class Webserver {
             "time", WebserverLib.time(dist.get(end)),
             "itinerary", WebserverLib.path(prev, end)
             ));
+          }
+          else if(ctx.formParam("type").equals("leastConnexion")){
+            HashMap<String, MatriceWGraph> lines = MatriceWGraph.initializeAllLineGraphs(g);
+            MatriceWGraph matriceGraph = new MatriceWGraph(g, lines);
+            ArrayList<Pair<String, String>> l = LimitedConnectionSearch.getPath(matriceGraph, start.getName(), end.getName());
+            Collections.reverse(l);
+            Double t = matriceGraph.getDirect()[matriceGraph.getSetOfVertices().get(start.getName())][matriceGraph.getSetOfVertices().get(end.getName())];
+            ctx.render("/public/itinerary.ftl", TemplateUtil.model("time", WebserverLib.time(t), "itinerary", WebserverLib.path(l, start.getName(), end.getName())));
           }
         }
     });
