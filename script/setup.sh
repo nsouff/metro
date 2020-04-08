@@ -57,7 +57,7 @@ fi
 
 for LINE_ZIP in `ls $TMP_WORKING_DIRECTORY` ; do
     LINE=$( echo $LINE_ZIP | cut -d "_" -f 4 | head -c -5)
-    unzip -o $TMP_WORKING_DIRECTORY/$LINE_ZIP -d $WORKING_DIRECTORY/$LINE
+    unzip -o $TMP_WORKING_DIRECTORY/$LINE_ZIP "stop_times.txt" "stops.txt" -d $WORKING_DIRECTORY/$LINE
 done
 
 echo "Ending setup"
