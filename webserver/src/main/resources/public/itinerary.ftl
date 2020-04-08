@@ -8,9 +8,6 @@
     <title>Metro</title>
   </head>
   <body>
-    <h2>Time</h2>
-    ${time}
-    <h2>Itinerary</h2>
-    ${itinerary}
+    ${body}
   </body>
 </html>

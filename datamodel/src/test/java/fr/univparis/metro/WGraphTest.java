@@ -46,18 +46,18 @@ public class WGraphTest{
 
   @Test
   public void addVertexTest(){
-    assertEquals(true, g.containsKey("Ourcq"));
-    assertEquals(true, g.containsKey("Laumière")&& g.containsKey("Porte de Pantin"));
-    assertEquals(true, g.containsKey("Jaures"));
+    assertEquals(true, g.containsVertex("Ourcq"));
+    assertEquals(true, g.containsVertex("Laumière")&& g.containsVertex("Porte de Pantin"));
+    assertEquals(true, g.containsVertex("Jaures"));
 
-    assertEquals(false, g.containsKey("Gare du Nord"));
+    assertEquals(false, g.containsVertex("Gare du Nord"));
   }
 
   @Test
   public void deleteVertexTest() {
     g.deleteVertex("Jaures");
 
-    assertFalse(g.containsKey("Jaures"));
+    assertFalse(g.containsVertex("Jaures"));
     assertEquals(Double.NaN, g.weight("Laumière", "Jaures"), 0.0);
   }
 
@@ -100,6 +100,33 @@ public class WGraphTest{
   @Test
   public void nbVertexTest(){
     assertEquals(2, g.nbVertex(t -> t.startsWith("O")));
+  }
+
+  @Test
+  public void applyTest() {
+    WGraph<String> other = new WGraph<String>();
+    other.addVertex("Bastille");
+    other.addVertex("Ourcq");
+    other.addVertex("Porte de Pantin");
+    other.addEdge("Bastille", "Ourcq", 21.0);
+    other.addEdge("Porte de Pantin", "Bastille", 5.0);
+    other.addEdge("Ourcq", "Porte de Pantin", 10.0);
+
+    g.apply(other);
+    assertTrue(g.containsVertex("Bastille"));
+    assertEquals(21.0, g.weight("Bastille", "Ourcq"), 0.0);
+    assertEquals(Double.NaN, g.weight("Ourcq", "Bastille"), 0.0);
+    assertEquals(60.0, g.weight("Porte de Pantin", "Ourcq"), 0.0);
+    assertEquals(10.0, g.weight("Ourcq", "Porte de Pantin"), 0.0);
+    assertEquals(1, g.neighbors("Bastille").size());
+    assertEquals(10.0, g.weight("Ourcq", "Porte de Pantin"), 0.0);
+    assertEquals(5.0, g.weight("Porte de Pantin", "Bastille"), 0.0);
+
+    // other not modified test
+    assertEquals(3, other.nbVertex());
+    assertEquals(21.0, other.weight("Bastille", "Ourcq"), 0.0);
+    assertEquals(5.0, other.weight("Porte de Pantin", "Bastille"), 0.0);
+    assertEquals(10.0, other.weight("Ourcq", "Porte de Pantin"), 0.0);
   }
 
 }
