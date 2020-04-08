@@ -61,15 +61,18 @@ public class Webserver {
         WGraph<Station> g = Trafics.getGraph(ctx.pathParam("city"));
         Station start = new Station(ctx.formParam("start"), "Meta Station Start");
         Station end = new Station(ctx.formParam("end"), "Meta Station End");
-        if (! g.getVertices().contains(start) || !g.getVertices().contains(end)){
-          ctx.redirect("/");
+        String body = "";
+        if (! g.getVertices().contains(start)){
+          body = start.getName() + " doesn't exist";
+        }
+        else if (! g.getVertices().contains(end)) {
+          body = end.getName() + " doesn't exist";
         }
         else {
           if (ctx.formParam("type").equals("shortest")) {
             HashMap<Station, Station> prev = new HashMap<Station, Station>();
             HashMap<Station, Double> dist = new HashMap<Station, Double>();
             Dijkstra.shortestPath(g, start, prev, dist);
-            String body;
             try {
               String time = WebserverLib.time(dist.get(end));
               String itinerary = WebserverLib.path(prev, end);
@@ -81,11 +84,11 @@ public class Webserver {
             } catch(NullPointerException e) {
               body = "Due to actual trafics perturbation we couldn't find any path from " + start.getName() + " to " + end.getName();
             }
-            ctx.render("/public/itinerary.ftl", TemplateUtil.model(
-            "body", body
-            ));
           }
         }
+        ctx.render("/public/itinerary.ftl", TemplateUtil.model(
+        "body", body
+        ));
     });
   }
 
