@@ -6,6 +6,8 @@ import io.javalin.*;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class Webserver {
   public static void main(String[] args) throws IOException {
@@ -91,7 +93,7 @@ public class Webserver {
             ArrayList<Pair<String, String>> l = LimitedConnectionSearch.getPath(matriceGraph, start.getName(), end.getName());
             Collections.reverse(l);
             Double t = matriceGraph.getDirect()[matriceGraph.getSetOfVertices().get(start.getName())][matriceGraph.getSetOfVertices().get(end.getName())];
-            ctx.render("/public/itinerary.ftl", TemplateUtil.model("time", WebserverLib.time(t), "itinerary", WebserverLib.path(l, start.getName(), end.getName())));
+            body = "<h2>Time</h2>\n" + WebserverLib.time(t) + "\n" + "<h2>Itinerary</h2>\n" + WebserverLib.path(l, start.getName(), end.getName());
           }
         }
         ctx.render("/public/itinerary.ftl", TemplateUtil.model(
