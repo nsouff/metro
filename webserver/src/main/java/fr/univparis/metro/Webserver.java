@@ -132,7 +132,7 @@ public class Webserver {
 
   public static void installStatistics(Javalin app){
     app.get("/:city/statistics", ctx -> {
-      WGraph<Station> g = Parser.loadFrom(new File(Configuration.getFileName(ctx.pathParam("city"))));
+      WGraph<Station> g = Trafics.getInitialGraph(ctx.pathParam("city"));
       Pair<Pair<Station, Station>, Double> stat1 = Statistics.mostDistantStations(g, (s -> !s.getLine().equals("Meta Station Start")), (t -> t.getLine().equals("Meta Station End")));
       int stat2 = Statistics.minimumCorrespondence(g, (s -> s.getLine().equals("Meta Station Start")), s -> s.getLine().equals("Meta Station End") , (Station s1, Station s2) -> s1.getLine().equals(s2.getLine()) || s1.getLine().startsWith("Meta Station") || s2.getLine().startsWith("Meta Station"));
       String stat3 = Statistics.extremumLine(g, true);

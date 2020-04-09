@@ -22,6 +22,10 @@ public class Trafics {
     return actualTrafics.get(city);
   }
 
+  public static WGraph<Station> getInitialGraph(String city){
+    return initialTrafics.get(city);
+  }
+
   public static Set<String> getPerturbation(String city) {return reverts.get(city).keySet();}
 
   public static Set<String> getCities() {return actualTrafics.keySet();}
