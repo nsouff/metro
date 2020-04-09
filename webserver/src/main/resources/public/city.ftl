@@ -73,5 +73,8 @@
       </table>
       <input type="submit">
     </form>
+    <br>
+    <h2>Statistics</h2>
+    <p>To acceed to the statistics of the network, click <a href="/${city}/statistics">here</a> and please wait few seconds.</p>
   </body>
 </html>
