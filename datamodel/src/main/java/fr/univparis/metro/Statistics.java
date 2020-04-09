@@ -109,4 +109,91 @@ public class Statistics{
     }
     return res;
   }
+
+  /**
+    * Return the time average on each line
+    * @param g the graph of a subway which is evaluated for statistics
+    * return the HashMap of the lines and their average time of travel
+    */
+  public static int averageTimeOnEachLine(WGraph<Station> g, HashMap<String, Double> res){
+        res.clear();
+        HashMap<Pair<Station, Integer>, Pair<Station, Integer>> prev = new HashMap<Pair<Station, Integer>, Pair<Station, Integer>>();
+        HashMap<Pair<Station, Integer>, Double> dist = new HashMap<Pair<Station, Integer>, Double>();
+        String s = "";
+        double d = 0.;
+        int nb = 0;
+        for( Station st : g.getVertices()){
+          if (st.getLine().startsWith("Meta Station")) continue;
+          if(!res.containsKey(st.getLine())){
+            nb++;
+            s = st.getLine();
+            BouarahAlgorithm.shortestPath(g, st, 0, (Station s1, Station s2) -> s1.getLine().equals(s2.getLine()) || s1.getLine().startsWith("Meta Station") || s2.getLine().startsWith("Meta Station") , prev, dist);
+            for( Station tt : g.getVertices() ){
+              if(tt.getLine().equals(s)){
+                Pair<Station, Integer> p = new Pair<Station, Integer>(tt, 0);
+                if(dist.get(p) > d) d = dist.get(p);
+              }
+            }
+            res.put(s, d);
+            d = 0.;
+          }
+          else{
+            s = st.getLine();
+            d = res.get(s);
+            BouarahAlgorithm.shortestPath(g, st, 0, (Station s1, Station s2) -> s1.getLine().equals(s2.getLine()) || s1.getLine().startsWith("Meta Station") || s2.getLine().startsWith("Meta Station") , prev, dist);
+            for( Station tt : g.getVertices() ){
+              if(tt.getLine().equals(s)){
+                Pair<Station, Integer> p = new Pair<Station, Integer>(tt, 0);
+                if(dist.get(p) > d) d = dist.get(p);
+              }
+            }
+            if(res.get(s) < d)
+              res.put(s, d);
+            d = 0.;
+          }
+        }
+        for( String string : res.keySet() )
+            d += res.get(string);
+        return (int)d / nb;
+    }
+
+    public static String shortestTimeTravelLine(WGraph<Station> g){
+      HashMap<String, Double> res = new HashMap<String, Double>();
+      int i = averageTimeOnEachLine(g, res);
+      String shortest = "";
+      Double d = Double.POSITIVE_INFINITY;
+      for(String s : res.keySet()){
+        if(res.get(s) < d){
+          d = res.get(s);
+          shortest = s;
+        }
+      }
+      return shortest;
+    }
+
+    public static String longestTimeTravelLine(WGraph<Station> g){
+      HashMap<String, Double> res = new HashMap<String, Double>();
+      int i = averageTimeOnEachLine(g, res);
+      String shortest = "";
+      Double d = 0.;
+      for(String s : res.keySet()){
+        if(res.get(s) > d){
+          d = res.get(s);
+          shortest = s;
+        }
+      }
+      return shortest;
+    }
+
+
+  public static int averageNbOfStationPerLine(WGraph<Station> g){
+    HashMap<String, MatriceWGraph> h = MatriceWGraph.initializeAllLineGraphs(g);
+    int nbStation = 0;
+    int nbLine = 0;
+    for(String stationName : h.keySet()){
+      nbLine++;
+      nbStation += h.get(stationName).getDirect().length;
+    }
+    return (int) nbStation/nbLine;
+  }
 }

@@ -13,7 +13,9 @@ public class DijkstraTest{
   public static void loadFile() throws IOException {
     URL url = ParserTest.class.getResource("/liste.txt");
     File f = new File(url.getFile());
-    w = Parser.loadFrom(f);
+    try {
+      w = Parser.loadFrom(f);
+    } catch(Exception e) {e.printStackTrace();}
   }
 
   @Test

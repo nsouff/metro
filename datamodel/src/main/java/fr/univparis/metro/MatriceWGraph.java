@@ -42,7 +42,7 @@ public class MatriceWGraph{
         this.direct = new Double[n][n];
         this.via = new Station[n][n];
         this.intermediate = new Integer[n][n];
-        for(Map.Entry<Station, List<Pair<Station, Double>>> edge : g.getWGraph().entrySet()){
+        for(Map.Entry<Station, HashMap<Station, Double>> edge : g.getWGraph().entrySet()){
             Station vertex = edge.getKey();
             String vertexName = vertex.getName();
             String vertexLine = vertex.getLine();
@@ -50,15 +50,15 @@ public class MatriceWGraph{
                 this.direct[this.setOfVertices.get(vertexName)][this.setOfVertices.get(vertexName)] = 0.0;
                 this.via[this.setOfVertices.get(vertexName)][this.setOfVertices.get(vertexName)] = vertex;
                 this.intermediate[this.setOfVertices.get(vertexName)][this.setOfVertices.get(vertexName)] = 0;
-                List<Pair<Station, Double>> verticesN = edge.getValue();
+                HashMap<Station, Double> verticesN = edge.getValue();
                 //for all the neighboors of vertex
-                for(Pair<Station, Double> p : verticesN){
-                    if(p.getObj().getLine() != "Meta Station Start" && p.getObj().getLine() != "Meta Station End"){
-                        this.direct[this.setOfVertices.get(vertexName)][this.setOfVertices.get(p.getObj().getName())] = p.getValue();
-                        this.via[this.setOfVertices.get(vertexName)][this.setOfVertices.get(p.getObj().getName())] = vertex;
-                        this.intermediate[this.setOfVertices.get(vertexName)][this.setOfVertices.get(p.getObj().getName())] = 1;
+                for(Map.Entry<Station, Double> p : verticesN.entrySet()){
+                    if(p.getKey().getLine() != "Meta Station Start" && p.getKey().getLine() != "Meta Station End"){
+                        this.direct[this.setOfVertices.get(vertexName)][this.setOfVertices.get(p.getKey().getName())] = p.getValue();
+                        this.via[this.setOfVertices.get(vertexName)][this.setOfVertices.get(p.getKey().getName())] = vertex;
+                        this.intermediate[this.setOfVertices.get(vertexName)][this.setOfVertices.get(p.getKey().getName())] = 1;
                     }
-                }   
+                }
             }
         }
         //all the coefficients that have not been initialize are initialized to infinity
@@ -102,7 +102,7 @@ public class MatriceWGraph{
         this.direct = new Double[n][n];
         this.via = new Station[n][n];
         this.intermediate = new Integer[n][n];
-        for(Map.Entry<Station, List<Pair<Station, Double>>> edge : g.getWGraph().entrySet()){
+        for(Map.Entry<Station, HashMap<Station, Double>> edge : g.getWGraph().entrySet()){
             Station vertex = edge.getKey();
             String vertexName = vertex.getName();
             String vertexLine = vertex.getLine();
@@ -110,15 +110,15 @@ public class MatriceWGraph{
                 this.direct[this.setOfVertices.get(vertexName)][this.setOfVertices.get(vertexName)] = 0.0;
                 this.via[this.setOfVertices.get(vertexName)][this.setOfVertices.get(vertexName)] = vertex;
                 this.intermediate[this.setOfVertices.get(vertexName)][this.setOfVertices.get(vertexName)] = 0;
-                List<Pair<Station, Double>> verticesN = edge.getValue();
+                HashMap<Station, Double> verticesN = edge.getValue();
                 //for all the neighboors of vertex
-                for(Pair<Station, Double> p : verticesN){
-                    if(p.getObj().getLine() != "Meta Station Start" && p.getObj().getLine() != "Meta Station End"){
-                        this.direct[this.setOfVertices.get(vertexName)][this.setOfVertices.get(p.getObj().getName())] = p.getValue();
-                        this.via[this.setOfVertices.get(vertexName)][this.setOfVertices.get(p.getObj().getName())] = vertex;
-                        this.intermediate[this.setOfVertices.get(vertexName)][this.setOfVertices.get(p.getObj().getName())] = 1;
+                for(Map.Entry<Station, Double> p : verticesN.entrySet()){
+                    if(p.getKey().getLine() != "Meta Station Start" && p.getKey().getLine() != "Meta Station End"){
+                        this.direct[this.setOfVertices.get(vertexName)][this.setOfVertices.get(p.getKey().getName())] = p.getValue();
+                        this.via[this.setOfVertices.get(vertexName)][this.setOfVertices.get(p.getKey().getName())] = vertex;
+                        this.intermediate[this.setOfVertices.get(vertexName)][this.setOfVertices.get(p.getKey().getName())] = 1;
                     }
-                }   
+                }
             }
         }
         //all the coefficients that have not been initialize are initialized to infinity
@@ -164,10 +164,10 @@ public class MatriceWGraph{
             if(!ret.containsKey(s.getLine())) ret.put(s.getLine(), new WGraph<Station>());
             WGraph<Station> m = ret.get(s.getLine());
             m.addVertex(s);
-            List<Pair<Station, Double>> l = g.get(s);
-            for(Pair<Station, Double> p : l){
-                m.addVertex(p.getObj());
-                m.addEdge(s, p.getObj(), p.getValue());
+            Set<Station> l = g.neighbors(s);
+            for(Station p :l){
+                m.addVertex(p);
+                m.addEdge(s, p, g.weight(s, p));
             }
         }
         return ret;

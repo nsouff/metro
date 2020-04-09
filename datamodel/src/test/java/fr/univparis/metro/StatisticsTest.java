@@ -2,9 +2,11 @@ package fr.univparis.metro;
 import org.junit.*;
 import static org.junit.Assert.*;
 import java.net.*;
+import java.beans.Transient;
 import java.io.*;
 import java.io.IOException;
 import java.lang.Double;
+import java.util.HashMap;
 
 public class StatisticsTest{
     static WGraph<Station> g;
@@ -33,5 +35,32 @@ public class StatisticsTest{
     public void extremumLineTest() {
       assertEquals("3bis", Statistics.extremumLine(g, false));
       assertEquals("7", Statistics.extremumLine(g, true));
+    }
+
+    @Test
+    public void averageTimeOnEachLineTest(){
+      HashMap<String, Double> res = new HashMap<String, Double>();
+      int n = Statistics.averageTimeOnEachLine(g, res);
+      assertEquals((Double)2160. , (Double)res.get("1"));
+      assertEquals((Double)2160. , (Double)res.get("2"));
+      assertEquals((Double)2160. , (Double)res.get("3"));
+      assertEquals((Double)270. , (Double)res.get("3bis"));
+      assertEquals((Double)720. , (Double)res.get("14"));
+      assertEquals(1985 , n);
+    }
+
+    @Test
+    public void shortestTimeTravelLineTest(){
+      assertEquals("3bis", Statistics.shortestTimeTravelLine(g));
+    }
+
+    @Test
+    public void longestTimeTravelLineTest(){
+      assertEquals("8", Statistics.longestTimeTravelLine(g));
+    }
+    
+    public void averageNbOfStationPerLine(){
+      assertEquals(23, Statistics.averageNbOfStationPerLine(g));
+
     }
 }
