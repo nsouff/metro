@@ -23,6 +23,7 @@
       <input id="end" type="text" name="end" required>
       <br>
       <input type="radio" name="type" value="shortest" required id="shortest"> <label for="shortest">Shortest</label><br>
+      <input type="radio" name="type" value="leastConnexion" required id="leastConnexion"> <label for="leastConnexion">Limited connexion</label><br>
       <input type="submit">
     </form>
 

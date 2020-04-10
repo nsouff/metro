@@ -6,6 +6,8 @@ import io.javalin.*;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class Webserver {
   public static void main(String[] args) throws IOException {
@@ -85,6 +87,15 @@ public class Webserver {
             } catch(NullPointerException e) {
               body = "Due to actual trafics perturbation we couldn't find any path from " + start.getName() + " to " + end.getName();
             }
+          }
+          else if(ctx.formParam("type").equals("leastConnexion")){
+            HashMap<String, MatriceWGraph> lines = MatriceWGraph.initializeAllLineGraphs(g);
+            MatriceWGraph matriceGraph = new MatriceWGraph(g, lines);
+            ArrayList<Pair<String, String>> l = LimitedConnectionSearch.getPath(matriceGraph, start.getName(), end.getName());
+            Collections.reverse(l);
+            Double t = matriceGraph.getDirect()[matriceGraph.getSetOfVertices().get(start.getName())][matriceGraph.getSetOfVertices().get(end.getName())];
+            t += (matriceGraph.getIntermediate()[matriceGraph.getSetOfVertices().get(start.getName())][matriceGraph.getSetOfVertices().get(end.getName())] - 1) * Parser.defaultChangeStationWeight;
+            body = "<h2>Time</h2>\n" + WebserverLib.time(t) + "\n" + "<h2>Itinerary</h2>\n" + WebserverLib.path(l, start.getName(), end.getName());
           }
         }
         ctx.render("/public/itinerary.ftl", TemplateUtil.model(
