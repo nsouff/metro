@@ -93,6 +93,7 @@ public class Webserver {
             ArrayList<Pair<String, String>> l = LimitedConnectionSearch.getPath(matriceGraph, start.getName(), end.getName());
             Collections.reverse(l);
             Double t = matriceGraph.getDirect()[matriceGraph.getSetOfVertices().get(start.getName())][matriceGraph.getSetOfVertices().get(end.getName())];
+            t += (matriceGraph.getIntermediate()[matriceGraph.getSetOfVertices().get(start.getName())][matriceGraph.getSetOfVertices().get(end.getName())] - 1) * Parser.defaultChangeStationWeight;
             body = "<h2>Time</h2>\n" + WebserverLib.time(t) + "\n" + "<h2>Itinerary</h2>\n" + WebserverLib.path(l, start.getName(), end.getName());
           }
         }

@@ -8,12 +8,12 @@ public class Parser {
  /**
   * The default weight between station
   */
-  private static final Double defaultWeight = 90.0;
+  public static final Double defaultWeight = 90.0;
 
  /**
   * The default weight for in station change
   */
-  private static final Double defaultChangeStationWeight = 60.0;
+  public static final Double defaultChangeStationWeight = 60.0;
 
  /**
   * Create a WGraph using a text file with stations on each line
