@@ -185,17 +185,15 @@ public class WGraph<T>{
     for (T n : neighbors(old)) {
       addEdge(newVert1, n, weight(old, n));
       addEdge(newVert2, n, weight(old, n));
-      removeEdge(old, n);
     }
 
     for (T t : getVertices()) {
       if (neighbors(t).contains(old)) {
         addEdge(t, newVert1, weight(t, old));
         addEdge(t, newVert2, weight(t, old));
-        removeEdge(t, old);
       }
     }
-    this.wGraph.remove(old);
+    deleteVertex(old);
   }
 
 

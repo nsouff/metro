@@ -102,6 +102,9 @@ public class Parser {
   */
   private static Station cycle(WGraph<Station> g, Scanner sc, Station start, String line, HashSet<String> createdStation) {
     if (start == null) throw new IllegalStateException("Cycle can't start with a null station");
+    g.splitVertex(start, new Station(start.getName() + "$1", start.getLine()), new Station(start.getName() + "$2", start.getLine()));
+    g.addEdge(new Station(start.getName() + "$1", start.getLine()), new Station(start.getName() + "$2", start.getLine()), defaultChangeStationWeight);
+    g.addEdge(new Station(start.getName() + "$2", start.getLine()), new Station(start.getName() + "$1", start.getLine()), defaultChangeStationWeight);
     String s;
     Station endOfFirst = start;
     Station prec = start;
@@ -127,6 +130,7 @@ public class Parser {
       if (s.isEmpty()) continue;
       addNextStation(g, endOfFirst, s, line, true, false, createdStation);
       addNextStation(g, prec, s, line, false, true, createdStation);
+      g.splitVertex(new Station(s, line), new Station(s + "$1", line), new Station(s + "$2", line));
       break;
     } while (sc.hasNextLine());
     return new Station(s, line);
@@ -149,18 +153,26 @@ public class Parser {
   private static Station addNextStation(WGraph<Station> g, Station prec, String s, String line, boolean ahead, boolean behind, HashSet<String> createdStation) {
     Station act = new Station(s, line);
     g.addVertex(act);
-    if (ahead && prec != null)  g.addEdge(prec, act, defaultWeight);
-    if (behind && prec != null) g.addEdge(act, prec, defaultWeight);
-    if (! createdStation.contains(s)) {
-      g.addVertex(new Station(s, "Meta Station Start"));
-      g.addVertex(new Station(s, "Meta Station End"));
+    if (ahead && prec != null) {
+      if (g.containsVertex(prec)) g.addEdge(prec, act, defaultWeight);
+      else g.addEdge(new Station(prec.getName() + "$1", prec.getLine()), act, defaultWeight);
+
+    }
+    if (behind && prec != null) {
+      if (g.containsVertex(prec)) g.addEdge(act, prec, defaultWeight);
+      else g.addEdge(act, new Station(prec.getName() + "$2", prec.getLine()), defaultWeight);
+    }
+
+    if (! createdStation.contains(s.split("$")[0])) {
+      g.addVertex(new Station(s.split("$")[0], "Meta Station Start"));
+      g.addVertex(new Station(s.split("$")[0], "Meta Station End"));
       createdStation.add(s);
     }
     else {
-      g.addDoubleEdge(act, defaultChangeStationWeight, (t -> act.sameName(t) && !t.getLine().startsWith("Meta Station")));
+      g.addDoubleEdge(act, defaultChangeStationWeight, (t -> (act.sameName(t) || act.getName().startsWith(t.getName() + "$") || t.getName().startsWith(act.getName() + "$")) && !t.getLine().startsWith("Meta Station")));
     }
-    g.addEdge(new Station(s, "Meta Station Start"), act, 0.0);
-    g.addEdge(act, new Station(s, "Meta Station End"), 0.0);
+    g.addEdge(new Station(s.split("$")[0], "Meta Station Start"), act, 0.0);
+    g.addEdge(act, new Station(s.split("$")[0], "Meta Station End"), 0.0);
     return act;
   }
 
