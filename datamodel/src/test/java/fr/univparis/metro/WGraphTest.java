@@ -129,4 +129,21 @@ public class WGraphTest{
     assertEquals(10.0, other.weight("Ourcq", "Porte de Pantin"), 0.0);
   }
 
+  @Test
+  public void splitVertexTest() {
+    String b = "Laumière";
+    String split1 = "Laumière1";
+    String split2 = "Laumière2";
+    g.splitVertex(b, split1, split2);
+
+    assertFalse(g.containsVertex(b));
+    assertTrue(g.containsVertex(split1));
+    assertTrue(g.containsVertex(split2));
+    assertEquals(70.0, g.weight("Ourcq", split1), 0.0);
+    assertEquals(70.0, g.weight("Ourcq", split2), 0.0);
+    assertEquals(75.0, g.weight(split1, "Jaures"), 0.0);
+    assertEquals(75.0, g.weight(split2, "Jaures"), 0.0);
+
+  }
+
 }
