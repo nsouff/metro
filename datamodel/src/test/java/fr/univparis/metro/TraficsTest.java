@@ -113,4 +113,27 @@ public class TraficsTest {
     Trafics.revertPerturbation("Paris", "Line 1 shutdown");
     assertEquals(90.0, Trafics.getGraph("Paris").weight(new Station("Bastille", "1"), new Station("Gare de Lyon", "1")), 0.0);
   }
+
+  @Test
+  public void partOfLineShutDownTest() {
+    WGraph<Station> g = Trafics.getGraph("Paris");
+    Station j = new Station("Jaurès", "5");
+    Station l = new Station("Laumière", "5");
+    Station o = new Station("Ourcq", "5");
+    Station s = new Station("Stalingrad", "5");
+    Station p = new Station("Porte de Pantin", "5");
+    try {
+      Trafics.addPerturbation("Paris", Trafics.Perturbation.PART_LINE_SHUT_DOWN, "Jaurès to Ourcq shutdown", new Pair<Station, Station>(j, o));
+    } catch(Exception e) {e.printStackTrace();}
+    assertEquals(Double.POSITIVE_INFINITY, g.weight(j, l), 0.0);
+    assertEquals(Double.POSITIVE_INFINITY, g.weight(l, j), 0.0);
+    assertEquals(Double.POSITIVE_INFINITY, g.weight(o, l), 0.0);
+    assertEquals(Double.POSITIVE_INFINITY, g.weight(l, o), 0.0);
+    assertEquals(90.0, g.weight(p, o), 0.0);
+    assertEquals(90.0, g.weight(o, p), 0.0);
+    assertEquals(90.0, g.weight(j, s), 0.0);
+    assertEquals(90.0, g.weight(j, s), 0.0);
+
+    Trafics.revertPerturbation("Paris", "Jaurès to Ourcq shutdown");
+  }
 }

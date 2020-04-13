@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.function.BiPredicate;
 
 public class Trafics {
 
@@ -11,7 +12,9 @@ public class Trafics {
     LINE_SHUTDOWN,
     LINE_SLOW_DOWN,
     ENTIRE_STATION_SHUT_DOWN,
-    PART_STATION_SHUT_DOWN;
+    PART_STATION_SHUT_DOWN,
+    PART_LINE_SLOW_DOWN,
+    PART_LINE_SHUT_DOWN;
   }
 
   private static HashMap< String , WGraph<Station> > actualTrafics;
@@ -62,9 +65,9 @@ public class Trafics {
         break;
       case LINE_SLOW_DOWN:
         if (! (parameter instanceof Pair<?, ?>)) throw new IllegalArgumentException();
-        Pair<?,?> p = (Pair<?,?>) parameter;
-        if (! (p.getObj() instanceof String || ! (p.getValue() instanceof Double) )) throw new IllegalArgumentException();
-        revert = lineSlowDown(city, (String) p.getObj(), (Double) p.getValue());
+        Pair<?,?> p1 = (Pair<?,?>) parameter;
+        if (! (p1.getObj() instanceof String || ! (p1.getValue() instanceof Double) )) throw new IllegalArgumentException();
+        revert = lineSlowDown(city, (String) p1.getObj(), (Double) p1.getValue());
         break;
       case ENTIRE_STATION_SHUT_DOWN:
         if (! (parameter instanceof String)) throw new IllegalArgumentException();
@@ -73,6 +76,16 @@ public class Trafics {
       case PART_STATION_SHUT_DOWN:
         if (! (parameter instanceof Station)) throw new IllegalArgumentException();
         revert = partOfStationShutDown(city, (Station) parameter);
+        break;
+      case PART_LINE_SHUT_DOWN:
+        if (! (parameter instanceof Pair<?, ?>)) throw new IllegalArgumentException();
+        Pair<?, ?> p2 = (Pair<?, ?>) parameter;
+        if (! (p2.getObj() instanceof Station) || ! (p2.getValue() instanceof Station)) throw new IllegalArgumentException();
+        revert = partOfLineShutDown(city, (Station) p2.getObj(), (Station) p2.getValue());
+        break;
+      case PART_LINE_SLOW_DOWN:
+
+        revert = null;
         break;
     }
     if (revert != null) reverts.get(city).put(name, revert);
@@ -191,6 +204,44 @@ public class Trafics {
       actualG.setWeight(st, n, Double.POSITIVE_INFINITY);
     }
     return revert;
+  }
+ /**
+  * Modify the graph g so we can't take a line from one station to an other one
+  * @param city the city in which we want to modify trafics
+  * @param start the start of the shutdown
+  * @param end the end of the shutdown
+  * @return a WGraph that we can use to revert this perturbation
+  * Note that start and end must be one the same line
+  */
+  public static WGraph<Station> partOfLineShutDown(String city, Station start, Station end) {
+    if (start.getLine() != end.getLine()  || start.getLine().startsWith("Meta Station")) return null;
+    WGraph<Station> actualG = actualTrafics.get(city);
+    WGraph<Station> initialG = initialTrafics.get(city);
+    WGraph<Station> revert = new WGraph<Station>();
+    HashMap<Pair<Station, Integer>, Pair<Station, Integer>> prev = new HashMap<>();
+    HashMap<Pair<Station, Integer>, Double> dist = new HashMap<>();
+    BiPredicate<Station, Station> sameLine = (Station s1, Station s2) -> s1.getLine().equals(s2.getLine()) || s1.getLine().startsWith("Meta Station") || s2.getLine().startsWith("Meta Station");
+    BouarahAlgorithm.shortestPath(initialG, start, 0, sameLine, prev, dist);
+
+    Station it = end;
+    revert.addVertex(it);
+    Station prec;
+    while(true) {
+      try {
+        prec = prev.get(new Pair<Station, Integer>(it, 0)).getObj();
+      } catch(NullPointerException e) {break;}
+      revert.addVertex(prec);
+      if (initialG.weight(it, prec) != Double.NaN) {
+        revert.addEdge(it, prec, initialG.weight(it, prec));
+        actualG.setWeight(it, prec, Double.POSITIVE_INFINITY);
+      }
+      revert.addEdge(prec, it, initialG.weight(prec, it));
+      actualG.setWeight(prec, it, Double.POSITIVE_INFINITY);
+
+      it = prec;
+    }
+    return revert;
+
   }
 
 
