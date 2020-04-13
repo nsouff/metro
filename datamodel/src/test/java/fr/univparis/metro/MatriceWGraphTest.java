@@ -23,8 +23,9 @@ public class MatriceWGraphTest{
         MatriceWGraph m = new MatriceWGraph(g, q);
 
         ArrayList<Pair<String, String>> l = LimitedConnectionSearch.getPath(m, "Porte des Lilas", "Temple");
-        //System.out.println(m.getDirect()[m.getSetOfVertices().get("Porte des Lilas")][m.getSetOfVertices().get("Temple")]);
         //for(Pair<String, String> p : l) System.out.println(p.getValue() + " -> " + p.getObj());
+
+        assertEquals(m.getDirect()[m.getSetOfVertices().get("Porte des Lilas")][m.getSetOfVertices().get("Temple")], 720.0, 0.0);
 
         assertEquals(l.get(0).getObj(), "Temple");
         assertEquals(l.get(0).getValue(), "FIN");
@@ -36,8 +37,9 @@ public class MatriceWGraphTest{
         assertEquals(l.get(2).getValue(), "11");
 
         ArrayList<Pair<String, String>> t = LimitedConnectionSearch.getPath(m, "Charles de Gaulle - Etoile", "République");
-        //System.out.println(m.getDirect()[m.getSetOfVertices().get("Charles de Gaulle - Etoile")][m.getSetOfVertices().get("République")]);
         //for(Pair<String, String> p : t) System.out.println(p.getValue() + " -> " + p.getObj());
+
+        assertEquals(m.getDirect()[m.getSetOfVertices().get("Charles de Gaulle - Etoile")][m.getSetOfVertices().get("République")], 990.0, 0.0);
 
         assertEquals(t.get(0).getObj(), "République");
         assertEquals(t.get(0).getValue(), "FIN");
@@ -49,8 +51,9 @@ public class MatriceWGraphTest{
         assertEquals(t.get(2).getValue(), "1");
 
         ArrayList<Pair<String, String>> a = LimitedConnectionSearch.getPath(m, "Robespierre", "Marx Dormoy");
-        //System.out.println(m.getDirect()[m.getSetOfVertices().get("Robespierre")][m.getSetOfVertices().get("Marx Dormoy")]);
         //for(Pair<String, String> p : a) System.out.println(p.getValue() + " -> " + p.getObj());
+
+        assertEquals(m.getDirect()[m.getSetOfVertices().get("Robespierre")][m.getSetOfVertices().get("Marx Dormoy")], 1620.0, 0.0);
 
         assertEquals(a.get(0).getObj(), "Marx Dormoy");
         assertEquals(a.get(0).getValue(), "FIN");
@@ -65,8 +68,9 @@ public class MatriceWGraphTest{
         assertEquals(a.get(3).getValue(), "9");
 
         ArrayList<Pair<String, String>> k = LimitedConnectionSearch.getPath(m, "Botzaris", "Chemin Vert");
-        //System.out.println(m.getDirect()[m.getSetOfVertices().get("Botzaris")][m.getSetOfVertices().get("Chemin Vert")]);
         //for(Pair<String, String> p : k) System.out.println(p.getValue() + " -> " + p.getObj());
+
+        assertEquals(m.getDirect()[m.getSetOfVertices().get("Botzaris")][m.getSetOfVertices().get("Chemin Vert")], 810.0, 0.0);
 
         assertEquals(k.get(0).getObj(), "Chemin Vert");
         assertEquals(k.get(0).getValue(), "FIN");
@@ -81,8 +85,9 @@ public class MatriceWGraphTest{
         assertEquals(k.get(3).getValue(), "7bis");
 
         ArrayList<Pair<String, String>> u = LimitedConnectionSearch.getPath(m, "Grands Boulevards", "Michel-Ange - Molitor");
-        //System.out.println(m.getDirect()[m.getSetOfVertices().get("Grands Boulevards")][m.getSetOfVertices().get("Michel-Ange - Molitor")]);
         //for(Pair<String, String> p : u) System.out.println(p.getValue() + " -> " + p.getObj());
+
+        assertEquals(m.getDirect()[m.getSetOfVertices().get("Grands Boulevards")][m.getSetOfVertices().get("Michel-Ange - Molitor")], 1440.0, 0.0);
 
         assertEquals(u.get(0).getObj(), "Michel-Ange - Molitor");
         assertEquals(u.get(0).getValue(), "FIN");
@@ -91,8 +96,9 @@ public class MatriceWGraphTest{
         assertEquals(u.get(1).getValue(), "9");
 
         ArrayList<Pair<String, String>> n = LimitedConnectionSearch.getPath(m, "Gabriel Péri", "Mirabeau");
-        //System.out.println(m.getDirect()[m.getSetOfVertices().get("Gabriel Péri")][m.getSetOfVertices().get("Mirabeau")]);
         //for(Pair<String, String> p : n) System.out.println(p.getValue() + " -> " + p.getObj());
+
+        assertEquals(m.getDirect()[m.getSetOfVertices().get("Gabriel Péri")][m.getSetOfVertices().get("Mirabeau")], 1710.0, 0.0);
 
         assertEquals(n.get(0).getObj(), "Mirabeau");
         assertEquals(n.get(0).getValue(), "FIN");
@@ -102,9 +108,11 @@ public class MatriceWGraphTest{
             
         assertEquals(n.get(2).getObj(), "Gabriel Péri");
         assertEquals(n.get(2).getValue(), "13");
+
         ArrayList<Pair<String, String>> i = LimitedConnectionSearch.getPath(m, "Porte Dauphine", "Olympiades");
-        //System.out.println(m.getDirect()[m.getSetOfVertices().get("Porte Dauphine")][m.getSetOfVertices().get("Olympiades")]);
         //for(Pair<String, String> p : i) System.out.println(p.getValue() + " -> " + p.getObj());
+
+        assertEquals(m.getDirect()[m.getSetOfVertices().get("Porte Dauphine")][m.getSetOfVertices().get("Olympiades")], 1350.0, 0.0);
 
         assertEquals(i.get(0).getObj(), "Olympiades");
         assertEquals(i.get(0).getValue(), "FIN");
