@@ -30,7 +30,7 @@ public class MatriceWGraph{
     private MatriceWGraph(WGraph<Station> g){
         int numVertex = 0;
         this.setOfVertices = new HashMap<String, Integer>();
-        for(Station s : g.getWGraph().keySet()){
+        for(Station s : g.getVertices()){
             String vertexName = s.getName();
             String vertexLine = s.getLine();
             if(!this.setOfVertices.containsKey(vertexName) && vertexLine != "Meta Station Start" && vertexLine != "Meta Station End"){
@@ -42,7 +42,7 @@ public class MatriceWGraph{
         this.direct = new Double[n][n];
         this.via = new Station[n][n];
         this.intermediate = new Integer[n][n];
-        for(Map.Entry<Station, HashMap<Station, Double>> edge : g.getWGraph().entrySet()){
+        for(Map.Entry<Station, HashMap<Station, Double>> edge : g.edgeSet()){
             Station vertex = edge.getKey();
             String vertexName = vertex.getName();
             String vertexLine = vertex.getLine();
@@ -69,9 +69,9 @@ public class MatriceWGraph{
             }
         }
         Double[][] t = initializeDirectLine(this.direct);
-        for(Station s1 : g.getWGraph().keySet()){
+        for(Station s1 : g.getVertices()){
             if(s1.getLine().equals("Meta Station Start") || s1.getLine().equals("Meta Station End")) continue;
-            for(Station s2 : g.getWGraph().keySet()){
+            for(Station s2 : g.getVertices()){
                 if(s2.getLine().equals("Meta Station Start") || s2.getLine().equals("Meta Station End")) continue;
                 if(s1.getLine().equals(s2.getLine()) && !s1.getName().equals(s2.getName())){
                     this.direct[this.setOfVertices.get(s1.getName())][this.setOfVertices.get(s2.getName())] = t[this.setOfVertices.get(s1.getName())][this.setOfVertices.get(s2.getName())];
@@ -90,7 +90,7 @@ public class MatriceWGraph{
     public MatriceWGraph(WGraph<Station> g, HashMap<String, MatriceWGraph> m){
         int numVertex = 0;
         this.setOfVertices = new HashMap<String, Integer>();
-        for(Station s : g.getWGraph().keySet()){
+        for(Station s : g.getVertices()){
             String vertexName = s.getName();
             String vertexLine = s.getLine();
             if(!this.setOfVertices.containsKey(vertexName) && vertexLine != "Meta Station Start" && vertexLine != "Meta Station End"){
@@ -102,7 +102,7 @@ public class MatriceWGraph{
         this.direct = new Double[n][n];
         this.via = new Station[n][n];
         this.intermediate = new Integer[n][n];
-        for(Map.Entry<Station, HashMap<Station, Double>> edge : g.getWGraph().entrySet()){
+        for(Map.Entry<Station, HashMap<Station, Double>> edge : g.edgeSet()){
             Station vertex = edge.getKey();
             String vertexName = vertex.getName();
             String vertexLine = vertex.getLine();
@@ -128,9 +128,9 @@ public class MatriceWGraph{
                 if(this.intermediate[i][j] == null) this.intermediate[i][j] = Integer.MAX_VALUE;
             }
         }
-        for(Station s1 : g.getWGraph().keySet()){
+        for(Station s1 : g.getVertices()){
             if(s1.getLine().equals("Meta Station Start") || s1.getLine().equals("Meta Station End")) continue;
-            for(Station s2 : g.getWGraph().keySet()){
+            for(Station s2 : g.getVertices()){
                 if(s2.getLine().equals("Meta Station Start") || s2.getLine().equals("Meta Station End")) continue;
                 if(s1.getLine().equals(s2.getLine()) && !s1.getName().equals(s2.getName())){
                     MatriceWGraph gm = m.get(s1.getLine());

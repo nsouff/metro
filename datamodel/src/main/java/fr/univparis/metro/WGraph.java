@@ -2,15 +2,12 @@ package fr.univparis.metro;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.*;
 
 
 public class WGraph<T>{
 
   private HashMap<T, HashMap<T, Double>> wGraph;
-
-  public HashMap<T, HashMap<T, Double>> getWGraph(){
-    return this.wGraph;
-  }
 
   public WGraph(){
     this.wGraph = new HashMap<T, HashMap<T, Double>>();
@@ -21,6 +18,10 @@ public class WGraph<T>{
   */
   public Set<T> getVertices(){
     return this.wGraph.keySet();
+  }
+
+  public Set<Map.Entry<T, HashMap<T, Double>>> edgeSet(){
+    return this.wGraph.entrySet();
   }
 
   public int nbVertex() {return wGraph.size();}
