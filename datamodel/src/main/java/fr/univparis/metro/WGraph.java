@@ -2,8 +2,6 @@ package fr.univparis.metro;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.function.Predicate;
-import java.util.*;
-
 
 public class WGraph<T>{
 
@@ -18,10 +16,6 @@ public class WGraph<T>{
   */
   public Set<T> getVertices(){
     return this.wGraph.keySet();
-  }
-
-  public Set<Map.Entry<T, HashMap<T, Double>>> edgeSet(){
-    return this.wGraph.entrySet();
   }
 
   public int nbVertex() {return wGraph.size();}

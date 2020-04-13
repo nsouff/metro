@@ -42,21 +42,19 @@ public class MatriceWGraph{
         this.direct = new Double[n][n];
         this.via = new Station[n][n];
         this.intermediate = new Integer[n][n];
-        for(Map.Entry<Station, HashMap<Station, Double>> edge : g.edgeSet()){
-            Station vertex = edge.getKey();
+        for(Station vertex : g.getVertices()){
             String vertexName = vertex.getName();
             String vertexLine = vertex.getLine();
             if(vertexLine != "Meta Station Start" && vertexLine != "Meta Station End"){
                 this.direct[this.setOfVertices.get(vertexName)][this.setOfVertices.get(vertexName)] = 0.0;
                 this.via[this.setOfVertices.get(vertexName)][this.setOfVertices.get(vertexName)] = vertex;
                 this.intermediate[this.setOfVertices.get(vertexName)][this.setOfVertices.get(vertexName)] = 0;
-                HashMap<Station, Double> verticesN = edge.getValue();
-                //for all the neighboors of vertex
-                for(Map.Entry<Station, Double> p : verticesN.entrySet()){
-                    if(p.getKey().getLine() != "Meta Station Start" && p.getKey().getLine() != "Meta Station End"){
-                        this.direct[this.setOfVertices.get(vertexName)][this.setOfVertices.get(p.getKey().getName())] = p.getValue();
-                        this.via[this.setOfVertices.get(vertexName)][this.setOfVertices.get(p.getKey().getName())] = vertex;
-                        this.intermediate[this.setOfVertices.get(vertexName)][this.setOfVertices.get(p.getKey().getName())] = 1;
+                Set<Station> verticesN = g.neighbors(vertex);
+                for(Station p : verticesN){
+                    if(p.getLine() != "Meta Station Start" && p.getLine() != "Meta Station End"){
+                        this.direct[this.setOfVertices.get(vertexName)][this.setOfVertices.get(p.getName())] = g.weight(vertex, p);
+                        this.via[this.setOfVertices.get(vertexName)][this.setOfVertices.get(p.getName())] = vertex;
+                        this.intermediate[this.setOfVertices.get(vertexName)][this.setOfVertices.get(p.getName())] = 1;
                     }
                 }
             }
@@ -102,21 +100,19 @@ public class MatriceWGraph{
         this.direct = new Double[n][n];
         this.via = new Station[n][n];
         this.intermediate = new Integer[n][n];
-        for(Map.Entry<Station, HashMap<Station, Double>> edge : g.edgeSet()){
-            Station vertex = edge.getKey();
+        for(Station vertex : g.getVertices()){
             String vertexName = vertex.getName();
             String vertexLine = vertex.getLine();
             if(vertexLine != "Meta Station Start" && vertexLine != "Meta Station End"){
                 this.direct[this.setOfVertices.get(vertexName)][this.setOfVertices.get(vertexName)] = 0.0;
                 this.via[this.setOfVertices.get(vertexName)][this.setOfVertices.get(vertexName)] = vertex;
                 this.intermediate[this.setOfVertices.get(vertexName)][this.setOfVertices.get(vertexName)] = 0;
-                HashMap<Station, Double> verticesN = edge.getValue();
-                //for all the neighboors of vertex
-                for(Map.Entry<Station, Double> p : verticesN.entrySet()){
-                    if(p.getKey().getLine() != "Meta Station Start" && p.getKey().getLine() != "Meta Station End"){
-                        this.direct[this.setOfVertices.get(vertexName)][this.setOfVertices.get(p.getKey().getName())] = p.getValue();
-                        this.via[this.setOfVertices.get(vertexName)][this.setOfVertices.get(p.getKey().getName())] = vertex;
-                        this.intermediate[this.setOfVertices.get(vertexName)][this.setOfVertices.get(p.getKey().getName())] = 1;
+                Set<Station> verticesN = g.neighbors(vertex);
+                for(Station p : verticesN){
+                    if(p.getLine() != "Meta Station Start" && p.getLine() != "Meta Station End"){
+                        this.direct[this.setOfVertices.get(vertexName)][this.setOfVertices.get(p.getName())] = g.weight(vertex, p);
+                        this.via[this.setOfVertices.get(vertexName)][this.setOfVertices.get(p.getName())] = vertex;
+                        this.intermediate[this.setOfVertices.get(vertexName)][this.setOfVertices.get(p.getName())] = 1;
                     }
                 }
             }
