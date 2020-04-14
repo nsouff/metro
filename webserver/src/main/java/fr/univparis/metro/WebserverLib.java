@@ -12,7 +12,8 @@ public class WebserverLib {
     return res;
   }
 
-  public static String path(HashMap<Station, Station> prev, Station to) {
+  public static String path(HashMap<Station, Station> prev, Station to, ArrayList<Pair<Station, Station>> changingStation) {
+    if (changingStation != null) changingStation.clear();
     LinkedList<Station> path = new LinkedList<Station>();
     Station current  = to;
     while(! prev.get(current).getLine().equals("Meta Station Start")) {
@@ -23,11 +24,16 @@ public class WebserverLib {
     String from = path.getFirst().getName();
     String line = path.getFirst().getLine();
     String res = "Departure : " + from + "<br><br>"+"line " + line + " : " + from + " -> ";
+    Station prec = null;
     for (Station st : path) {
       if (!st.getLine().equals(line)) {
+        if (changingStation != null){
+          changingStation.add(new Pair<Station, Station>(prec, st));
+        }
         res += st.getName() + "<br>" + "line " + st.getLine() + " : " + st.getName() + " -> ";
         line = st.getLine();
       }
+      prec = st;
     }
     res += to.getName() + "<br><br>Arrival: " + to.getName();
     return res;
@@ -84,6 +90,45 @@ public class WebserverLib {
     + "<br>Time : " + hours + "h "+ minutes + "min " + seconds + "sec<br><h3>Number minimum of correspondence to do all the possible trajects on the network : " + stat2 +"</h3><br><h3> The average number of stations per line : " + stat6 + "</h3><br><h3>The line with the most stations : line " + stat3 + "</h3>"
     + "<br><h3>The line with the least stations : line " + stat4 + "</h3><br><h3>The average time from one terminus of a line to the other : " + hours5 + "h "+ minutes5 + "min " + seconds5 + "sec</h3><br><h3>The longest(duration) line : line " + stat7
     + "</h3><br><h3>The shortest(duration) line : line " + stat8 + "</h3><br>" ;
+  }
+
+  public static String multiplePath(WGraph<Station> g, Station start, Station to) {
+    int display = 10;
+    HashMap<Station, Station> prev = new HashMap<Station, Station>();
+    HashMap<Station, Double> dist = new HashMap<Station, Double>();
+    ArrayList<Pair<Station, Station>> changingStation  = new ArrayList<Pair<Station, Station>>();
+    Dijkstra.shortestPath(g, start, prev, dist);
+    String res;
+    try {
+      res = "<h2>Time</h2>\n" +
+      time(dist.get(to)) +
+      "<h2>Itinerary</h2>" +
+      path(prev, to, changingStation);
+    } catch(NullPointerException e) {
+      return "Due to actual trafics perturbation we couldn't find any path from " + start.getName() + " to " + to.getName();
+    }
+    display--;
+    for (int i = 0; i < changingStation.size() && display != 0; i++) {
+      Pair<Station, Station> p = changingStation.get(i);
+      Double weight = g.weight(p.getObj(), p.getValue());
+      g.setWeight(p.getObj(), p.getValue(), Double.POSITIVE_INFINITY);
+      Dijkstra.shortestPath(g, start, prev, dist);
+      String tmp;
+      try {
+        tmp = "<h2>Time</h2>\n" +
+        time(dist.get(to)) +
+        "<h2>Itinerary</h2>\n" +
+        path(prev, to, null);
+        display--;
+      } catch(NullPointerException e) {
+        tmp = "";
+      }
+      res += tmp;
+      g.setWeight(p.getObj(), p.getValue(), weight);
+
+    }
+
+    return res;
   }
 
 }
