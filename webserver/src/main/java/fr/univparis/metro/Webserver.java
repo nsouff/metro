@@ -1,5 +1,6 @@
 package fr.univparis.metro;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.io.File;
 import io.javalin.plugin.rendering.template.TemplateUtil;
 import io.javalin.*;
@@ -156,6 +157,13 @@ public class Webserver {
       ctx.render("/public/statistics.ftl", TemplateUtil.model(
       "stat1", WebserverLib.stat1(stat1, stat2, stat3, stat4, stat5, stat6, stat7, stat8)
       ));
+    });
+  }
+
+  public static void autoCompletion(Javalin app){
+    app.post("/:city", ctx -> {
+      String city = ctx.pathParam("city");
+      ArrayList<String> ret = WebserverLib.parseStations(city);
     });
   }
 

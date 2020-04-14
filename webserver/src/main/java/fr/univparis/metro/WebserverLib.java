@@ -1,6 +1,7 @@
 package fr.univparis.metro;
 
 import java.util.*;
+import java.io.*;
 
 public class WebserverLib {
   public static String toOption() {
@@ -84,6 +85,23 @@ public class WebserverLib {
     + "<br>Time : " + hours + "h "+ minutes + "min " + seconds + "sec<br><h3>Number minimum of correspondence to do all the possible trajects on the network : " + stat2 +"</h3><br><h3> The average number of stations per line : " + stat6 + "</h3><br><h3>The line with the most stations : line " + stat3 + "</h3>"
     + "<br><h3>The line with the least stations : line " + stat4 + "</h3><br><h3>The average time from one terminus of a line to the other : " + hours5 + "h "+ minutes5 + "min " + seconds5 + "sec</h3><br><h3>The longest(duration) line : line " + stat7
     + "</h3><br><h3>The shortest(duration) line : line " + stat8 + "</h3><br>" ;
+  }
+
+  public static ArrayList<String> parseStations(String city) throws IOException{
+    ArrayList<String> ret = new ArrayList<String>();
+    Scanner s = new Scanner(new File("webserver/src/main/resources/" + city + ".txt"));
+    String current = "";
+    while(s.hasNextLine()){
+      current = s.nextLine();
+      if(current.isEmpty() || current.startsWith("Ligne") || current.equals("[") || current.equals("]") || current.equals("{") || current.equals("}") || current.equals("--") || current.equals("||")) continue;
+      else ret.add(current);
+    }
+    for(String str : ret) System.out.println(str);
+    return ret;
+  }
+
+  public static void main(String[] args) throws IOException{
+    parseStations("liste");
   }
 
 }
