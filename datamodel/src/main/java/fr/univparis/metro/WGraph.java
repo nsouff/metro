@@ -11,6 +11,12 @@ public class WGraph<T>{
     this.wGraph = new HashMap<T, HashMap<T, Double>>();
   }
 
+  public WGraph<T> clone(){
+    WGraph<T> c = new WGraph<T>();
+    c.wGraph = this.wGraph;
+    return c;
+  }
+
   /**
   * @return the set of all the keys contained in the HashMap wGraph.
   */
