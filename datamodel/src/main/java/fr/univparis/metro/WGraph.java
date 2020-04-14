@@ -3,14 +3,9 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.function.Predicate;
 
-
 public class WGraph<T>{
 
   private HashMap<T, HashMap<T, Double>> wGraph;
-
-  public HashMap<T, HashMap<T, Double>> getWGraph(){
-    return this.wGraph;
-  }
 
   public WGraph(){
     this.wGraph = new HashMap<T, HashMap<T, Double>>();
