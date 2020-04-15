@@ -13,7 +13,7 @@ public class WGraph<T>{
 
   public WGraph<T> clone(){
     WGraph<T> c = new WGraph<T>();
-    c.wGraph = this.wGraph;
+    c.wGraph = this.wGraph.clone();
     return c;
   }
 
