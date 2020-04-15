@@ -61,7 +61,7 @@ public class Webserver {
 
   public static void InstallItinerary(Javalin app) {
     app.post("/:city/itinerary", ctx -> {
-        WGraph<Station> g = Trafics.getGraph(ctx.pathParam("city"));
+        WGraph<Station> g = Trafics.getGraph(ctx.pathParam("city")).clone();
         Station start = new Station(ctx.formParam("start"), "Meta Station Start");
         Station end = new Station(ctx.formParam("end"), "Meta Station End");
         String body = "";
