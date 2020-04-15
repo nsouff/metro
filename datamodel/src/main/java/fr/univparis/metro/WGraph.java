@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.function.Predicate;
 
-public class WGraph<T>{
+public class WGraph<T> implements Cloneable{
 
   private HashMap<T, HashMap<T, Double>> wGraph;
 
@@ -14,7 +14,12 @@ public class WGraph<T>{
   public WGraph<T> clone(){
     WGraph<T> c = new WGraph<T>();
     for(T t : this.getVertices()){
-      c.wGraph.put(t, this.wGraph.get(t));
+      HashMap<T, Double> h = new HashMap<T, Double>();
+      for(T s : this.neighbors(t)){
+        Double w = weight(s, t);
+        h.put(s, w);
+      }
+      c.wGraph.put(t, h);
     }
     return c;
   }

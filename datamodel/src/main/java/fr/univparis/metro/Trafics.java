@@ -37,8 +37,8 @@ public class Trafics {
 
     reverts = new HashMap<String , HashMap<String , WGraph<Station>>> ();
     for (String city : Configuration.getCitiesName()) {
-      actualTrafics.put(city, Parser.loadFrom(new File(Configuration.getFileName(city))));
-      initialTrafics.put(city, actualTrafics.get(city).clone());
+      initialTrafics.put(city, Parser.loadFrom(new File(Configuration.getFileName(city))));
+      actualTrafics.put(city, initialTrafics.get(city).clone());
       reverts.put(city, new HashMap<String, WGraph<Station>>());
     }
   }
