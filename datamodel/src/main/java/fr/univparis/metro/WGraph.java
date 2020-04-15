@@ -16,12 +16,16 @@ public class WGraph<T> implements Cloneable{
     for(T t : this.getVertices()){
       HashMap<T, Double> h = new HashMap<T, Double>();
       for(T s : this.neighbors(t)){
-        Double w = weight(s, t);
+        Double w = weight(t, s);
         h.put(s, w);
       }
       c.wGraph.put(t, h);
     }
     return c;
+  }
+
+  public boolean equals(WGraph<T> g){
+    return(g.wGraph.equals(this.wGraph));
   }
 
   /**

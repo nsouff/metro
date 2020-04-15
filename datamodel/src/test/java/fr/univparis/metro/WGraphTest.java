@@ -31,6 +31,9 @@ public class WGraphTest{
   @Test
   public void cloneTest(){
     WGraph<String> h = g.clone();
+    assertTrue(g.equals(h));
+    assertTrue(g.neighbors("Ourcq").contains("Laumière"));
+    assertTrue(h.neighbors("Ourcq").contains("Laumière"));
     h.removeEdge("Ourcq", "Laumière");
     assertTrue(g.neighbors("Ourcq").contains("Laumière"));
     assertTrue(!h.neighbors("Ourcq").contains("Laumière"));
