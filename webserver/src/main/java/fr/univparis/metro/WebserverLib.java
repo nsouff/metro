@@ -12,7 +12,7 @@ public class WebserverLib {
     return res;
   }
 
-  public static String path(HashMap<Station, Station> prev, Station to, ArrayList<Pair<Station, Station>> changingStation) {
+  private static String path(HashMap<Station, Station> prev, Station to, ArrayList<Pair<Station, Station>> changingStation) {
     if (changingStation != null) changingStation.clear();
     LinkedList<Station> path = new LinkedList<Station>();
     Station current  = to;
@@ -55,6 +55,7 @@ public class WebserverLib {
   }
 
   public static String time(Double time) {
+    if (time == Double.POSITIVE_INFINITY) throw new IllegalArgumentException();
     Double seconds = time % 60;
     Double minutesTmp = (time - seconds) / 60;
     Double minutes = minutesTmp % 60;
@@ -93,42 +94,71 @@ public class WebserverLib {
   }
 
   public static String multiplePath(WGraph<Station> g, Station start, Station to) {
-    int display = 10;
+    TreeSet<Pair<String, Double>> resAux = new TreeSet<Pair<String, Double>>((p1, p2) -> {
+      if (p1.getValue() < p2.getValue()) return -1;
+      if (p1.getValue() > p2.getValue()) return 1;
+      else {
+        return p1.getObj().hashCode() - p2.getObj().hashCode();
+      }
+    });
+    double THRESHOLD = 1.2;
     HashMap<Station, Station> prev = new HashMap<Station, Station>();
     HashMap<Station, Double> dist = new HashMap<Station, Double>();
     ArrayList<Pair<Station, Station>> changingStation  = new ArrayList<Pair<Station, Station>>();
     Dijkstra.shortestPath(g, start, prev, dist);
-    String res;
-    try {
-      res = "<h2>Time</h2>\n" +
-      time(dist.get(to)) +
-      "<h2>Itinerary</h2>" +
-      path(prev, to, changingStation);
-    } catch(NullPointerException e) {
+      try {
+      resAux.add(new Pair<String, Double>(
+        "<h2>Time</h2>\n" +
+        time(dist.get(to)) +
+        "<h2>Itinerary</h2>" +
+        path(prev, to, changingStation),
+        dist.get(to)
+      ));
+
+    } catch(RuntimeException e) {
       return "Due to actual trafics perturbation we couldn't find any path from " + start.getName() + " to " + to.getName();
     }
-    display--;
-    for (int i = 0; i < changingStation.size() && display != 0; i++) {
-      Pair<Station, Station> p = changingStation.get(i);
-      Double weight = g.weight(p.getObj(), p.getValue());
-      g.setWeight(p.getObj(), p.getValue(), Double.POSITIVE_INFINITY);
-      Dijkstra.shortestPath(g, start, prev, dist);
-      String tmp;
-      try {
-        tmp = "<h2>Time</h2>\n" +
-        time(dist.get(to)) +
-        "<h2>Itinerary</h2>\n" +
-        path(prev, to, null);
-        display--;
-      } catch(NullPointerException e) {
-        tmp = "";
-      }
-      res += tmp;
-      g.setWeight(p.getObj(), p.getValue(), weight);
 
+    multiplePathAux(g, start, to, changingStation, resAux, THRESHOLD * dist.get(to));
+
+    String res = "";
+    for (Pair<String, Double> p : resAux) {
+      res += p.getObj();
     }
-
     return res;
+  }
+
+  private static void multiplePathAux(WGraph<Station> g, Station start, Station to, ArrayList<Pair<Station, Station>> changingStation, TreeSet<Pair<String, Double>> resAux, Double threshold) {
+    int MAX_CORRESPONDANCES = 3;
+    HashMap<Station, Station> prev = new HashMap<Station, Station>();
+    HashMap<Station, Double> dist = new HashMap<Station, Double>();
+    for (Pair<Station, Station> p : changingStation) {
+      WGraph<Station> revert = new WGraph<Station>();
+      Station st = p.getObj();
+      revert.addVertex(st);
+      for (Station n : g.neighbors(st)) {
+        if (n.getName().equals(st.getName()) && ! n.getLine().startsWith("Meta Station")) {
+          // Changin are on both sides
+          revert.addVertex(n);
+          revert.addEdge(st, n, g.weight(st, n));
+          g.setWeight(st, n, Double.POSITIVE_INFINITY);
+        }
+      }
+      ArrayList<Pair<Station, Station>> pChangingStation = new ArrayList<Pair<Station, Station>>();
+      Dijkstra.shortestPath(g, start, prev, dist);
+      String itinerary = path(prev, to, pChangingStation);
+      if (dist.get(to) <= threshold && pChangingStation.size() <= MAX_CORRESPONDANCES) {
+        resAux.add(new Pair<String, Double>(
+          "<h2>Time</h2>\n" +
+          time(dist.get(to)) +
+          "<h2>Itinerary</h2>" +
+          itinerary,
+          dist.get(to)
+        ));
+        multiplePathAux(g, start, to, pChangingStation, resAux, threshold);
+      }
+      g.apply(revert);
+    }
   }
 
 }
