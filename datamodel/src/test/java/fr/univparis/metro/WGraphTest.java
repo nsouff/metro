@@ -36,7 +36,7 @@ public class WGraphTest{
     assertTrue(h.neighbors("Ourcq").contains("Laumière"));
     h.removeEdge("Ourcq", "Laumière");
     assertTrue(g.neighbors("Ourcq").contains("Laumière"));
-    assertTrue(!h.neighbors("Ourcq").contains("Laumière"));
+    assertFalse(h.neighbors("Ourcq").contains("Laumière"));
   }
 
   @Test
