@@ -3,12 +3,29 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.function.Predicate;
 
-public class WGraph<T>{
+public class WGraph<T> implements Cloneable{
 
   private HashMap<T, HashMap<T, Double>> wGraph;
 
   public WGraph(){
     this.wGraph = new HashMap<T, HashMap<T, Double>>();
+  }
+
+  public WGraph<T> clone(){
+    WGraph<T> c = new WGraph<T>();
+    for(T t : this.getVertices()){
+      HashMap<T, Double> h = new HashMap<T, Double>();
+      for(T s : this.neighbors(t)){
+        Double w = weight(t, s);
+        h.put(s, w);
+      }
+      c.wGraph.put(t, h);
+    }
+    return c;
+  }
+
+  public boolean equals(WGraph<T> g){
+    return(g.wGraph.equals(this.wGraph));
   }
 
   /**

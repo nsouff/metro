@@ -31,14 +31,13 @@ public class Trafics {
   public static Set<String> getCities() {return actualTrafics.keySet();}
 
   public static void initTrafics() throws IOException {
-    /* FIXME: we are parsing twice every file, cloning might be quicker at runtime */
     actualTrafics = new HashMap< String , WGraph<Station> > ();
     initialTrafics = new HashMap< String , WGraph<Station> > ();
 
     reverts = new HashMap<String , HashMap<String , WGraph<Station>>> ();
     for (String city : Configuration.getCitiesName()) {
-      actualTrafics.put(city, Parser.loadFrom(new File(Configuration.getFileName(city))));
       initialTrafics.put(city, Parser.loadFrom(new File(Configuration.getFileName(city))));
+      actualTrafics.put(city, initialTrafics.get(city).clone());
       reverts.put(city, new HashMap<String, WGraph<Station>>());
     }
   }
