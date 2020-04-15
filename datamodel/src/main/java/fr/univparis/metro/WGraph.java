@@ -13,7 +13,9 @@ public class WGraph<T>{
 
   public WGraph<T> clone(){
     WGraph<T> c = new WGraph<T>();
-    c.wGraph = this.wGraph.clone();
+    for(T t : this.getVertices()){
+      c.wGraph.put(t, this.wGraph.get(t));
+    }
     return c;
   }
 
