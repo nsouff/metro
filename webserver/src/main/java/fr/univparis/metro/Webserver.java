@@ -151,8 +151,8 @@ public class Webserver {
       HashMap<String, Double> res = new HashMap<String, Double>();
       int stat5 = Statistics.averageTimeOnEachLine(g, res);
       int stat6 = Statistics.averageNbOfStationPerLine(g);
-      String stat7 = Statistics.longestTimeTravelLine(g);
-      String stat8 = Statistics.shortestTimeTravelLine(g);
+      Pair<String, Double> stat7 = Statistics.longestTimeTravelLine(g);
+      Pair<String, Double> stat8 = Statistics.shortestTimeTravelLine(g);
       ctx.render("/public/statistics.ftl", TemplateUtil.model(
       "stat1", WebserverLib.stat1(stat1, stat2, stat3, stat4, stat5, stat6, stat7, stat8)
       ));

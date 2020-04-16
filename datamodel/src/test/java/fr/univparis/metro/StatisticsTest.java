@@ -51,14 +51,16 @@ public class StatisticsTest{
 
     @Test
     public void shortestTimeTravelLineTest(){
-      assertEquals("3bis", Statistics.shortestTimeTravelLine(g));
+      assertEquals("3bis", Statistics.shortestTimeTravelLine(g).getObj());
+      assertEquals((Double)270., Statistics.shortestTimeTravelLine(g).getValue());
     }
 
     @Test
     public void longestTimeTravelLineTest(){
-      assertEquals("8", Statistics.longestTimeTravelLine(g));
+      assertEquals("8", Statistics.longestTimeTravelLine(g).getObj());
+      assertEquals((Double)3240., Statistics.longestTimeTravelLine(g).getValue());
     }
-    
+
     public void averageNbOfStationPerLine(){
       assertEquals(23, Statistics.averageNbOfStationPerLine(g));
 
