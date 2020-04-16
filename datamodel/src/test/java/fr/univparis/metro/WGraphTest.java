@@ -29,6 +29,17 @@ public class WGraphTest{
   }
 
   @Test
+  public void cloneTest(){
+    WGraph<String> h = g.clone();
+    assertTrue(g.equals(h));
+    assertTrue(g.neighbors("Ourcq").contains("Laumière"));
+    assertTrue(h.neighbors("Ourcq").contains("Laumière"));
+    h.removeEdge("Ourcq", "Laumière");
+    assertTrue(g.neighbors("Ourcq").contains("Laumière"));
+    assertFalse(h.neighbors("Ourcq").contains("Laumière"));
+  }
+
+  @Test
   public void weightTest(){
     assertEquals(70.0, g.weight("Ourcq", "Laumière"), 0.0);
     assertEquals(75.0, g.weight("Laumière", "Jaures"), 0.0);
