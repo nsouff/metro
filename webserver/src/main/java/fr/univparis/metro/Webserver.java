@@ -55,7 +55,8 @@ public class Webserver {
       }
       ctx.render("/public/city.ftl", TemplateUtil.model(
         "city", city,
-        "perturbation", WebserverLib.perturbationToHtml(city)
+        "perturbation", WebserverLib.perturbationToHtml(city),
+        "arrayStation", ListStation.getListStation(city)
       ));
     });
   }
