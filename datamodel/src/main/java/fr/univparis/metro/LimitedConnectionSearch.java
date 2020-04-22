@@ -36,6 +36,12 @@ public class LimitedConnectionSearch {
                 }
             }
         }
+        for(int i = 0; i < direct.length; i++){
+            System.out.println(i);
+            for(int j = 0; j < direct.length; j++){
+                direct[i][j] += (intermediate[i][j] - 1) * Parser.defaultChangeStationWeight;
+            }
+        }
     }
 
     public static Double[][] floyd(Double[][] d){
@@ -60,14 +66,14 @@ public class LimitedConnectionSearch {
         return ret;
     }
 
-        public static ArrayList<Pair<String, String>> getPath(MatriceWGraph g, String start, String end){
+    public static ArrayList<Pair<String, String>> getPath(MatriceWGraph g, String start, String end){
         floyd(g.getDirect(), g.getVia(), g.getIntermediate());
         int numStart = g.getSetOfVertices().get(start);
         int numEnd = g.getSetOfVertices().get(end);
         ArrayList<Pair<String, String>> ret = new ArrayList<Pair<String, String>>();
         String current = end;
         String currentLine = "FIN";
-        ret.add(new Pair(current, currentLine));
+        ret.add(new Pair<String, String>(current, currentLine));
         int n = numEnd;
         while(!start.equals(current)){
             current = g.getVia()[numStart][n].getName();

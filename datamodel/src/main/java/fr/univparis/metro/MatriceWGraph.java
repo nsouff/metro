@@ -83,7 +83,7 @@ public class MatriceWGraph{
     /**
      * To build the whole graph.
      * @param g is the graph under the from of a hashMap from which we build the matrice graph.
-     * @param h contains all the sub graphs representing each lines of the graph g.
+     * @param m contains all the sub graphs representing each lines of the graph g.
      */
     public MatriceWGraph(WGraph<Station> g, HashMap<String, MatriceWGraph> m){
         int numVertex = 0;
