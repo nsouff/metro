@@ -36,12 +36,6 @@ public class LimitedConnectionSearch {
                 }
             }
         }
-        for(int i = 0; i < direct.length; i++){
-            System.out.println(i);
-            for(int j = 0; j < direct.length; j++){
-                direct[i][j] += (intermediate[i][j] - 1) * Parser.defaultChangeStationWeight;
-            }
-        }
     }
 
     public static Double[][] floyd(Double[][] d){
