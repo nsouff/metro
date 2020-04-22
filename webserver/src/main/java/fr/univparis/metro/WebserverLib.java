@@ -13,7 +13,7 @@ public class WebserverLib {
   }
 
   private static String path(HashMap<Station, Station> prev, Station to, ArrayList<Pair<Station, Station>> changingStation) {
-    if (changingStation != null) changingStation.clear();
+    changingStation.clear();
     LinkedList<Station> path = new LinkedList<Station>();
     Station current  = to;
     while(! prev.get(current).getLine().equals("Meta Station Start")) {
@@ -27,9 +27,7 @@ public class WebserverLib {
     Station prec = null;
     for (Station st : path) {
       if (!st.getLine().equals(line)) {
-        if (changingStation != null){
-          changingStation.add(new Pair<Station, Station>(prec, st));
-        }
+        changingStation.add(new Pair<Station, Station>(prec, st));
         res += st.getName() + "<br>" + "line " + st.getLine() + " : " + st.getName() + " -> ";
         line = st.getLine();
       }
@@ -119,7 +117,7 @@ public class WebserverLib {
       return "Due to actual trafics perturbation we couldn't find any path from " + start.getName() + " to " + to.getName();
     }
 
-    multiplePathAux(g, start, to, changingStation, resAux, THRESHOLD * dist.get(to));
+    multiplePathAux(g, start, to, changingStation, resAux, THRESHOLD * dist.get(to), 0);
 
     String res = "";
     for (Pair<String, Double> p : resAux) {
@@ -128,8 +126,11 @@ public class WebserverLib {
     return res;
   }
 
-  private static void multiplePathAux(WGraph<Station> g, Station start, Station to, ArrayList<Pair<Station, Station>> changingStation, TreeSet<Pair<String, Double>> resAux, Double threshold) {
+  private static void multiplePathAux(WGraph<Station> g, Station start, Station to, ArrayList<Pair<Station, Station>> changingStation, TreeSet<Pair<String, Double>> resAux, Double threshold, int depth) {
     int MAX_CORRESPONDANCES = 3;
+    int MAX_DEPTH = 5;
+    if (depth >= MAX_DEPTH) return;
+
     HashMap<Station, Station> prev = new HashMap<Station, Station>();
     HashMap<Station, Double> dist = new HashMap<Station, Double>();
     for (Pair<Station, Station> p : changingStation) {
@@ -146,16 +147,19 @@ public class WebserverLib {
       }
       ArrayList<Pair<Station, Station>> pChangingStation = new ArrayList<Pair<Station, Station>>();
       Dijkstra.shortestPath(g, start, prev, dist);
-      String itinerary = path(prev, to, pChangingStation);
-      if (dist.get(to) <= threshold && pChangingStation.size() <= MAX_CORRESPONDANCES) {
-        resAux.add(new Pair<String, Double>(
+      if (dist.get(to) <= threshold) {
+        String itinerary = path(prev, to, pChangingStation);
+        if (pChangingStation.size() <= MAX_CORRESPONDANCES) {
+          resAux.add(new Pair<String, Double>(
           "<h2>Time</h2>\n" +
           time(dist.get(to)) +
           "<h2>Itinerary</h2>" +
           itinerary,
           dist.get(to)
-        ));
-        multiplePathAux(g, start, to, pChangingStation, resAux, threshold);
+          ));
+          multiplePathAux(g, start, to, pChangingStation, resAux, threshold, depth + 1);
+        }
+
       }
       g.apply(revert);
     }
