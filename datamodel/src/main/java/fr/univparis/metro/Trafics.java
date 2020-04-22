@@ -1,7 +1,7 @@
 package fr.univparis.metro;
 
+import java.io.InputStream;
 import java.io.IOException;
-import java.io.File;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -36,7 +36,8 @@ public class Trafics {
 
     reverts = new HashMap<String , HashMap<String , WGraph<Station>>> ();
     for (String city : Configuration.getCitiesName()) {
-      initialTrafics.put(city, Parser.loadFrom(new File(Configuration.getFileName(city))));
+      InputStream i = Trafics.class.getResourceAsStream("/" + Configuration.getFileName(city));
+      initialTrafics.put(city, Parser.loadFrom(i));
       actualTrafics.put(city, initialTrafics.get(city).clone());
       reverts.put(city, new HashMap<String, WGraph<Station>>());
     }
