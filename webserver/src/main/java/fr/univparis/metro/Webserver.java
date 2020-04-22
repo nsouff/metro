@@ -123,6 +123,17 @@ public class Webserver {
         case PART_STATION_SHUT_DOWN:
           parameter = new Station(ctx.formParam("station_name"), ctx.formParam("station_line"));
           break;
+        case PART_LINE_SHUT_DOWN:
+        String line1 = ctx.formParam("line");
+          parameter = new Pair<Station, Station>(new Station(ctx.formParam("start_station"), line1), new Station(ctx.formParam("end_station"), line1));
+          break;
+        case PART_LINE_SLOW_DOWN:
+        parameter = new Object[3];
+        String line2 = ctx.formParam("line");
+        ((Object[]) parameter)[0] = new Station(ctx.formParam("start_station"), line2);
+        ((Object[]) parameter)[1] = new Station(ctx.formParam("end_station"), line2);
+        ((Object[]) parameter)[2] = Double.valueOf(ctx.formParam("times"));
+          break;
       }
 
       Trafics.addPerturbation(city, type, name, parameter);
