@@ -16,7 +16,8 @@ public class ListStation{
     public static String getListStation(String name) throws FileNotFoundException{
         String str = "[";
         ArrayList<String> l = new ArrayList<>();
-        try(Scanner sc = new Scanner(new File("src/main/resources/liste.txt"))){
+        Configuration.loadFrom(new File("src/main/resources/cities.json"));
+        try(Scanner sc = new Scanner(new File(Configuration.getFileName(name)))){
             while(sc.hasNext()){
                 String line = sc.nextLine();
                 if(!line.startsWith("Ligne") && !line.equals("[") && !line.equals("]") && !line.equals("{") && !line.equals("}") && !line.equals("--") && !line.isEmpty() && !line.equals("||")){
