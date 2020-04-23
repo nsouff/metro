@@ -1,7 +1,6 @@
 package fr.univparis.metro;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class LimitedConnectionSearch {
 
@@ -67,7 +66,7 @@ public class LimitedConnectionSearch {
         ArrayList<Pair<String, String>> ret = new ArrayList<Pair<String, String>>();
         String current = end;
         String currentLine = "FIN";
-        ret.add(new Pair(current, currentLine));
+        ret.add(new Pair<String, String>(current, currentLine));
         int n = numEnd;
         while(!start.equals(current)){
             current = g.getVia()[numStart][n].getName();
