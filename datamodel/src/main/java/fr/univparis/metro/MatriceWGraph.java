@@ -142,6 +142,10 @@ public class MatriceWGraph{
         }
     }
 
+    /**
+     * @param d
+     * @return
+     */
     private static Double[][] initializeDirectLine(Double[][] d){
         Double[][] copy = new Double[d.length][d.length];
         for(int i = 0; i < copy.length; i++){

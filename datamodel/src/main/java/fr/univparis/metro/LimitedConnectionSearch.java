@@ -7,7 +7,7 @@ public class LimitedConnectionSearch {
     /**
      * @param direct is a matrice in which the coefficient direct(x, y) is the time it takes to get to the station n°y from the sation n°x.
      * @param via is a matrice in which via(x, y) is the last station we get through to get to the sation n°y from the station n°x
-     * @param intermediate is a matrice in which intermediate(x, y) is the number of station we get through to get to the station n°y from the station n°x
+     * @param intermediate is a matrice in which intermediate(x, y) is the number of correspondances to get to the station n°y from the station n°x
      */
     public static <T> void floyd(Double[][] direct, T[][] via, Integer[][] intermediate){
         int n = direct.length;
@@ -37,6 +37,10 @@ public class LimitedConnectionSearch {
         }
     }
 
+    /**
+     * this method is used to build the graphs of each lines in the MatriceWGraph class
+     * @param d is a matrice in which the coefficient direct(x, y) is the time it takes to get to the station n°y from the sation n°x.
+     */
     public static Double[][] floyd(Double[][] d){
         int n = d.length;
         Double[][] ret = new Double[n][n];
@@ -59,7 +63,13 @@ public class LimitedConnectionSearch {
         return ret;
     }
 
-        public static ArrayList<Pair<String, String>> getPath(MatriceWGraph g, String start, String end){
+    /**
+     * @param g
+     * @param start
+     * @param end
+     * @return an arraylist containing the path to get from start to end.
+     */
+    public static ArrayList<Pair<String, String>> getPath(MatriceWGraph g, String start, String end){
         floyd(g.getDirect(), g.getVia(), g.getIntermediate());
         int numStart = g.getSetOfVertices().get(start);
         int numEnd = g.getSetOfVertices().get(end);
