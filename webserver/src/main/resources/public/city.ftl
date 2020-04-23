@@ -6,6 +6,18 @@
         border: 1px solid;
         text-align:center;
       }
+      .suggestions{
+        width: 200px;
+      }
+      .suggestions > div{ 
+        padding: 5px;
+        font-size: 15px;
+        border-top: 1px solid #666;
+        width: 200px;
+      }
+      .suggestions > div:hover{
+        background-color: #1e4dd4;
+      }
     </style>
 
     <meta charset="utf-8">
@@ -18,13 +30,15 @@
     <h2>Itinerary search</h2>
     <form class="form" action="/${city}/itinerary" method="post" class="form">
       <label for="start">From</label>
-      <input id="start" type="text" name="start" autocomplete="off" required>
-      <div id="resultsStart"></div>
-      <br>
-      <label for="end">To</label>
-      <input id="end" type="text" name="end" autocomplete="off" required>
-      <div id="resultsEnd"></div>
-      <br>
+      <div class="container">
+        <input id="start" type="text" name="start" autocomplete="off" required>
+        <div class="suggestions" id="resultsStart"></div>
+        <br>
+        <label for="end">To</label>
+        <input id="end" type="text" name="end" autocomplete="off" required>
+        <div class="suggestions" id="resultsEnd"></div>
+        <br>
+      </div>
       <input type="radio" name="type" value="shortest" required id="shortest"> <label for="shortest">Shortest</label><br>
       <input type="radio" name="type" value="leastConnexion" required id="leastConnexion"> <label for="leastConnexion">Limited connexion</label><br>
       <input type="submit">
@@ -38,32 +52,38 @@
       const searchInputEnd = document.getElementById("end");
       searchInputStart.addEventListener('keyup', function(){
         const inputStart = searchInputStart.value;
+        resultsStart.innerHTML = '';
         if(inputStart.length > 0){
           const suggestions = listStation.filter(function(station){
             return station.toLowerCase().startsWith(inputStart);
           });
-          for(var i = 0; i < 10 && i < suggestions.length; i++){
-            var div = resultsStart.appendChild(document.createElement("div"));
-            div.innerHTML = suggestions[i];
-            div.addEventListener('click', function(event){
-              choseResult(event.target);
+          suggestions.forEach(function(suggested){
+            const div = document.createElement('div');
+            div.innerHTML = suggested;
+            div.addEventListener('click', function(){
+              searchInputStart.value = div.innerHTML;
+              resultsStart.innerHTML = '';
             });
-          }
+            resultsStart.appendChild(div);
+          });
         }
       });
       searchInputEnd.addEventListener('keyup', function(){
         const inputEnd = searchInputEnd.value;
+        resultsEnd.innerHTML = ''; 
         if(inputEnd.length > 0){
           const suggestions = listStation.filter(function(station){
             return station.toLowerCase().startsWith(inputEnd);
           });
-          for(var i = 0; i < 10 && i < suggestions.length; i++){
-            var div = resultsEnd.appendChild(document.createElement("div"));
-            div.innerHTML = suggestions[i];
-            div.addEventListener('click', function(event){
-              choseResult(event.target);
+          suggestions.forEach(function(suggested){
+            const div = document.createElement('div');
+            div.innerHTML = suggested;
+            div.addEventListener('click', function(){
+              searchInputEnd.value = div.innerHTML;
+              resultsEnd.innerHTML = '';
             });
-          }
+            resultsEnd.appendChild(div);
+          });
         }
       });
     </script>
