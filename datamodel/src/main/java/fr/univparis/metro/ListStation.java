@@ -8,6 +8,11 @@ import java.util.ArrayList;
 //Class used for the autocompletion of the webserver
 public class ListStation{
 
+    /**
+     * @param name the name of the subaway (Paris, Lille ...)
+     * @return a string representation of a javascript array containing all the stations
+     * @throws FileNotFoundException
+     */
     public static String getListStation(String name) throws FileNotFoundException{
         String str = "[";
         ArrayList<String> l = new ArrayList<>();
