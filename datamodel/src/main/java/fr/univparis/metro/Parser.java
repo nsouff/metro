@@ -22,8 +22,8 @@ public class Parser {
   * @param f is the txt file wich contain the station
   * @return the WGraph that correspond to the file
   */
-  public static WGraph<Station> loadFrom (File f) throws IOException {
-    Scanner sc = new Scanner (f);
+  public static WGraph<Station> loadFrom (InputStream is) throws IOException {
+    Scanner sc = new Scanner (is);
     WGraph<Station> g = new WGraph<Station>();
     Station prec = null;
     String s;

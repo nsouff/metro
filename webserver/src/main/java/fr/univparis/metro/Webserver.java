@@ -1,7 +1,5 @@
 package fr.univparis.metro;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.io.File;
 import io.javalin.plugin.rendering.template.TemplateUtil;
 import io.javalin.*;
 import java.util.HashMap;
@@ -12,7 +10,7 @@ import java.util.Collections;
 
 public class Webserver {
   public static void main(String[] args) throws IOException {
-    Configuration.loadFrom(new File("src/main/resources/cities.json"));
+    Configuration.loadFrom(Webserver.class.getResourceAsStream("/cities.json"));
     Trafics.initTrafics();
     Javalin app = launch();
     installIndex(app);
@@ -63,7 +61,7 @@ public class Webserver {
 
   public static void InstallItinerary(Javalin app) {
     app.post("/:city/itinerary", ctx -> {
-        WGraph<Station> g = Trafics.getGraph(ctx.pathParam("city"));
+        WGraph<Station> g = Trafics.getGraph(ctx.pathParam("city")).clone();
         Station start = new Station(ctx.formParam("start"), "Meta Station Start");
         Station end = new Station(ctx.formParam("end"), "Meta Station End");
         String body = "";
@@ -75,20 +73,7 @@ public class Webserver {
         }
         else {
           if (ctx.formParam("type").equals("shortest")) {
-            HashMap<Station, Station> prev = new HashMap<Station, Station>();
-            HashMap<Station, Double> dist = new HashMap<Station, Double>();
-            Dijkstra.shortestPath(g, start, prev, dist);
-            try {
-              String time = WebserverLib.time(dist.get(end));
-              String itinerary = WebserverLib.path(prev, end);
-              body =
-                "<h2>Time</h2>\n" +
-                time + "\n" +
-                "<h2>Itinerary</h2>\n" +
-                itinerary;
-            } catch(NullPointerException e) {
-              body = "Due to actual trafics perturbation we couldn't find any path from " + start.getName() + " to " + end.getName();
-            }
+            body = WebserverLib.multiplePath(g, start, end);
           }
           else if(ctx.formParam("type").equals("leastConnexion")){
             HashMap<String, MatriceWGraph> lines = MatriceWGraph.initializeAllLineGraphs(g);
@@ -125,6 +110,17 @@ public class Webserver {
         case PART_STATION_SHUT_DOWN:
           parameter = new Station(ctx.formParam("station_name"), ctx.formParam("station_line"));
           break;
+        case PART_LINE_SHUT_DOWN:
+        String line1 = ctx.formParam("line");
+          parameter = new Pair<Station, Station>(new Station(ctx.formParam("start_station"), line1), new Station(ctx.formParam("end_station"), line1));
+          break;
+        case PART_LINE_SLOW_DOWN:
+        parameter = new Object[3];
+        String line2 = ctx.formParam("line");
+        ((Object[]) parameter)[0] = new Station(ctx.formParam("start_station"), line2);
+        ((Object[]) parameter)[1] = new Station(ctx.formParam("end_station"), line2);
+        ((Object[]) parameter)[2] = Double.valueOf(ctx.formParam("times"));
+          break;
       }
 
       Trafics.addPerturbation(city, type, name, parameter);
@@ -153,8 +149,8 @@ public class Webserver {
       HashMap<String, Double> res = new HashMap<String, Double>();
       int stat5 = Statistics.averageTimeOnEachLine(g, res);
       int stat6 = Statistics.averageNbOfStationPerLine(g);
-      String stat7 = Statistics.longestTimeTravelLine(g);
-      String stat8 = Statistics.shortestTimeTravelLine(g);
+      Pair<String, Double> stat7 = Statistics.longestTimeTravelLine(g);
+      Pair<String, Double> stat8 = Statistics.shortestTimeTravelLine(g);
       ctx.render("/public/statistics.ftl", TemplateUtil.model(
       "stat1", WebserverLib.stat1(stat1, stat2, stat3, stat4, stat5, stat6, stat7, stat8)
       ));

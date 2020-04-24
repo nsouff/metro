@@ -1,6 +1,5 @@
 package fr.univparis.metro;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Predicate;
 import java.util.function.BiPredicate;
 
@@ -157,7 +156,7 @@ public class Statistics{
         return (int)d / nb;
     }
 
-    public static String shortestTimeTravelLine(WGraph<Station> g){
+    public static Pair<String, Double> shortestTimeTravelLine(WGraph<Station> g){
       HashMap<String, Double> res = new HashMap<String, Double>();
       int i = averageTimeOnEachLine(g, res);
       String shortest = "";
@@ -168,10 +167,11 @@ public class Statistics{
           shortest = s;
         }
       }
-      return shortest;
+      Pair<String, Double> p = new Pair<String, Double>(shortest, d);
+      return p;
     }
 
-    public static String longestTimeTravelLine(WGraph<Station> g){
+    public static Pair<String, Double> longestTimeTravelLine(WGraph<Station> g){
       HashMap<String, Double> res = new HashMap<String, Double>();
       int i = averageTimeOnEachLine(g, res);
       String shortest = "";
@@ -182,7 +182,8 @@ public class Statistics{
           shortest = s;
         }
       }
-      return shortest;
+      Pair<String, Double> p = new Pair<String, Double>(shortest, d);
+      return p;
     }
 
 
