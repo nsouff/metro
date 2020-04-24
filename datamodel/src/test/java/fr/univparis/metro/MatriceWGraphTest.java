@@ -95,5 +95,19 @@ public class MatriceWGraphTest{
         assertEquals(i.get(2).getValue(), "1");
         assertEquals(i.get(3).getObj(), "Porte Dauphine");
         assertEquals(i.get(3).getValue(), "2");
+
+        /*
+        HashMap<String, Integer> h = m.getForkAndCycleStation();
+        for(String str : h.keySet()){
+            System.out.println(str);
+            System.out.println(h.get(str));
+        }
+        */
+
+        ArrayList<Pair<String, String>> b = LimitedConnectionSearch.getPath(m, "Chemin Vert", "Botzaris");
+        for(Pair<String, String> p : b){
+            System.out.println(p.getObj());
+            System.out.println(p.getValue());
+        }
     }
 }

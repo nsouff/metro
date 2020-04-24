@@ -60,8 +60,12 @@ public class LimitedConnectionSearch {
         return ret;
     }
 
+
     public static ArrayList<Pair<String, String>> getPath(MatriceWGraph g, String start, String end){
         floyd(g.getDirect(), g.getVia(), g.getIntermediate());
+        HashMap<String, Integer> h = g.getForkAndCycleStation();
+        if(h.containsKey(start)) return getPathForkCycleStart(g, start, end);
+        if(h.containsKey(end)) return getPathForkCycleEnd(g, start, end);
         int numStart = g.getSetOfVertices().get(start);
         int numEnd = g.getSetOfVertices().get(end);
         ArrayList<Pair<String, String>> ret = new ArrayList<Pair<String, String>>();
@@ -77,5 +81,76 @@ public class LimitedConnectionSearch {
             n = g.getSetOfVertices().get(current);
         }
         return ret;
+    }
+
+
+//The following methods are used to fix the bug of the correspondance times when we go through a fork or a cycle
+
+    private static ArrayList<Pair<String, String>> getPathForkCycleStart(MatriceWGraph g, String start, String end){
+        String str1 = start + "$1";
+        String str2 = start + "$2";
+        ArrayList<Pair<String, String>> a1 = new ArrayList<Pair<String, String>>();
+        int numStart1 = g.getSetOfVertices().get(str1);
+        int numEnd1 = g.getSetOfVertices().get(end);
+        String current1 = end;
+        String currentLine1 = "FIN";
+        a1.add(new Pair<String, String>(current1, currentLine1));
+        int n1 = numEnd1;
+        while(!str1.equals(current1)){
+            current1 = g.getVia()[numStart1][n1].getName();
+            currentLine1 = g.getVia()[numStart1][n1].getLine();
+            Pair<String, String> p = new Pair<String, String>(current1, currentLine1);
+            a1.add(p);
+            n1 = g.getSetOfVertices().get(current1);
+        }
+        ArrayList<Pair<String, String>> a2 = new ArrayList<Pair<String, String>>();
+        int numStart2 = g.getSetOfVertices().get(str2);
+        int numEnd2 = g.getSetOfVertices().get(end);
+        String current2 = end;
+        String currentLine2 = "FIN";
+        a2.add(new Pair<String, String>(current2, currentLine2));
+        int n2 = numEnd2;
+        while(!str2.equals(current2)){
+            current2 = g.getVia()[numStart2][n2].getName();
+            currentLine2 = g.getVia()[numStart2][n2].getLine();
+            Pair<String, String> p = new Pair<String, String>(current2, currentLine2);
+            a2.add(p);
+            n2 = g.getSetOfVertices().get(current2);
+        }
+        return (a1.size() < a2.size()) ? a1 : a2;
+    }
+
+    private static ArrayList<Pair<String, String>> getPathForkCycleEnd(MatriceWGraph g, String start, String end){
+        String str1 = end + "$1";
+        String str2 = end + "$2";
+        ArrayList<Pair<String, String>> a1 = new ArrayList<Pair<String, String>>();
+        int numStart1 = g.getSetOfVertices().get(start);
+        int numEnd1 = g.getSetOfVertices().get(str1);
+        String current1 = end;
+        String currentLine1 = "FIN";
+        a1.add(new Pair<String, String>(current1, currentLine1));
+        int n1 = numEnd1;
+        while(!start.equals(current1)){
+            current1 = g.getVia()[numStart1][n1].getName();
+            currentLine1 = g.getVia()[numStart1][n1].getLine();
+            Pair<String, String> p = new Pair<String, String>(current1, currentLine1);
+            a1.add(p);
+            n1 = g.getSetOfVertices().get(current1);
+        }
+        ArrayList<Pair<String, String>> a2 = new ArrayList<Pair<String, String>>();
+        int numStart2 = g.getSetOfVertices().get(start);
+        int numEnd2 = g.getSetOfVertices().get(str2);
+        String current2 = end;
+        String currentLine2 = "FIN";
+        a2.add(new Pair<String, String>(current2, currentLine2));
+        int n2 = numEnd2;
+        while(!start.equals(current2)){
+            current2 = g.getVia()[numStart2][n2].getName();
+            currentLine2 = g.getVia()[numStart2][n2].getLine();
+            Pair<String, String> p = new Pair<String, String>(current2, currentLine2);
+            a2.add(p);
+            n2 = g.getSetOfVertices().get(current2);
+        }
+        return (a1.size() < a2.size()) ? a1 : a2;
     }
 }

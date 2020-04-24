@@ -95,6 +95,15 @@ public class Webserver {
             Collections.reverse(l);
             Double t = matriceGraph.getDirect()[matriceGraph.getSetOfVertices().get(start.getName())][matriceGraph.getSetOfVertices().get(end.getName())];
             t += (matriceGraph.getIntermediate()[matriceGraph.getSetOfVertices().get(start.getName())][matriceGraph.getSetOfVertices().get(end.getName())] - 1) * Parser.defaultChangeStationWeight;
+            Double changeOnForkCycle = 0.0;
+            boolean b = false;
+            /*
+            for(Pair<String, String> p : l){
+              if(p.getObj().contains("$") && !b) b= true;
+              if(p.getObj().contains("$") && b) changeOnForkCycle += Parser.defaultWeight;
+            }
+            t += changeOnForkCycle;
+            */
             body = "<h2>Time</h2>\n" + WebserverLib.time(t) + "\n" + "<h2>Itinerary</h2>\n" + WebserverLib.path(l, start.getName(), end.getName());
           }
         }

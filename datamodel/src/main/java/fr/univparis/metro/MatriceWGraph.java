@@ -26,6 +26,28 @@ public class MatriceWGraph{
         return this.intermediate;
     }
 
+    /**
+     * @return an hashmap containing all the stations initiating a fork or a cycle
+     */
+    public HashMap<String, Integer> getForkAndCycleStation(){
+        HashMap<String, Integer> ret = new HashMap<String, Integer>();
+        for(String s : this.setOfVertices.keySet()){
+            if(s.contains("$")){
+                String tmp = "";
+                int count = 0;
+                char current = s.charAt(count);
+                while(current != '$' && count < s.length()){
+                    tmp += current;
+                    count++;
+                    current = s.charAt(count);
+                }
+                if(ret.containsKey(tmp)) ret.put(tmp, ret.get(tmp) + 1);
+                else ret.put(tmp, 1);
+            }
+        }
+        return ret;
+    }
+
     //To build a graph of a line
     private MatriceWGraph(WGraph<Station> g){
         int numVertex = 0;
