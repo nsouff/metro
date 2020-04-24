@@ -157,12 +157,5 @@ public class Webserver {
     });
   }
 
-  public static void autoCompletion(Javalin app){
-    app.post("/:city", ctx -> {
-      String city = ctx.pathParam("city");
-      ArrayList<String> ret = WebserverLib.parseStations(city);
-    });
-  }
-
 
 }
