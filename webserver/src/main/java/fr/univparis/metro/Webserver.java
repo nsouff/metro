@@ -53,7 +53,8 @@ public class Webserver {
       }
       ctx.render("/public/city.ftl", TemplateUtil.model(
         "city", city,
-        "perturbation", WebserverLib.perturbationToHtml(city)
+        "perturbation", WebserverLib.perturbationToHtml(city),
+        "arrayStation", ListStation.getListStation(city)
       ));
     });
   }
@@ -153,6 +154,13 @@ public class Webserver {
       ctx.render("/public/statistics.ftl", TemplateUtil.model(
       "stat1", WebserverLib.stat1(stat1, stat2, stat3, stat4, stat5, stat6, stat7, stat8)
       ));
+    });
+  }
+
+  public static void autoCompletion(Javalin app){
+    app.post("/:city", ctx -> {
+      String city = ctx.pathParam("city");
+      ArrayList<String> ret = WebserverLib.parseStations(city);
     });
   }
 

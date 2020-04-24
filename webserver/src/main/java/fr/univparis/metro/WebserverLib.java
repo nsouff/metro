@@ -1,6 +1,7 @@
 package fr.univparis.metro;
 
 import java.util.*;
+import java.io.*;
 
 public class WebserverLib {
   public static String toOption() {
@@ -171,6 +172,23 @@ public class WebserverLib {
       }
       g.apply(revert);
     }
+  }
+
+  public static ArrayList<String> parseStations(String city) throws IOException{
+    ArrayList<String> ret = new ArrayList<String>();
+    Scanner s = new Scanner(new File("webserver/src/main/resources/" + city + ".txt"));
+    String current = "";
+    while(s.hasNextLine()){
+      current = s.nextLine();
+      if(current.isEmpty() || current.startsWith("Ligne") || current.equals("[") || current.equals("]") || current.equals("{") || current.equals("}") || current.equals("--") || current.equals("||")) continue;
+      else ret.add(current);
+    }
+    for(String str : ret) System.out.println(str);
+    return ret;
+  }
+
+  public static void main(String[] args) throws IOException{
+    parseStations("liste");
   }
 
 }
