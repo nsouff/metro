@@ -13,6 +13,7 @@ public class Webserver {
   public static void main(String[] args) throws IOException {
     Configuration.loadFrom(new File("src/main/resources/cities.json"));
     Trafics.initTrafics();
+    WebserverLib.initStatistics();
     Javalin app = launch();
     installIndex(app);
     installCity(app);
@@ -154,18 +155,9 @@ public class Webserver {
 
   public static void installStatistics(Javalin app){
     app.get("/:city/statistics", ctx -> {
-      WGraph<Station> g = Trafics.getInitialGraph(ctx.pathParam("city"));
-      Pair<Pair<Station, Station>, Double> stat1 = Statistics.mostDistantStations(g, (s -> !s.getLine().equals("Meta Station Start")), (t -> t.getLine().equals("Meta Station End")));
-      int stat2 = Statistics.minimumCorrespondence(g, (s -> s.getLine().equals("Meta Station Start")), s -> s.getLine().equals("Meta Station End") , (Station s1, Station s2) -> s1.getLine().equals(s2.getLine()) || s1.getLine().startsWith("Meta Station") || s2.getLine().startsWith("Meta Station"));
-      String stat3 = Statistics.extremumLine(g, true);
-      String stat4 = Statistics.extremumLine(g, false);
-      HashMap<String, Double> res = new HashMap<String, Double>();
-      int stat5 = Statistics.averageTimeOnEachLine(g, res);
-      int stat6 = Statistics.averageNbOfStationPerLine(g);
-      Pair<String, Double> stat7 = Statistics.longestTimeTravelLine(g);
-      Pair<String, Double> stat8 = Statistics.shortestTimeTravelLine(g);
+      String city = ctx.pathParam("city");
       ctx.render("/public/statistics.ftl", TemplateUtil.model(
-      "stat1", WebserverLib.stat1(stat1, stat2, stat3, stat4, stat5, stat6, stat7, stat8)
+      "stat1", WebserverLib.getStringStatistics(city)
       ));
     });
   }
