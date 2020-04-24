@@ -1,6 +1,5 @@
 package fr.univparis.metro;
 import java.io.IOException;
-import java.io.File;
 import org.junit.*;
 
 public class WebserverLibTest {
@@ -8,7 +7,7 @@ public class WebserverLibTest {
   // @Test
   public void multiplePathEndsTest() throws IOException{
     int count = 0;
-    WGraph<Station> g = Parser.loadFrom(new File(this.getClass().getResource("/liste.txt").getFile()));
+    WGraph<Station> g = Parser.loadFrom(this.getClass().getResourceAsStream("/liste.txt"));
     for (Station start : g.getVertices()) {
       if (! start.getLine().equals("Meta Station Start")) continue;
       System.out.println(count++);
