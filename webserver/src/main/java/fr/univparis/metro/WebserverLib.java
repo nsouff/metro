@@ -1,5 +1,6 @@
 package fr.univparis.metro;
 
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.function.BiPredicate;
 
@@ -82,8 +83,25 @@ public class WebserverLib {
 	}
 	return path;
 	}
+
+	private static String pathFloyd(ArrayList<Pair<String,String>> l, String from, String to){
+		String ret = "Departure" + from + "<br><br>";
+		int i = 1;
+		for(Pair<String, String> p : l){
+			if(i == l.size() - 1){
+				ret += "line : " + p.getValue() + " : " + p.getObj() + " -> " + l.get(i).getObj() + "<br><br>";
+				ret += "Arrival : " + to;
+				break; 
+			}
+			ret += "line : " + p.getValue() + " : " + p.getObj() + " -> " + l.get(i).getObj() + "<br>";
+			i++;
+		}
+		return ret;
+	}
 	
-	public static String limitedConnexionPathWithFloyd(WGraph<Station> g, String start, String end){
+	public static String limitedConnexionPathWithFloyd(WGraph<Station> g, Station from, Station to){
+		String start = from.getName();
+		String end = to.getName();
 		String body = "";
         HashMap<String, MatriceWGraph> lines = MatriceWGraph.initializeAllLineGraphs(g);
         MatriceWGraph matriceGraph = new MatriceWGraph(g, lines);
@@ -91,7 +109,7 @@ public class WebserverLib {
         Collections.reverse(l);
         Double t = matriceGraph.getDirect()[matriceGraph.getSetOfVertices().get(start)][matriceGraph.getSetOfVertices().get(end)];
         t += (matriceGraph.getIntermediate()[matriceGraph.getSetOfVertices().get(start)][matriceGraph.getSetOfVertices().get(end)] - 1) * Parser.defaultChangeStationWeight;
-		body = "<h2>Time</h2>\n" + WebserverLib.time(t) + "\n" + "<h2>Itinerary</h2>\n" + WebserverLib.path(l, start, end);
+		body = "<h2>Time</h2>\n" + WebserverLib.time(t) + "\n" + "<h2>Itinerary</h2>\n" + WebserverLib.pathFloyd(l, start, end);
 		return body;
 	}
 
