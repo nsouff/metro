@@ -83,8 +83,16 @@ public class WebserverLib {
 	return path;
 	}
 	
-	public static String limitedConnexionPathWithFloyd(){
-		return "";
+	public static String limitedConnexionPathWithFloyd(WGraph<Station> g, String start, String end){
+		String body = "";
+        HashMap<String, MatriceWGraph> lines = MatriceWGraph.initializeAllLineGraphs(g);
+        MatriceWGraph matriceGraph = new MatriceWGraph(g, lines);
+        ArrayList<Pair<String, String>> l = LimitedConnectionSearch.getPath(matriceGraph, start, end);
+        Collections.reverse(l);
+        Double t = matriceGraph.getDirect()[matriceGraph.getSetOfVertices().get(start)][matriceGraph.getSetOfVertices().get(end)];
+        t += (matriceGraph.getIntermediate()[matriceGraph.getSetOfVertices().get(start)][matriceGraph.getSetOfVertices().get(end)] - 1) * Parser.defaultChangeStationWeight;
+		body = "<h2>Time</h2>\n" + WebserverLib.time(t) + "\n" + "<h2>Itinerary</h2>\n" + WebserverLib.path(l, start, end);
+		return body;
 	}
 
     ///////////////////////////////////////////////////
