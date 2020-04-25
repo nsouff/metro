@@ -60,7 +60,10 @@ public class Webserver {
 		}
 		else if(ctx.formParam("type").equals("leastConnexion")){
 		    body = WebserverLib.limitedConnectionPath(g, start, end);
-		}
+    }
+    else if(ctx.formParam("type").equals("leastConnexionFloyd")){
+      
+    }
 		ctx.render("/public/itinerary.ftl", TemplateUtil.model("body", body));
 	    });
     }

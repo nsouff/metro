@@ -81,7 +81,11 @@ public class WebserverLib {
 	    current = prev.get(current);
 	}
 	return path;
-    }
+	}
+	
+	public static String limitedConnexionPathWithFloyd(){
+		return "";
+	}
 
     ///////////////////////////////////////////////////
     // limited connection path with BouarahAlgorithm //
