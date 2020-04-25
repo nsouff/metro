@@ -1,6 +1,5 @@
 package fr.univparis.metro;
 import java.io.IOException;
-import org.junit.*;
 
 public class WebserverLibTest {
   /* WARNING: The test takes to much time but gives you an idea of how fast is the algo */
