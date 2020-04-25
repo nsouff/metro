@@ -1,7 +1,6 @@
 package fr.univparis.metro;
 import org.junit.*;
 import static org.junit.Assert.*;
-import java.net.*;
 import java.io.*;
 import java.util.*;
 
@@ -11,10 +10,8 @@ public class DijkstraTest{
 
   @BeforeClass
   public static void loadFile() throws IOException {
-    URL url = ParserTest.class.getResource("/liste.txt");
-    File f = new File(url.getFile());
     try {
-      w = Parser.loadFrom(f);
+      w = Parser.loadFrom(DijkstraTest.class.getResourceAsStream("/liste.txt"));
     } catch(Exception e) {e.printStackTrace();}
   }
 

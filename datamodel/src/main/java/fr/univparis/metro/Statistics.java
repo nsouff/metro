@@ -1,6 +1,5 @@
 package fr.univparis.metro;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Predicate;
 import java.util.function.BiPredicate;
 

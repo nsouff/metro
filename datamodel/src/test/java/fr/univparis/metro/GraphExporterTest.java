@@ -3,7 +3,6 @@ package fr.univparis.metro;
 import org.junit.*;
 import static org.junit.Assert.*;
 import java.io.*;
-import java.net.URL;
 import java.security.MessageDigest;
 
 public class GraphExporterTest {
@@ -41,9 +40,7 @@ public class GraphExporterTest {
     public void exportToDOTTest() throws IOException {
 	WGraph<Station> graph = new WGraph<Station>();
 
-	URL url = this.getClass().getResource("/liste.txt");
-	File f = new File(url.getFile());
-	graph = Parser.loadFrom(f);
+	graph = Parser.loadFrom(this.getClass().getResourceAsStream("/liste.txt"));
 
 	try {
 	    File out = new File("./graph.dot");

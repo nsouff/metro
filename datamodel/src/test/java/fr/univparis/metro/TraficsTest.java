@@ -3,7 +3,6 @@ package fr.univparis.metro;
 
 import java.util.HashMap;
 import java.io.IOException;
-import java.io.File;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.BeforeClass;;
@@ -12,8 +11,11 @@ public class TraficsTest {
 
   @BeforeClass
   public static void initTest() throws IOException {
-    Configuration.loadFrom(new File(Trafics.class.getResource("/cities.json").getFile()));
-    Trafics.initTrafics();
+    Configuration.loadFrom(Trafics.class.getResourceAsStream("/cities.json"));
+    try {
+      Trafics.initTrafics();
+    } catch(Exception e) {e.printStackTrace();}
+
   }
 
   @Test

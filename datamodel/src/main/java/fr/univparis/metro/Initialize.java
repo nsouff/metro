@@ -77,9 +77,10 @@ public class Initialize{
      * Print the path dijsktra's algorithm returns according to the destination of the user.
      */
     public static void initialize() throws IOException {
-        Configuration.loadFrom(new File("src/main/resources/cities.json"));
+        Configuration.loadFrom(Initialize.class.getResourceAsStream("/cities.json"));
         SimpleEntry<String, String> s = whichCity();
-        WGraph<Station> g = Parser.loadFrom(new File(s.getValue()));
+        WGraph<Station> g = Parser.loadFrom(Initialize.class.getResourceAsStream("/" + s.getValue()));
+
         Station from = whereFrom(g);
         Station to = whereTo(g);
         HashMap<Station, Station> prev = new HashMap<Station, Station>();

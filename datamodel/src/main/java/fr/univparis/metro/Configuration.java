@@ -1,8 +1,8 @@
 package fr.univparis.metro;
+import java.io.InputStream;
+import org.apache.commons.io.IOUtils;
 import java.util.HashMap;
-import java.io.File;
 import org.json.*;
-import org.apache.commons.io.FileUtils;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.util.Set;
@@ -24,9 +24,9 @@ public class Configuration{
      * @param f is a json file that contains an array of pair city/file.
      * Fills the HashMap cities.
      */
-    public static void loadFrom (File f){
+    public static void loadFrom (InputStream ins){
         try{
-            JSONObject json = new JSONObject(FileUtils.readFileToString(f, "utf8"));
+            JSONObject json = new JSONObject(IOUtils.toString(ins, "utf8"));
             JSONArray jArray = json.getJSONArray("cities");
             JSONObject j;
             for(int i = 0; i<jArray.length(); i++){
