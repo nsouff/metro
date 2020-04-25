@@ -3,7 +3,6 @@ package fr.univparis.metro;
 import java.util.HashMap;
 import org.junit.*;
 import static org.junit.Assert.*;
-import java.net.*;
 import java.io.*;
 public class ParserTest {
 
@@ -14,9 +13,7 @@ public class ParserTest {
 
   @BeforeClass
   public static void loadFile() throws IOException {
-    URL url = ParserTest.class.getResource("/liste.txt");
-    File f = new File(url.getFile());
-    g = Parser.loadFrom(f);
+    g = Parser.loadFrom(ParserTest.class.getResourceAsStream("/liste.txt"));
   }
 
 

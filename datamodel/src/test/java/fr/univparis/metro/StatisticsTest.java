@@ -1,8 +1,6 @@
 package fr.univparis.metro;
 import org.junit.*;
 import static org.junit.Assert.*;
-import java.net.*;
-import java.beans.Transient;
 import java.io.*;
 import java.io.IOException;
 import java.lang.Double;
@@ -13,9 +11,8 @@ public class StatisticsTest{
 
     @BeforeClass
     public static void loadFile() throws IOException{
-      URL url = ParserTest.class.getResource("/liste.txt");
-      File f = new File(url.getFile());
-      g = Parser.loadFrom(f);
+      InputStream i = ParserTest.class.getResourceAsStream("/liste.txt");
+      g = Parser.loadFrom(i);
     }
 
     @Test
@@ -51,12 +48,14 @@ public class StatisticsTest{
 
     @Test
     public void shortestTimeTravelLineTest(){
-      assertEquals("3bis", Statistics.shortestTimeTravelLine(g));
+      assertEquals("3bis", Statistics.shortestTimeTravelLine(g).getObj());
+      assertEquals((Double)270., Statistics.shortestTimeTravelLine(g).getValue());
     }
 
     @Test
     public void longestTimeTravelLineTest(){
-      assertEquals("8", Statistics.longestTimeTravelLine(g));
+      assertEquals("8", Statistics.longestTimeTravelLine(g).getObj());
+      assertEquals((Double)3240., Statistics.longestTimeTravelLine(g).getValue());
     }
 
     public void averageNbOfStationPerLine(){

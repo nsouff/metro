@@ -3,7 +3,6 @@ package fr.univparis.metro;
 
 import java.util.HashMap;
 import java.io.IOException;
-import java.io.File;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.BeforeClass;;
@@ -12,8 +11,11 @@ public class TraficsTest {
 
   @BeforeClass
   public static void initTest() throws IOException {
-    Configuration.loadFrom(new File(Trafics.class.getResource("/cities.json").getFile()));
-    Trafics.initTrafics();
+    Configuration.loadFrom(Trafics.class.getResourceAsStream("/cities.json"));
+    try {
+      Trafics.initTrafics();
+    } catch(Exception e) {e.printStackTrace();}
+
   }
 
   @Test
@@ -112,5 +114,49 @@ public class TraficsTest {
     assertEquals(Double.POSITIVE_INFINITY, Trafics.getGraph("Paris").weight(new Station("Bastille", "1"), new Station("Gare de Lyon", "1")), 0.0);
     Trafics.revertPerturbation("Paris", "Line 1 shutdown");
     assertEquals(90.0, Trafics.getGraph("Paris").weight(new Station("Bastille", "1"), new Station("Gare de Lyon", "1")), 0.0);
+  }
+
+  @Test
+  public void partOfLineShutDownTest() {
+    WGraph<Station> g = Trafics.getGraph("Paris");
+    Station j = new Station("Jaurès", "5");
+    Station l = new Station("Laumière", "5");
+    Station o = new Station("Ourcq", "5");
+    Station s = new Station("Stalingrad", "5");
+    Station p = new Station("Porte de Pantin", "5");
+    Trafics.addPerturbation("Paris", Trafics.Perturbation.PART_LINE_SHUT_DOWN, "Jaurès to Ourcq shutdown", new Pair<Station, Station>(j, o));
+    assertEquals(Double.POSITIVE_INFINITY, g.weight(j, l), 0.0);
+    assertEquals(Double.POSITIVE_INFINITY, g.weight(l, j), 0.0);
+    assertEquals(Double.POSITIVE_INFINITY, g.weight(o, l), 0.0);
+    assertEquals(Double.POSITIVE_INFINITY, g.weight(l, o), 0.0);
+    assertEquals(90.0, g.weight(p, o), 0.0);
+    assertEquals(90.0, g.weight(o, p), 0.0);
+    assertEquals(90.0, g.weight(j, s), 0.0);
+    assertEquals(90.0, g.weight(j, s), 0.0);
+
+    Trafics.revertPerturbation("Paris", "Jaurès to Ourcq shutdown");
+  }
+
+  @Test
+  public void partOfLineSlowDown() {
+    WGraph<Station> g = Trafics.getGraph("Paris");
+    Station j = new Station("Jaurès", "5");
+    Station l = new Station("Laumière", "5");
+    Station o = new Station("Ourcq", "5");
+    Station s = new Station("Stalingrad", "5");
+    Station p = new Station("Porte de Pantin", "5");
+    Object[] objs = {j, o, 2.0};
+    Trafics.addPerturbation("Paris", Trafics.Perturbation.PART_LINE_SLOW_DOWN, "Jaurès to Ourcq slow down", objs);
+    assertEquals(180.0, g.weight(j, l), 0.0);
+    assertEquals(180.0, g.weight(l, j), 0.0);
+    assertEquals(180.0, g.weight(o, l), 0.0);
+    assertEquals(180.0, g.weight(l, o), 0.0);
+    assertEquals(90.0, g.weight(p, o), 0.0);
+    assertEquals(90.0, g.weight(o, p), 0.0);
+    assertEquals(90.0, g.weight(j, s), 0.0);
+    assertEquals(90.0, g.weight(j, s), 0.0);
+
+    Trafics.revertPerturbation("Paris", "Jaurès to Ourcq slow down");
+
   }
 }
