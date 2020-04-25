@@ -76,7 +76,7 @@ public class MatriceWGraphTest{
 
         ArrayList<Pair<String, String>> n = LimitedConnectionSearch.getPath(m, "Gabriel Péri", "Mirabeau");
         //for(Pair<String, String> p : n) System.out.println(p.getValue() + " -> " + p.getObj());
-        assertEquals(m.getDirect()[m.getSetOfVertices().get("Gabriel Péri")][m.getSetOfVertices().get("Mirabeau")], 1710.0, 0.0);
+        assertEquals(m.getDirect()[m.getSetOfVertices().get("Gabriel Péri")][m.getSetOfVertices().get("Mirabeau")], 2310.0, 0.0);
         assertEquals(n.get(0).getObj(), "Mirabeau");
         assertEquals(n.get(0).getValue(), "FIN");
         assertEquals(n.get(1).getObj(), "Duroc");
@@ -95,19 +95,5 @@ public class MatriceWGraphTest{
         assertEquals(i.get(2).getValue(), "1");
         assertEquals(i.get(3).getObj(), "Porte Dauphine");
         assertEquals(i.get(3).getValue(), "2");
-
-        /*
-        HashMap<String, Integer> h = m.getForkAndCycleStation();
-        for(String str : h.keySet()){
-            System.out.println(str);
-            System.out.println(h.get(str));
-        }
-        */
-
-        ArrayList<Pair<String, String>> b = LimitedConnectionSearch.getPath(m, "Chemin Vert", "Botzaris");
-        for(Pair<String, String> p : b){
-            System.out.println(p.getObj());
-            System.out.println(p.getValue());
-        }
     }
 }

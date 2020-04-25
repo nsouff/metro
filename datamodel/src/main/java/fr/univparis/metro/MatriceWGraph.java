@@ -184,8 +184,10 @@ public class MatriceWGraph{
             m.addVertex(s);
             Set<Station> l = g.neighbors(s);
             for(Station p :l){
-                m.addVertex(p);
-                m.addEdge(s, p, g.weight(s, p));
+                if(p.getLine().equals(s.getLine())){
+                    m.addVertex(p);
+                    m.addEdge(s, p, g.weight(s, p));
+                }
             }
         }
         return ret;

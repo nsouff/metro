@@ -92,18 +92,11 @@ public class Webserver {
             HashMap<String, MatriceWGraph> lines = MatriceWGraph.initializeAllLineGraphs(g);
             MatriceWGraph matriceGraph = new MatriceWGraph(g, lines);
             ArrayList<Pair<String, String>> l = LimitedConnectionSearch.getPath(matriceGraph, start.getName(), end.getName());
+            String endName = l.get(0).getObj();
             Collections.reverse(l);
-            Double t = matriceGraph.getDirect()[matriceGraph.getSetOfVertices().get(start.getName())][matriceGraph.getSetOfVertices().get(end.getName())];
-            t += (matriceGraph.getIntermediate()[matriceGraph.getSetOfVertices().get(start.getName())][matriceGraph.getSetOfVertices().get(end.getName())] - 1) * Parser.defaultChangeStationWeight;
-            Double changeOnForkCycle = 0.0;
-            boolean b = false;
-            /*
-            for(Pair<String, String> p : l){
-              if(p.getObj().contains("$") && !b) b= true;
-              if(p.getObj().contains("$") && b) changeOnForkCycle += Parser.defaultWeight;
-            }
-            t += changeOnForkCycle;
-            */
+            String startName = l.get(0).getObj();
+            Double t = matriceGraph.getDirect()[matriceGraph.getSetOfVertices().get(startName)][matriceGraph.getSetOfVertices().get(endName)];
+            t += (matriceGraph.getIntermediate()[matriceGraph.getSetOfVertices().get(startName)][matriceGraph.getSetOfVertices().get(endName)] - 1) * Parser.defaultChangeStationWeight;
             body = "<h2>Time</h2>\n" + WebserverLib.time(t) + "\n" + "<h2>Itinerary</h2>\n" + WebserverLib.path(l, start.getName(), end.getName());
           }
         }
