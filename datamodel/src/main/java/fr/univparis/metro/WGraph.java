@@ -184,6 +184,30 @@ public class WGraph<T> implements Cloneable{
       }
     }
   }
+ /**
+  * Remove a vertex and replace it by two vertex wich will have the same edges
+  * @param old the vertex we want to split in two vertices
+  * @param newVert1 one of the new vertex that replace old
+  * @param newVert2 the other new vertex that replace old
+  */
+  public void splitVertex(T old, T newVert1, T newVert2) {
+    if (! containsVertex(old)) return;
+    addVertex(newVert1);
+    addVertex(newVert2);
+    for (T n : neighbors(old)) {
+      addEdge(newVert1, n, weight(old, n));
+      addEdge(newVert2, n, weight(old, n));
+    }
+
+    for (T t : getVertices()) {
+      if (neighbors(t).contains(old)) {
+        addEdge(t, newVert1, weight(t, old));
+        addEdge(t, newVert2, weight(t, old));
+      }
+    }
+    deleteVertex(old);
+  }
+
 
 
 }

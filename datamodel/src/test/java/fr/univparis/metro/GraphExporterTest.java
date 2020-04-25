@@ -47,7 +47,7 @@ public class GraphExporterTest {
 	    GraphExporter.exportToDOT(graph, out, Station::toString);
 
 	    String actual = getMD5Checksum(out);
-	    assertEquals("941357386a179ecae3a67d5b9153a61e", actual);
+	    assertEquals("44076045993dfc6a437003298a550502", actual);
 
 	    out.delete();
 	} catch(Exception e) {

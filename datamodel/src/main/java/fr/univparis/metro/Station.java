@@ -34,7 +34,8 @@ public class Station {
 
     @Override
     public String toString() {
-	return (!line.startsWith("Meta Station")) ? "Station: " + name + ", " + line : name;
+        return (!line.startsWith("Meta Station")) ? "Station: " + name + ", " + line : name;
+        //return this.name + " " + this.line;
     }
 
     @Override

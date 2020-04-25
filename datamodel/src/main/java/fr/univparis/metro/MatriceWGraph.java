@@ -26,6 +26,28 @@ public class MatriceWGraph{
         return this.intermediate;
     }
 
+    /**
+     * @return an hashmap containing all the stations initiating a fork or a cycle
+     */
+    public HashMap<String, Integer> getForkAndCycleStation(){
+        HashMap<String, Integer> ret = new HashMap<String, Integer>();
+        for(String s : this.setOfVertices.keySet()){
+            if(s.contains("$")){
+                String tmp = "";
+                int count = 0;
+                char current = s.charAt(count);
+                while(current != '$' && count < s.length()){
+                    tmp += current;
+                    count++;
+                    current = s.charAt(count);
+                }
+                if(ret.containsKey(tmp)) ret.put(tmp, ret.get(tmp) + 1);
+                else ret.put(tmp, 1);
+            }
+        }
+        return ret;
+    }
+
     //To build a graph of a line
     private MatriceWGraph(WGraph<Station> g){
         int numVertex = 0;
@@ -83,7 +105,7 @@ public class MatriceWGraph{
     /**
      * To build the whole graph.
      * @param g is the graph under the from of a hashMap from which we build the matrice graph.
-     * @param h contains all the sub graphs representing each lines of the graph g.
+     * @param m contains all the sub graphs representing each lines of the graph g.
      */
     public MatriceWGraph(WGraph<Station> g, HashMap<String, MatriceWGraph> m){
         int numVertex = 0;
@@ -162,8 +184,10 @@ public class MatriceWGraph{
             m.addVertex(s);
             Set<Station> l = g.neighbors(s);
             for(Station p :l){
-                m.addVertex(p);
-                m.addEdge(s, p, g.weight(s, p));
+                if(p.getLine().equals(s.getLine())){
+                    m.addVertex(p);
+                    m.addEdge(s, p, g.weight(s, p));
+                }
             }
         }
         return ret;

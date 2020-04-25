@@ -62,6 +62,12 @@ public class Parser {
   private static Station fork(WGraph<Station> g, Scanner sc, Station start, String line, HashSet<String> createdStation) {
     String s;
     Station endOfFirst = start;
+    if (start != null){
+      g.splitVertex(start, new Station(start.getName() + "$1", start.getLine()), new Station(start.getName() + "$2", start.getLine()));
+      g.addEdge(new Station(start.getName() + "$1", start.getLine()), new Station(start.getName() + "$2", start.getLine()), defaultChangeStationWeight);
+      g.addEdge(new Station(start.getName() + "$2", start.getLine()), new Station(start.getName() + "$1", start.getLine()), defaultChangeStationWeight);
+    }
+
     Station prec = start;
     while(sc.hasNextLine()) {
       s = sc.nextLine();
@@ -73,15 +79,23 @@ public class Parser {
       }
       else if (s.equals("[")) fork(g, sc, prec, line, createdStation);
       else if (s.equals("{")) cycle(g, sc, prec, line, createdStation);
-      else prec = addNextStation(g, prec, s, line, true, true, createdStation);
+      else{
+        boolean b = prec == start && start != null;
+        prec = addNextStation(g, prec, s, line, true, true, createdStation);
+        if (b) {
+          g.removeEdge(new Station(start.getName() + "$1", start.getLine()), prec);
+          g.removeEdge(prec, new Station(start.getName() + "$2", start.getLine()));
+        }
+      }
     }
     if (start != null) return null;
     do {
       if (!sc.hasNextLine()) throw new IllegalStateException();
       s = sc.nextLine();
       if (s.isEmpty()) continue;
-      addNextStation(g, endOfFirst, s, line, true, true, createdStation);
-      addNextStation(g, prec, s, line, true, true, createdStation);
+      addNextStation(g, endOfFirst, s + "$1", line, true, true, createdStation);
+      addNextStation(g, prec, s + "$2", line, true, true, createdStation);
+
       break;
     } while (sc.hasNextLine());
     return new Station(s, line);
@@ -102,6 +116,9 @@ public class Parser {
   */
   private static Station cycle(WGraph<Station> g, Scanner sc, Station start, String line, HashSet<String> createdStation) {
     if (start == null) throw new IllegalStateException("Cycle can't start with a null station");
+    g.splitVertex(start, new Station(start.getName() + "$1", start.getLine()), new Station(start.getName() + "$2", start.getLine()));
+    g.addEdge(new Station(start.getName() + "$1", start.getLine()), new Station(start.getName() + "$2", start.getLine()), defaultChangeStationWeight);
+    g.addEdge(new Station(start.getName() + "$2", start.getLine()), new Station(start.getName() + "$1", start.getLine()), defaultChangeStationWeight);
     String s;
     Station endOfFirst = start;
     Station prec = start;
@@ -118,15 +135,22 @@ public class Parser {
       else if (s.equals("{")) cycle(g, sc, prec, line, createdStation);
       else if (s.equals("[")) fork(g, sc, prec, line, createdStation);
       else if (s.equals("}")) break;
-      else prec = addNextStation(g, prec, s, line, !comeback, comeback, createdStation);
+      else{
+        boolean b = (prec == start);
+        prec = addNextStation(g, prec, s, line, !comeback, comeback, createdStation);
+        if (b) {
+          g.removeEdge(new Station(start.getName() + "$1", start.getLine()), prec);
+          g.removeEdge(prec , new Station(start.getName() + "$2", start.getLine()));
+        }
+      }
     }
     if (!comeback) throw new IllegalStateException();
     do {
       if (!sc.hasNextLine()) throw new IllegalStateException();
       s = sc.nextLine();
       if (s.isEmpty()) continue;
-      addNextStation(g, endOfFirst, s, line, true, false, createdStation);
-      addNextStation(g, prec, s, line, false, true, createdStation);
+      addNextStation(g, endOfFirst, s + "$1", line, true, false, createdStation);
+      addNextStation(g, prec, s + "$2", line, false, true, createdStation);
       break;
     } while (sc.hasNextLine());
     return new Station(s, line);
@@ -149,19 +173,40 @@ public class Parser {
   private static Station addNextStation(WGraph<Station> g, Station prec, String s, String line, boolean ahead, boolean behind, HashSet<String> createdStation) {
     Station act = new Station(s, line);
     g.addVertex(act);
-    if (ahead && prec != null)  g.addEdge(prec, act, defaultWeight);
-    if (behind && prec != null) g.addEdge(act, prec, defaultWeight);
-    if (! createdStation.contains(s)) {
-      g.addVertex(new Station(s, "Meta Station Start"));
-      g.addVertex(new Station(s, "Meta Station End"));
-      createdStation.add(s);
+    if (ahead && prec != null) {
+      if (g.containsVertex(prec)) g.addEdge(prec, act, defaultWeight);
+      else {
+        g.addEdge(new Station(prec.getName() + "$1", prec.getLine()), act, defaultWeight);
+        g.addEdge(new Station(prec.getName() + "$2", prec.getLine()), act, defaultWeight);
+      }
+
+    }
+    if (behind && prec != null) {
+      if (g.containsVertex(prec)) g.addEdge(act, prec, defaultWeight);
+      else {
+        g.addEdge(act, new Station(prec.getName() + "$1", prec.getLine()), defaultWeight);
+        g.addEdge(act, new Station(prec.getName() + "$2", prec.getLine()), defaultWeight);
+      }
+    }
+
+    addMetaStationAndChanging(g, act, createdStation, s);
+    return act;
+  }
+
+  private static void addMetaStationAndChanging(WGraph<Station> g, Station act, HashSet<String> createdStation, String s) {
+    boolean isASplit = s.contains("$");
+    String name = (isASplit) ? s.substring(0, s.length() - 2) : s;
+    if (! createdStation.contains(name)) {
+      g.addVertex(new Station(name, "Meta Station Start"));
+      g.addVertex(new Station(name, "Meta Station End"));
+      createdStation.add(name);
     }
     else {
-      g.addDoubleEdge(act, defaultChangeStationWeight, (t -> act.sameName(t) && !t.getLine().startsWith("Meta Station")));
+      g.addDoubleEdge(act, defaultChangeStationWeight, (t -> (t.getName().equals(name) || t.getName().startsWith(name + "$")) && !t.getLine().startsWith("Meta Station")));
     }
-    g.addEdge(new Station(s, "Meta Station Start"), act, 0.0);
-    g.addEdge(act, new Station(s, "Meta Station End"), 0.0);
-    return act;
+
+    g.addEdge(new Station(name, "Meta Station Start"), act, 0.0);
+    g.addEdge(act, new Station(name, "Meta Station End"), 0.0);
   }
 
 }
