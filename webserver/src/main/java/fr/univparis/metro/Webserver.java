@@ -1,14 +1,10 @@
 package fr.univparis.metro;
 import io.javalin.*;
 import io.javalin.plugin.rendering.template.TemplateUtil;
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
-import java.util.function.BiPredicate;
 
 public class Webserver {
     public static void main(String[] args) throws IOException {
@@ -45,21 +41,6 @@ public class Webserver {
 	    });
     }
 
-    public static void installCity(Javalin app) {
-	app.get("/:city", ctx -> {
-		String city = ctx.pathParam("city");
-		Set<String> cities = Trafics.getCities();
-		if (! cities.contains(city)) {
-		    app.error(404, c -> {});
-		    return;
-		}
-		ctx.render("/public/city.ftl", TemplateUtil.model(
-								  "city", city,
-								  "perturbation", WebserverLib.perturbationToHtml(city)
-								  ));
-	    });
-    }
-
 
     public static void installItinerary(Javalin app) {
 	app.post("/:city/itinerary", ctx -> {
@@ -78,10 +59,27 @@ public class Webserver {
 		}
 		else if(ctx.formParam("type").equals("leastConnexion")){
 		    body = WebserverLib.limitedConnectionPath(g, start, end);
-		}		
+		}
 		ctx.render("/public/itinerary.ftl", TemplateUtil.model("body", body));
 	    });
     }
+
+
+  public static void installCity(Javalin app) {
+    app.get("/:city", ctx -> {
+      String city = ctx.pathParam("city");
+      Set<String> cities = Trafics.getCities();
+      if (! cities.contains(city)) {
+        app.error(404, c -> {});
+        return;
+      }
+      ctx.render("/public/city.ftl", TemplateUtil.model(
+        "city", city,
+        "perturbation", WebserverLib.perturbationToHtml(city),
+        "arrayStation", ListStation.getListStation(city)
+      ));
+    });
+  }
 
 
     public static void installAddPerturbation(Javalin app) {

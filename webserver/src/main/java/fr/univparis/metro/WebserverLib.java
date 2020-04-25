@@ -13,7 +13,7 @@ public class WebserverLib {
 	return res;
     }
 
-    
+
 
     public static String time(Double time) {
 	if (time == Double.POSITIVE_INFINITY) throw new IllegalArgumentException();
@@ -77,7 +77,7 @@ public class WebserverLib {
 	}
 	return path;
     }
-    
+
     ///////////////////////////////////////////////////
     // limited connection path with BouarahAlgorithm //
     ///////////////////////////////////////////////////
@@ -85,13 +85,13 @@ public class WebserverLib {
     public static <T> boolean isThereAnyPath(HashMap<T, Double> dist, T to) {
 	return dist.containsKey(to) && !dist.get(to).equals(Double.POSITIVE_INFINITY);
     }
-    
+
     private static String path(HashMap<Pair<Station, Integer>,Pair<Station, Integer>> prev, Pair<Station, Integer> to) {
 	LinkedList<Pair<Station, Integer>> path = buildPath(prev, to);
 
 	path.removeFirst(); // on enlève la meta station start...
 	path.removeLast();  // ...et la meta station end
-	
+
 	String from = path.getFirst().getObj().getName();
 	String line = path.getFirst().getObj().getLine();
 	String res = "Departure : " + from + "<br><br>"+"line " + line + " : " + from + " -> ";
@@ -120,23 +120,23 @@ public class WebserverLib {
 	BiPredicate<Station, Station> sameLine = (Station s1, Station s2) -> s1.getLine().equals(s2.getLine()) || s1.getLine().startsWith("Meta Station") || s2.getLine().startsWith("Meta Station");
 	int limit = 0;
 	Pair<Station, Integer> toLimited = new Pair<Station, Integer>(to, limit);
-	
+
 	while( true ) { // le chemin existe
 	    BouarahAlgorithm.shortestPath(g, start, limit, sameLine, prevLimited, distLimited);
 	    if( WebserverLib.isThereAnyPath(distLimited, toLimited) )
 		break;
 	    limit += 1;
 	    toLimited.setValue(limit);
-	} 
+	}
 	String time = WebserverLib.time(distLimited.get(toLimited));
 	String itinerary = WebserverLib.path(prevLimited, toLimited);
         return "<h2>Time</h2>\n" + time + "\n" + "<h2>Itinerary</h2>\n" + itinerary;
     }
-    
+
     ///////////////////
     // multiple path //
     ///////////////////
-    
+
     private static String path(HashMap<Station, Station> prev, Station to, ArrayList<Pair<Station, Station>> changingStation) {
 	changingStation.clear();
 
@@ -144,7 +144,7 @@ public class WebserverLib {
 
 	path.removeFirst(); // on enlève la meta station start...
 	path.removeLast();  // ...et la meta station end
-	
+
 	String from = path.getFirst().getName();
 	String line = path.getFirst().getLine();
 	String res = "Departure : " + from + "<br><br>"+"line " + line + " : " + from + " -> ";
