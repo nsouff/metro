@@ -1,6 +1,5 @@
 package fr.univparis.metro;
 
-import java.lang.reflect.Array;
 import java.util.*;
 import java.util.function.BiPredicate;
 
@@ -85,15 +84,23 @@ public class WebserverLib {
 	}
 
 	private static String pathFloyd(ArrayList<Pair<String,String>> l, String from, String to){
-		String ret = "Departure" + from + "<br><br>";
+		String ret = "Departure : " + from + "<br><br>";
 		int i = 1;
 		for(Pair<String, String> p : l){
+			String str = p.getObj();
+			if(p.getObj().contains("$")){
+				str = "";
+				for(int j = 0; j < p.getObj().length(); j++){
+					if(p.getObj().charAt(j) == '$') break;
+					str += p.getObj().charAt(j);
+				}
+			}
 			if(i == l.size() - 1){
-				ret += "line : " + p.getValue() + " : " + p.getObj() + " -> " + l.get(i).getObj() + "<br><br>";
+				ret += "line : " + p.getValue() + " : " + str + " -> " + l.get(i).getObj() + "<br><br>";
 				ret += "Arrival : " + to;
 				break; 
 			}
-			ret += "line : " + p.getValue() + " : " + p.getObj() + " -> " + l.get(i).getObj() + "<br>";
+			ret += "line : " + p.getValue() + " : " + str + " -> " + l.get(i).getObj() + "<br>";
 			i++;
 		}
 		return ret;
