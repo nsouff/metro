@@ -105,10 +105,12 @@ public class WebserverLib {
 		String body = "";
         HashMap<String, MatriceWGraph> lines = MatriceWGraph.initializeAllLineGraphs(g);
         MatriceWGraph matriceGraph = new MatriceWGraph(g, lines);
-        ArrayList<Pair<String, String>> l = LimitedConnectionSearch.getPath(matriceGraph, start, end);
-        Collections.reverse(l);
-        Double t = matriceGraph.getDirect()[matriceGraph.getSetOfVertices().get(start)][matriceGraph.getSetOfVertices().get(end)];
-        t += (matriceGraph.getIntermediate()[matriceGraph.getSetOfVertices().get(start)][matriceGraph.getSetOfVertices().get(end)] - 1) * Parser.defaultChangeStationWeight;
+		ArrayList<Pair<String, String>> l = LimitedConnectionSearch.getPath(matriceGraph, start, end);
+		String str1 = l.get(0).getObj();
+		Collections.reverse(l);
+		String str2 = l.get(0).getObj();
+        Double t = matriceGraph.getDirect()[matriceGraph.getSetOfVertices().get(str2)][matriceGraph.getSetOfVertices().get(str1)];
+        t += (matriceGraph.getIntermediate()[matriceGraph.getSetOfVertices().get(str2)][matriceGraph.getSetOfVertices().get(str1)] - 1) * Parser.defaultChangeStationWeight;
 		body = "<h2>Time</h2>\n" + WebserverLib.time(t) + "\n" + "<h2>Itinerary</h2>\n" + WebserverLib.pathFloyd(l, start, end);
 		return body;
 	}

@@ -40,8 +40,8 @@
         <br>
       </div>
       <input type="radio" name="type" value="shortest" required id="shortest"> <label for="shortest">Shortest</label><br>
-      <input type="radio" name="type" value="leastConnexion" required id="leastConnexion"> <label for="leastConnexion">Limited connexion</label><br>
-      <input type="radio" name="type" value="leastConnexionFloyd" required id="leastConnexionFloyd"> <label for="leastConnexionFloyd">Limited connexion with Floyd algorithm</label><br>
+      <input type="radio" name="type" value="leastConnexion" required id="leastConnexion"> <label for="leastConnexion">Limited connexion with Bouarah's algorithm</label><br>
+      <input type="radio" name="type" value="leastConnexionFloyd" required id="leastConnexionFloyd"> <label for="leastConnexionFloyd">Limited connexion with Floyd's algorithm (Warning : we can not add pertubations with this algorithm)</label><br>
       <input type="submit">
     </form>
 
