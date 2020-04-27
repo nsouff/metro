@@ -81,7 +81,46 @@ public class WebserverLib {
 	    current = prev.get(current);
 	}
 	return path;
-    }
+	}
+
+	private static String pathFloyd(ArrayList<Pair<String,String>> l, String from, String to){
+		String ret = "Departure : " + from + "<br><br>";
+		int i = 1;
+		for(Pair<String, String> p : l){
+			String str = p.getObj();
+			if(p.getObj().contains("$")){
+				str = "";
+				for(int j = 0; j < p.getObj().length(); j++){
+					if(p.getObj().charAt(j) == '$') break;
+					str += p.getObj().charAt(j);
+				}
+			}
+			if(i == l.size() - 1){
+				ret += "line : " + p.getValue() + " : " + str + " -> " + l.get(i).getObj() + "<br><br>";
+				ret += "Arrival : " + to;
+				break; 
+			}
+			ret += "line : " + p.getValue() + " : " + str + " -> " + l.get(i).getObj() + "<br>";
+			i++;
+		}
+		return ret;
+	}
+	
+	public static String limitedConnexionPathWithFloyd(WGraph<Station> g, Station from, Station to){
+		String start = from.getName();
+		String end = to.getName();
+		String body = "";
+        HashMap<String, MatriceWGraph> lines = MatriceWGraph.initializeAllLineGraphs(g);
+        MatriceWGraph matriceGraph = new MatriceWGraph(g, lines);
+		ArrayList<Pair<String, String>> l = LimitedConnectionSearch.getPath(matriceGraph, start, end);
+		String str1 = l.get(0).getObj();
+		Collections.reverse(l);
+		String str2 = l.get(0).getObj();
+        Double t = matriceGraph.getDirect()[matriceGraph.getSetOfVertices().get(str2)][matriceGraph.getSetOfVertices().get(str1)];
+        t += (matriceGraph.getIntermediate()[matriceGraph.getSetOfVertices().get(str2)][matriceGraph.getSetOfVertices().get(str1)] - 1) * Parser.defaultChangeStationWeight;
+		body = "<h2>Time</h2>\n" + WebserverLib.time(t) + "\n" + "<h2>Itinerary</h2>\n" + WebserverLib.pathFloyd(l, start, end);
+		return body;
+	}
 
     ///////////////////////////////////////////////////
     // limited connection path with BouarahAlgorithm //
