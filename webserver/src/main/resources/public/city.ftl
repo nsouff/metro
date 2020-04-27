@@ -188,7 +188,7 @@
 
     <h4>All trafics slowdown</h4>
     <form class="form" action="/${city}/addPerturbation" method="post">
-      <label for="all_trafics_slow_down">Name of the perturbation</label>
+      <label for="all_trafics_slow_down_name">Name of the perturbation</label>
       <input required type="text" name="name" id="all_trafics_slow_down_name"><br>
      
       <label for="all_trafics_slow_down_times">Times which multiply every traject</label>
