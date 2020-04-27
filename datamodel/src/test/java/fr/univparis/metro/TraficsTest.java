@@ -60,8 +60,6 @@ public class TraficsTest {
     assertEquals(90.0, g.weight(gdl, b), 0.0);
     assertEquals(0.0, g.weight(b, new Station("Bastille", "Meta Station End")), 0.0);
     assertEquals(60.0, g.weight(b, new Station("Bastille", "5")), 0.0);
-
-
   }
 
 
@@ -157,6 +155,35 @@ public class TraficsTest {
     assertEquals(90.0, g.weight(j, s), 0.0);
 
     Trafics.revertPerturbation("Paris", "Jaurès to Ourcq slow down");
-
   }
+
+  @Test
+  public void allTraficsSlowDownTest() {
+    WGraph<Station> g = Trafics.getGraph("Paris");
+    Station m8 = new Station("Madeleine", "8");
+    Station c  = new Station("Concorde", "Meta Station End");
+    Station c1 = new Station("Concorde", "1");
+    Station c8 = new Station("Concorde", "8");
+
+    Trafics.addPerturbation("Paris", Trafics.Perturbation.ALL_TRAFICS_SLOW_DOWN, "Snow on the rails", 2.0);
+    assertEquals(180.0, g.weight(m8, c8), 0.0);
+    assertEquals(180.0, g.weight(c8, m8), 0.0);
+    
+    assertEquals(60.0, g.weight(c8, c1), 0.0);
+    assertEquals(60.0, g.weight(c1, c8), 0.0);
+    
+    assertEquals(0.0, g.weight(c8, c), 0.0);
+    assertEquals(0.0, g.weight(c1, c), 0.0);
+
+    Trafics.revertPerturbation("Paris", "Snow on the rails");
+    assertEquals(90.0, g.weight(m8, c8), 0.0);
+    assertEquals(90.0, g.weight(c8, m8), 0.0);
+
+    assertEquals(60.0, g.weight(c8, c1), 0.0);
+    assertEquals(60.0, g.weight(c1, c8), 0.0);
+    
+    assertEquals(0.0, g.weight(c8, c), 0.0);
+    assertEquals(0.0, g.weight(c1, c), 0.0);
+  }
+    
 }
