@@ -14,7 +14,8 @@ public class Trafics {
     ENTIRE_STATION_SHUT_DOWN,
     PART_STATION_SHUT_DOWN,
     PART_LINE_SLOW_DOWN,
-    PART_LINE_SHUT_DOWN;
+    PART_LINE_SHUT_DOWN,
+    ALL_TRAFICS_SLOW_DOWN;
   }
 
   private static HashMap< String , WGraph<Station> > actualTrafics;
@@ -90,6 +91,10 @@ public class Trafics {
         if (! (objs[0] instanceof Station) || ! (objs[1] instanceof Station) || ! (objs[2] instanceof Double)) throw new IllegalArgumentException();
         revert = partOfLineSlowDown(city, (Station) objs[0], (Station) objs[1], (Double) objs[2]);
         break;
+      case ALL_TRAFICS_SLOW_DOWN:
+        if (! ( parameter instanceof Double)) throw new IllegalArgumentException();
+	revert = allTraficsSlowDown(city, (Double) parameter);
+	break;
     }
     if (revert != null) reverts.get(city).put(name, revert);
   }
@@ -286,5 +291,28 @@ public class Trafics {
 
   }
 
+ /**
+  * Modify the time between stations in a graph
+  * @param city the city in which we want to modify trafics
+  * @param times the time between every station will be multipclated by it
+  * @return a WGraph that can be use to revert this perturbation
+  */
+  public static WGraph<Station> allTraficsSlowDown(String city, double times) {
+    WGraph<Station> actualG = actualTrafics.get(city);
+    WGraph<Station> initialG = initialTrafics.get(city);
+    WGraph<Station> revert = new WGraph<Station>();
+    for (Station s : actualG.getVertices()) {
+      if (! revert.containsVertex(s)) revert.addVertex(s);
+      for (Station n : actualG.neighbors(s)) {
+        if (! revert.containsVertex(n)) revert.addVertex(n);
+        revert.addEdge(s, n, initialG.weight(s, n));
+	if( s.sameName(n) ) // pas de ralentissement sur les correspondances
+	 actualG.setWeight(s, n, initialG.weight(s, n));
+	else
+	 actualG.setWeight(s, n, initialG.weight(s, n) * times);
+      }
+    }
+    return revert;
+  }
 
 }
