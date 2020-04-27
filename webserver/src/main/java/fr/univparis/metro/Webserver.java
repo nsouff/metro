@@ -113,6 +113,9 @@ public class Webserver {
 		    ((Object[]) parameter)[1] = new Station(ctx.formParam("end_station"), line2);
 		    ((Object[]) parameter)[2] = Double.valueOf(ctx.formParam("times"));
 		    break;
+		case ALL_TRAFICS_SLOW_DOWN:
+		    parameter = Double.valueOf(ctx.formParam("times"));
+		    break;
 		}
 
 		Trafics.addPerturbation(city, type, name, parameter);
