@@ -6,6 +6,7 @@ JAVA_OPT=-cp $(CLASSPATH)
 JAVA=java $(JAVA_OPT)
 TARGET=fr.univparis.metro.Webserver
 TERMINAL_TARGET=fr.univparis.metro.App
+GRAPH_EXPORTER_TARGET=fr.univparis.metro.GraphExporter
 
 # Target all builds the project.
 all: datamodel webserver
@@ -25,6 +26,8 @@ run :
 run_terminal :
 	cd webserver && $(JAVA) $(TERMINAL_TARGET)
 
+export_to_dot :
+	cd webserver && $(JAVA) $(GRAPH_EXPORTER_TARGET) $(ARGS)
 
 test:
 	cd datamodel && $(MVN) test
