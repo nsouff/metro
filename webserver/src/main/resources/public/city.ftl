@@ -9,7 +9,7 @@
       .suggestions{
         width: 200px;
       }
-      .suggestions > div{ 
+      .suggestions > div{
         padding: 5px;
         font-size: 15px;
         border-top: 1px solid #666;
@@ -71,7 +71,7 @@
       });
       searchInputEnd.addEventListener('keyup', function(){
         const inputEnd = searchInputEnd.value;
-        resultsEnd.innerHTML = ''; 
+        resultsEnd.innerHTML = '';
         if(inputEnd.length > 0){
           const suggestions = listStation.filter(function(station){
             return station.toLowerCase().startsWith(inputEnd);
@@ -181,7 +181,7 @@
       <input required type="text" name="end_station" id="part_line_slow_down_end_station"><br>
 
       <label for="part_line_slow_down_times">Times which multiply every traject in the line</label>
-      <input required type="number" step="any" name="times" id="part_line_slow_down_times"><br>
+      <input required type="number" min="1" step="any" name="times" id="part_line_slow_down_times"><br>
 
       <input type="hidden" name="type" value="PART_LINE_SLOW_DOWN">
       <input type="submit">
@@ -191,57 +191,13 @@
     <form class="form" action="/${city}/addPerturbation" method="post">
       <label for="all_trafics_slow_down_name">Name of the perturbation</label>
       <input required type="text" name="name" id="all_trafics_slow_down_name"><br>
-     
+
       <label for="all_trafics_slow_down_times">Times which multiply every traject</label>
       <input required type="number" step="any" min="1" name="times" id="all_trafics_slow_down_times"><br>
 
       <input type="hidden" name="type" value="ALL_TRAFICS_SLOW_DOWN">
       <input type="submit">
     </form>
-
-
-    <!-- <form class="form" action="/${city}/addPerturbation" method="post"> -->
-      <!-- <table> -->
-        <!-- <tr> -->
-          <!-- <th>Type</th> -->
-          <!-- <th><input  required type="radio" name="type" value="LINE_SHUTDOWN", id="line_shutdown"> <label for="line_shutdown">Line shutdown</label></th> -->
-          <!-- <th><input type="radio" name="type" value="LINE_SLOW_DOWN" id="line_slow_down"> <label for="line_slow_down">Line slow down</label></th> -->
-          <!-- <th><input type="radio" name="type" value="ENTIRE_STATION_SHUT_DOWN" id="entire_station_shut_down"><label for="entire_station_shut_down">Whole station shut down</label></th> -->
-          <!-- <th><input type="radio" name="type" value="PART_STATION_SHUT_DOWN" id="part_station_shut_down"><label for="part_station_shut_down">One line of the a station shutdown</label></th> -->
-        <!-- </tr> -->
-        <!-- <tr> -->
-          <!-- <td>Line concerned</td> -->
-          <!-- <td colspan="2"><input type="text" name="line"></td> -->
-          <!-- <td></td> -->
-          <!-- <td></td> -->
-        <!-- </tr> -->
-        <!-- <tr> -->
-          <!-- <td>How much time to slow down the line</td> -->
-          <!-- <td></td> -->
-          <!-- <td><input type="number" min="1" step="any"name="times"></td> -->
-          <!-- <td></td> -->
-          <!-- <td></td> -->
-        <!-- </tr> -->
-        <!-- <tr> -->
-          <!-- <td>Name of station concerned</td> -->
-          <!-- <td></td> -->
-          <!-- <td></td> -->
-          <!-- <td colspan="2"><input type="text" name="station_name"></td> -->
-        <!-- </tr> -->
-        <!-- <tr> -->
-          <!-- <td>Line of the station concerned</td> -->
-          <!-- <td></td> -->
-          <!-- <td></td> -->
-          <!-- <td></td> -->
-          <!-- <td><input type="text" name="station_line" value=""></td> -->
-        <!-- </tr> -->
-        <!-- <tr> -->
-          <!-- <td>Name of the perturbation</td> -->
-          <!-- <td colspan="4"><input required type="text" name="name"></td> -->
-        <!-- </tr> -->
-      <!-- </table> -->
-      <!-- <input type="submit"> -->
-    <!-- </form> -->
     <br>
     <h2>Statistics</h2>
     <p>To acceed to the statistics of the network, click <a href="/${city}/statistics">here</a> and please wait few seconds.</p>
