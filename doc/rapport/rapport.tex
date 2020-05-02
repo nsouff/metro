@@ -1,11 +1,11 @@
-\documentclass[12pt,french]{article}
+\documentclass[french, 12pt]{article}
 
 \usepackage[T1]{fontenc}
-\usepackage[french]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
+%\usepackage{babel}
 \usepackage{hyperref}
 \usepackage{graphicx}
 
@@ -79,7 +79,7 @@ On peut à présent voir le trajet le plus court sachant que la ligne 2 est ferm
 
 Retournons maintenant à la page d'avant, allons en bas de page, et on peut voir qu'une section "Statistics" propose un lien vers une page affichant les statistiques du réseau de métro de la ville sélectionnée au préalable.
 
-\includegraphics[height=2cm]{images/acceedStats.png}
+\includegraphics[width=12cm]{images/acceedStats.png}
 
 Voici l'affichage de cette page :
 
@@ -92,15 +92,16 @@ Voici la fin de cet exemple d'utilisation de "metro" via son webserver.
 \newpage
 
 \part{Projet Métro}
-%Intro courte
+Dans cette partie est expliqué les différents algorithmes, la structure des classes du  projet, et sa présentation générale.
 \section{Présentation générale}
+Voici la présentation du projet avec les choix de modélisation que nous avons fait, les problèmes rencontrés durant celui-ci et la manière dont on l'a organisé.
 \subsection{Modélisation}
 %partie de qui veut
 %Expliquer les choix de modélisation qu'on a pris. Pourquoi ceux ci et pas d'autres? 
 %Le choix de faire des meta station, le choix de mettre des files de propriétés, pq avoir fait deux algos avec correspondance, choix d'implémentation du parser.
 
 \subsection{Organisation}
-Comme vu précédemment, au début du semestre, nous avons dû faire des choix de modélisation et donc réfléchir. Nous avons d'abord créé le graphe(classe WGraph) car ce graphe représente dans notre réseau de métro. 
+Comme vu précédemment, au début du semestre, nous avons dû faire des choix de modélisation et donc réfléchir. Nous avons d'abord créé le graphe(W\-Graph) car ce graphe représente dans notre réseau de métro. 
 Parallèlement nous avons créé un parser pour construire un graphe à partir d'un fichier contenant les stations par ligne, d'un réseau de métro. 
 Nous avons également en un premier temps écrit l'algo de Dijkstra(puis avec la file de priorité).
 Nous avons alors pu commencer à écrire les algorithmes avec une limite de correspondances, l'algorithme de Floyd avec les matrices, et l'"algorithme de Bouarah", dont il est parlé dans la section suivante.
@@ -123,14 +124,18 @@ Pour les algorithmes, ce qui posait problème, était la réflexion autour de la
 
 
 \newpage
-\section{Le projet dans ses grandes lignes}
-%short intro
+\section{Les classes plus en détail}
+Notre programme a de nombreuses classes de code. On peut y trouver un parser, plusieurs algorithmes, une pour les perturbations, et d'autres pour le webserver. Elles vont être expliquées plus en détail pour le parser et les algorithmes ci-dessous. Nous allons également présenter ci-dessous la structure du projet et de ses classes. 
 \subsection{Le parser}
 %Partie Nathan
 
 \subsection{Les différents algorithmes}
+Voici une présentation des trois algorithmes de plus court chemin que nous avons utilisé dans ce projet: l'algorithme de Dijkstra, celui de Floyd et celui de Bouarah. 
 \subsubsection{Dijkstra}
-%Partie Matthieu
+L'algorithme de Dijkstra ne fût pas forcément facile à comprendre. Mais une fois imprégnés de celui-ci, nous avons pu faire un algorithme clair répondant au problème du plus court chemin. Au départ nous n'utilisions pas de file de priorité.
+Une fois que l'algorithme marchait, nous avons rajouté les files de priorité en guise d'amélioration.
+A partir d'un graphe et d'une station on peut alors lancer l'algorithme avec aussi une hashmap correspondant aux distances des stations par rapport à la station initiale avec le plus court chemin entre elles, et une autre hashmap où chaque clé est une station avec une valeur associée qui est sa station précédente par rapport à la station initiale en prenant le chemin le plus court.
+Avant l'analyse du graphe, il y a initialisation de la hashmap en associant des distances à l'infini en valeur pour chaque station(clé) du graphe, et pareil pour la file de priorité. 
 
 \subsubsection{Algorithme de Floyd}
 %Partie Lucas
