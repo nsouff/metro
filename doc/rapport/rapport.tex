@@ -92,18 +92,54 @@ Voici la fin de cet exemple d'utilisation de "metro" via son webserver.
 \newpage
 
 \part{Projet Métro}
-
+%Intro courte
 \section{Présentation générale}
 \subsection{Modélisation}
+%partie de qui veut
+%Expliquer les choix de modélisation qu'on a pris. Pourquoi ceux ci et pas d'autres? 
+%Le choix de faire des meta station, le choix de mettre des files de propriétés, pq avoir fait deux algos avec correspondance, choix d'implémentation du parser.
+
 \subsection{Organisation}
+Comme vu précédemment, au début du semestre, nous avons dû faire des choix de modélisation et donc réfléchir. Nous avons d'abord créé le graphe(classe WGraph) car ce graphe représente dans notre réseau de métro. 
+Parallèlement nous avons créé un parser pour construire un graphe à partir d'un fichier contenant les stations par ligne, d'un réseau de métro. 
+Nous avons également en un premier temps écrit l'algo de Dijkstra(puis avec la file de priorité).
+Nous avons alors pu commencer à écrire les algorithmes avec une limite de correspondances, l'algorithme de Floyd avec les matrices, et l'"algorithme de Bouarah", dont il est parlé dans la section suivante.
+Nous avons également ajouter un webserver, car cela commençait à faire lourd de toujours tester sur le terminal.
+Nous avons alors rajouté les algorithmes pour les statistiques des réseaux de métro. 
+Rajoutons que le programme est en anglais car il peut être utilisé pour tout les réseaux de métro. Ici seul ceux en France sont disponible, mais il n'y a pas de problèmes, car il y a juste à stocker le réseau voulu, par un fichier texte adapté, en objet JSON dans les fichiers JSON correspondants.
+Nous avons ensuite rajouté la possibilité d'ajouter des perturbations sur nos réseaux métro.
+Arrivé à mi-avril, nous avons bien avancé, et il nous reste à améliorer alors notre programme, en rendant un code plus propre et amélioré, améliorer le webserver, régler des bugs, etc...
+
+Notons qu'à chaque tâche attribuée, la personne s'occupant de la tâche doit s'occuper des tests qui vont avec. En général les tâches doivent être faites pour la semaine suivante.
+Notre système nous a été efficace, et permis de travailler dans de bonnes conditions.
+A chaque fin de tâche, la personne s'en occupant devait attribuer une "merge request" à quelqu'un d'autre pour vérifier son travail et avoir un autre point de vue de la question et voir les éventuels problèmes. 
 \subsection{Problèmes rencontrés}
+Certains problèmes ont été rencontrer durant ce projet. 
+Au début du projet nous avions le problème de ne pas savoir par où commencer, ou plutôt nous avions peur de partir trop vite en s'emballant ou d'aller trop lentement et perdre du temps. Nous avons donc eu au début du projet, des semaines où il y avait peu de tâches à effectuer et où nous avions du mal à en trouver. Trouver des tâches précises n'était pas non plus facile. 
+D'où l'importance de s'imprégner vraiment du projet ou d'une partie du projet pour pouvoir décomposer cela en de multiples tâches. Il y a donc eu des tâches trop vagues, et cela a pu être un léger problème par moment. Dans l'implémentation des algorithmes, il y avait ce besoin nécessaire de s'imprégner de l'algorithme pour voir clairement ce que nous voulons. Cela demande un vrai travail de réflexion et de la concentration. Il y a eu une grosse demande de concentration et réflexion pour réussir à faire un bon parser, en cherchant les problèmes qu'il pourrait y avoir dans les modifications que l'on voudrait apporter.
+Un autre problème qui peut intervenir et de replonger dans du code que l'on a écrit quelques mois auparavant ou de se plonger dans du code que nous n'avions pas écrit. Le challenge était donc de se maintenir à jour sur les avancées du projet.
+Pour les algorithmes, ce qui posait problème, était la réflexion autour de la modélisation pour faire marcher les algorithmes, qui en eux-mêmes n'ont pas posé de problèmes d'implémentations.
 
 
+
+\newpage
 \section{Le projet dans ses grandes lignes}
-\subsection{Les différents algorithmes}
-\subsection{Structure des classes}
-Diagramme des classes
+%short intro
+\subsection{Le parser}
+%Partie Nathan
 
+\subsection{Les différents algorithmes}
+\subsubsection{Dijkstra}
+%Partie Matthieu
+
+\subsubsection{Algorithme de Floyd}
+%Partie Lucas
+
+\subsubsection{Algorithme de Bouarah}
+%Partie romain
+
+\subsection{Structure des classes}
+%Diagramme des classes à rajouter
 
 
 \end{document}
