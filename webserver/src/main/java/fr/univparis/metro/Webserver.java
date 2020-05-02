@@ -9,7 +9,7 @@ public class Webserver {
   public static void main(String[] args) throws IOException {
     Configuration.loadFrom(Webserver.class.getResourceAsStream("/cities.json"));
     Trafics.initTrafics();
-    WebserverLib.initStatistics();
+    StatisticsVue.initStatistics();
     Javalin app = launch();
     installIndex(app);
     installCity(app);
@@ -140,7 +140,7 @@ public class Webserver {
     app.get("/:city/statistics", ctx -> {
       String city = ctx.pathParam("city");
       ctx.render("/public/statistics.ftl", TemplateUtil.model(
-      "stat1", WebserverLib.getStringStatistics(city)
+      "stat1", StatisticsVue.getStringStatistics(city)
       ));
     });
   }

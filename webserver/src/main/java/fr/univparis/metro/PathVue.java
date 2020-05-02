@@ -9,6 +9,12 @@ import java.util.function.BiPredicate;
 
 public class PathVue {
 
+  public static String time(Double time) {
+    if (time == Double.POSITIVE_INFINITY) throw new IllegalArgumentException();
+    Double[] times = WebserverLib.doubleToTime(time);
+    return "Average time to get to your destination : " + times[0] + " h, "  + times[1] + " min, " + times[2] + " s.";
+  }
+
   ////////////////////////////////////////
   // limited connection path with Floyd //
   ////////////////////////////////////////
@@ -49,7 +55,7 @@ public class PathVue {
     String str2 = l.get(0).getObj();
     Double t = matriceGraph.getDirect()[matriceGraph.getSetOfVertices().get(str2)][matriceGraph.getSetOfVertices().get(str1)];
     t += (matriceGraph.getIntermediate()[matriceGraph.getSetOfVertices().get(str2)][matriceGraph.getSetOfVertices().get(str1)] - 1) * Parser.defaultChangeStationWeight;
-    body = "<h2>Time</h2>\n" + WebserverLib.time(t) + "\n" + "<h2>Itinerary</h2>\n" + pathFloyd(l, start, end);
+    body = "<h2>Time</h2>\n" + time(t) + "\n" + "<h2>Itinerary</h2>\n" + pathFloyd(l, start, end);
     return body;
   }
 
@@ -120,7 +126,7 @@ public class PathVue {
       limit += 1;
       toLimited.setValue(limit);
     }
-    String time = WebserverLib.time(distLimited.get(toLimited));
+    String time = time(distLimited.get(toLimited));
     String itinerary = path(prevLimited, toLimited);
     return "<h2>Time</h2>\n" + time + "\n" + "<h2>Itinerary</h2>\n" + itinerary;
   }
@@ -170,7 +176,7 @@ public class PathVue {
     try {
       resAux.add(new Pair<String, Double>(
       "<h2>Time</h2>\n" +
-      WebserverLib.time(dist.get(to)) +
+      time(dist.get(to)) +
       "<h2>Itinerary</h2>" +
       path(prev, to, changingStation),
       dist.get(to)
@@ -215,7 +221,7 @@ public class PathVue {
         if (pChangingStation.size() <= MAX_CORRESPONDANCES) {
           resAux.add(new Pair<String, Double>(
           "<h2>Time</h2>\n" +
-          WebserverLib.time(dist.get(to)) +
+          time(dist.get(to)) +
           "<h2>Itinerary</h2>" +
           itinerary,
           dist.get(to)
