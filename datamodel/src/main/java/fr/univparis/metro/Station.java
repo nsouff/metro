@@ -33,16 +33,29 @@ public class Station {
     public String getLine() {return line;}
 
     @Override
+    /**
+    * Return the description of the station
+    * @return a string for the description of the station
+    */
     public String toString() {
 	return (!line.startsWith("Meta Station")) ? "Station: " + name + ", " + line : name;
     }
 
     @Override
+    /**
+    * Return the hashing value of the station
+    * @return the hashing value of the station
+    */
     public int hashCode() {
 	return Objects.hash(line, name);
     }
 
     @Override
+    /**
+    * Compare the station with an object
+    * @param obj the object to compare with the station
+    * @return true if there are equals else false
+    */
     public boolean equals(Object obj) {
 	if (this == obj)
 	    return true;

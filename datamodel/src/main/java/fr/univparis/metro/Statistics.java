@@ -41,7 +41,7 @@ public class Statistics{
 
   /**
   * Return the minimum correspondence to go from any start vertex to any end vertex
-  * @param g the Graph
+  * @param g the graph representing the network
   * @param start indicates wich vertex are start vertex
   * @param end indicates wich vertex are end vertex
   * @param p indicates what is consider as a correspondence
@@ -82,7 +82,7 @@ public class Statistics{
 
   /**
    * Return the line that has the more/less Station in it (excluding the Meta Line)
-   * @param g represent the subway network
+   * @param g the graph representing the network
    * @param max indicates if we want the line with the most station (max == true) or the line with the less (max  == false) station
    * @return the name of the line with the most/less station in it
    */
@@ -111,7 +111,8 @@ public class Statistics{
 
   /**
     * Return the time average on each line
-    * @param g the graph of a subway which is evaluated for statistics
+    * @param g the graph representing the network
+    * @param res is an HashMap with a line associate with the time between the two extremum of it
     * return the HashMap of the lines and their average time of travel
     */
   public static int averageTimeOnEachLine(WGraph<Station> g, HashMap<String, Double> res){
@@ -156,6 +157,12 @@ public class Statistics{
         return (int)d / nb;
     }
 
+
+    /**
+    * Return a Pair of a String and a Double corresponding to the shortest line in time and this time thanks to the statistic averageTimeOnEachLine and his parameter res.
+    * @param g the graph representing the network
+    * @return a Pair with the shortest line in time and his time of travel
+    */
     public static Pair<String, Double> shortestTimeTravelLine(WGraph<Station> g){
       HashMap<String, Double> res = new HashMap<String, Double>();
       int i = averageTimeOnEachLine(g, res);
@@ -171,6 +178,11 @@ public class Statistics{
       return p;
     }
 
+    /**
+    * Return a Pair of a String and a Double corresponding to the longest line in time and this time thanks to the statistic averageTimeOnEachLine and his parameter res.
+    * @param g the graph representing the network
+    * @return a Pair with the longest line in time and his time of travel
+    */
     public static Pair<String, Double> longestTimeTravelLine(WGraph<Station> g){
       HashMap<String, Double> res = new HashMap<String, Double>();
       int i = averageTimeOnEachLine(g, res);
@@ -186,7 +198,11 @@ public class Statistics{
       return p;
     }
 
-
+    /**
+    * Return the average number of stations on the lines of the network
+    * @param g the graph representing the network
+    * @return the average number of stations on the lines of the network
+    */
   public static int averageNbOfStationPerLine(WGraph<Station> g){
     HashMap<String, MatriceWGraph> h = MatriceWGraph.initializeAllLineGraphs(g);
     int nbStation = 0;

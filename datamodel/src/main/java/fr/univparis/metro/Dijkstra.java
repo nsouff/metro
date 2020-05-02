@@ -7,6 +7,7 @@ public class Dijkstra {
    /**
     * Add all the T element in dist and priQueue that are in g
     * The associated value for each of the element is 0 if it is equals to s, else positive infinity
+    * Initialize the Hashmap of the distance between the initial T and the other T of the graph
     */
     private static <T> void initShortestPath(WGraph<T> g, T s, HashMap<T, Double> dist, PriorityQueue<T> priQueue) {
       for (T st : g.getVertices()){
@@ -22,12 +23,11 @@ public class Dijkstra {
     }
 
     /**
-    * Used to find the shortest path between a starting T and all other Ts of a graph
-    * @param g    Graph of T
+    * Used to find the shortest path between a starting T and all other T of a graph
+    * @param g    Graph of T where we search a shortest path
     * @param s    T where we begin our path
     * @param prev HashMap where for each T is associate the previous T for the shortest path since s
     * @param dist HashMap where for each T is associate his distance to s with the shortest path to s
-    * @return a Pair composed of a HashMap of the previous T of each T and a HashMap with the minimal distance to the Ts from the parameter s
     */
     public static <T> void shortestPath (WGraph<T> g, T s, HashMap<T, T> prev, HashMap<T, Double> dist) {
       PriorityQueue<T> priQueue = new PriorityQueue<T>();

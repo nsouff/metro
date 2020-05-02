@@ -7,10 +7,17 @@ public class WGraph<T> implements Cloneable{
 
   private HashMap<T, HashMap<T, Double>> wGraph;
 
+  /**
+  * Construct a WGraph with a corresponding hashmap for wGraph
+  */
   public WGraph(){
     this.wGraph = new HashMap<T, HashMap<T, Double>>();
   }
 
+  /**
+  * Create a cloning WGraph by the WGraph
+  * @return a clone of the WGraph
+  */
   public WGraph<T> clone(){
     WGraph<T> c = new WGraph<T>();
     for(T t : this.getVertices()){
@@ -24,20 +31,30 @@ public class WGraph<T> implements Cloneable{
     return c;
   }
 
+  /**
+  * Compare the WGraph g with the WGraph
+  * @param g the WGraph to compare with the WGraph
+  * @return true if there are equals else false
+  */
   public boolean equals(WGraph<T> g){
     return(g.wGraph.equals(this.wGraph));
   }
 
   /**
+  * Return the set of all the keys contained in the wGraph of WGraph
   * @return the set of all the keys contained in the HashMap wGraph.
   */
   public Set<T> getVertices(){
     return this.wGraph.keySet();
   }
-
+  /**
+  * Return the number of vertices of the WGraph
+  * @return the number of vertices of the WGraph
+  */
   public int nbVertex() {return wGraph.size();}
 
   /**
+  * Give the value of a key T vertex in wGraph of the WGraph
   * @param vertex
   * @return a list that contains all the vertices we can reach from the vertex "vertex".
   */
@@ -47,8 +64,9 @@ public class WGraph<T> implements Cloneable{
 
 
   /**
-  * @param s
-  * @param p
+  * Return the weight between two vertices
+  * @param s a vertex we want find the weight with the vertex p
+  * @param p the other vertex
   * @return the weight between the vertex s and the vertex p.
   */
   public Double weight(T s, T p){
@@ -59,6 +77,7 @@ public class WGraph<T> implements Cloneable{
 
 
   /**
+  * Add a vertex to the WGraph and return if it is good after that
   * @param v a vertex we add to the HashMap wGraph.
   * @return true if v has correctly been added, false otherwise.
   */
@@ -72,6 +91,7 @@ public class WGraph<T> implements Cloneable{
 
 
   /**
+  * Delete a vertex v in the wGraph of the WGraph
   * @param v a vertex we delete from the HashMap wGraph.
   * @return true if v has been correctly deleted, false otherwise.
   */
@@ -88,6 +108,7 @@ public class WGraph<T> implements Cloneable{
 
 
   /**
+  * Create and add an edge between two vertices with a weight
   * @param s the start of the edge.
   * @param p the end of the edge.
   * @param weight the weight of the edge.
@@ -148,7 +169,7 @@ public class WGraph<T> implements Cloneable{
 
   /**
   * Return a String containing the toString funtion of every vertex that evualuate true with predicate p
-  * @param p The predicate to test xith every Vertex
+  * @param p The predicate to test with every vertex
   * @return a String containing the toString funtion of every vertex that evualuate true with predicate p
   *
   */
@@ -160,11 +181,21 @@ public class WGraph<T> implements Cloneable{
     return res;
   }
 
+  /**
+  * Verify if the WGraph contains a vertex s (in his keys)
+  * @param s the vertex we want know the presence in the WGraph
+  * @return true if it contains s else false
+  */
   public boolean containsVertex(T s){
     return wGraph.containsKey(s);
   }
 
-
+  /**
+  * Modify the weight between two vertices
+  * @param s      the first vertex
+  * @param p      the second vertex
+  * @param weight the weight that we want to put between these two vertices
+  */
   public void setWeight(T s, T p, Double weight) {
     if (! wGraph.get(s).containsKey(p)) return;
     this.wGraph.get(s).put(p, weight);
