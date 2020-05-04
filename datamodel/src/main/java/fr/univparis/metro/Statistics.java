@@ -159,6 +159,7 @@ public class Statistics{
     public static Pair<String, Double> shortestTimeTravelLine(WGraph<Station> g){
       HashMap<String, Double> res = new HashMap<String, Double>();
       String shortest = "";
+      averageTimeOnEachLine(g, res);
       Double d = Double.POSITIVE_INFINITY;
       for(String s : res.keySet()){
         if(res.get(s) < d){
@@ -173,6 +174,8 @@ public class Statistics{
     public static Pair<String, Double> longestTimeTravelLine(WGraph<Station> g){
       HashMap<String, Double> res = new HashMap<String, Double>();
       String shortest = "";
+      averageTimeOnEachLine(g, res);
+
       Double d = 0.;
       for(String s : res.keySet()){
         if(res.get(s) > d){
