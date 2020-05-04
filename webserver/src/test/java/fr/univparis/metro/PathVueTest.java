@@ -1,7 +1,7 @@
 package fr.univparis.metro;
 import java.io.IOException;
 
-public class WebserverLibTest {
+public class PathVueTest {
   /* WARNING: The test takes to much time but gives you an idea of how fast is the algo */
   // @Test
   public void multiplePathEndsTest() throws IOException{
@@ -15,7 +15,7 @@ public class WebserverLibTest {
         if (! to.getLine().equals("Meta Station End")) continue;
         System.out.println("--" + c++);
         try {
-          WebserverLib.multiplePath(g, start, to);
+          PathVue.multiplePath(g, start, to);
         } catch(Exception e) {
           e.printStackTrace();
           System.out.println("start: " + start.getName() + " " + start.getLine());
