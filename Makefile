@@ -33,6 +33,9 @@ test:
 	cd datamodel && $(MVN) test
 	cd webserver && $(MVN) test
 
+diagram:
+	cd datamodel && $(MVN) process-classes
+
 # Target clean removes all files produced during build.
 clean :
 	cd datamodel && $(MVN) clean
