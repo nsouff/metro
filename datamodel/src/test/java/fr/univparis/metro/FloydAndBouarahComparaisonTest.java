@@ -78,7 +78,7 @@ public class FloydAndBouarahComparaisonTest {
     
     connections = m.getIntermediate()[m.getSetOfVertices().get(start.getName())][m.getSetOfVertices().get(stop3.getName())] - 1;
 	time = m.getDirect()[m.getSetOfVertices().get(start.getName())][m.getSetOfVertices().get(stop3.getName())] + ( connections * 60.0 );
-    assertEquals(0, connections);
+    assertEquals(2, connections);
     assertEquals(2640.0, time, 0.0);
     }
     
