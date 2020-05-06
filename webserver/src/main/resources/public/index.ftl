@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
   <head>
+    <style>
+        h1{text-align: center;}
+        .form{
+          text-align: center;
+          border: 2px black double;
+        }
+    </style>
     <meta charset="utf-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <link rel="stylesheet" href="assets/css/main.css">
     <title>Metro</title>
   </head>
-  <body>
+  <body background="fond.jpg">
     <h1>Welcome on Metro</h1>
     <form class="form" action="toCity" method="post" class="form">
       <label for="city">Which city</label>

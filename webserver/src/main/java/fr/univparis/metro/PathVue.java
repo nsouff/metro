@@ -146,17 +146,17 @@ public class PathVue {
 
     String from = path.getFirst().getName();
     String line = path.getFirst().getLine();
-    String res = "Departure : " + from + "<br><br>"+"line " + line + " : " + from + " -> ";
+    String res = "<strong>Departure :</strong><em> " + from + "</em><br><br>"+"<strong>line " + line + " :</strong> " + from + " -> ";
     Station prec = null;
     for (Station st : path) {
       if (!st.getLine().equals(line)) {
         changingStation.add(new Pair<Station, Station>(prec, st));
-        res += st.getName() + "<br>" + "line " + st.getLine() + " : " + st.getName() + " -> ";
+        res += st.getName() + "<br>" + "<strong>line " + st.getLine() + " :</strong> " + st.getName() + " -> ";
         line = st.getLine();
       }
       prec = st;
     }
-    res += to.getName() + "<br><br>Arrival: " + to.getName();
+    res += to.getName() + "<br><br><strong>Arrival :</strong><em> " + to.getName() + "</em></div>";
     return res;
   }
 
@@ -175,7 +175,7 @@ public class PathVue {
     Dijkstra.shortestPath(g, start, prev, dist);
     try {
       resAux.add(new Pair<String, Double>(
-      "<h2>Time</h2>\n" +
+      "<div><h2>Time</h2>\n" +
       time(dist.get(to)) +
       "<h2>Itinerary</h2>" +
       path(prev, to, changingStation),
@@ -220,10 +220,10 @@ public class PathVue {
         String itinerary = path(prev, to, pChangingStation);
         if (pChangingStation.size() <= MAX_CORRESPONDANCES) {
           resAux.add(new Pair<String, Double>(
-          "<h2>Time</h2>\n" +
+          "<div><h2>Time</h2>\n" +
           time(dist.get(to)) +
           "<h2>Itinerary</h2>" +
-          itinerary,
+          itinerary + "</div>",
           dist.get(to)
           ));
           multiplePathAux(g, start, to, pChangingStation, resAux, threshold, depth + 1);

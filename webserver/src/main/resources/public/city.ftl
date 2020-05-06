@@ -9,21 +9,26 @@
       .suggestions{
         width: 200px;
       }
-      .suggestions > div{ 
+      .suggestions > div{
         padding: 5px;
         font-size: 15px;
-        border-top: 1px solid #666;
+        border-bottom: 1px solid #666;
+        border-left: 1px solid #666;
+        border-right: 1px solid #666;
         width: 200px;
       }
       .suggestions > div:hover{
         background-color: #1e4dd4;
+      }
+      .traf
+      {
+        border: 2px black solid;
       }
     </style>
 
     <meta charset="utf-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <link rel="stylesheet" href="assets/css/main.css">
     <title>Metro</title>
   </head>
   <body>
@@ -71,7 +76,7 @@
       });
       searchInputEnd.addEventListener('keyup', function(){
         const inputEnd = searchInputEnd.value;
-        resultsEnd.innerHTML = ''; 
+        resultsEnd.innerHTML = '';
         if(inputEnd.length > 0){
           const suggestions = listStation.filter(function(station){
             return station.toLowerCase().startsWith(inputEnd);
@@ -94,6 +99,7 @@
     ${perturbation}
     <h3>Add perturbation</h3>
 
+    <div class="traf">
     <h4>Line shutdown</h4>
     <form class="form" action="/${city}/addPerturbation" method="post">
       <label for="line_shutdown_name">Name of the perturbation</label>
@@ -105,7 +111,9 @@
       <input type="hidden" name="type" value="LINE_SHUTDOWN">
       <input type="submit">
     </form>
+    </div>
 
+    <div class="traf">
     <h4>Line slowdown</h4>
     <form class="form" action="/${city}/addPerturbation" method="post">
       <label for="line_slow_down_name">Name of the perturbation</label>
@@ -120,7 +128,9 @@
       <input type="hidden" name="type" value="LINE_SLOW_DOWN">
       <input type="submit">
     </form>
+    </div>
 
+    <div class="traf">
     <h4>Station shutdown</h4>
     <form class="form" action="/${city}/addPerturbation" method="post">
       <label for="station_shutdown_name">Name of the perturbation</label>
@@ -132,7 +142,9 @@
       <input type="hidden" name="type" value="ENTIRE_STATION_SHUT_DOWN">
       <input type="submit">
     </form>
+    </div>
 
+    <div class="traf">
     <h4>One line of station shutdown</h4>
     <form class="form" action="/${city}/addPerturbation" method="post">
       <label for="part_station_shut_down_name">Name of the perturbation</label>
@@ -147,7 +159,9 @@
       <input type="hidden" name="type" value="PART_STATION_SHUT_DOWN">
       <input type="submit">
     </form>
+    </div>
 
+    <div class="traf">
     <h4>Part of a line shutdown</h4>
     <form class="form" action="/${city}/addPerturbation" method="post">
       <label for="part_line_shut_down_name">Name of the perturbation</label>
@@ -165,7 +179,9 @@
       <input type="hidden" name="type" value="PART_LINE_SHUT_DOWN">
       <input type="submit">
     </form>
+    </div>
 
+    <div class="traf">
     <h4>Part of a line slowdown</h4>
     <form class="form" action="/${city}/addPerturbation" method="post">
       <label for="part_line_slow_down_name">Name of the perturbation</label>
@@ -186,18 +202,21 @@
       <input type="hidden" name="type" value="PART_LINE_SLOW_DOWN">
       <input type="submit">
     </form>
+    </div>
 
+    <div class="traf">
     <h4>All trafics slowdown</h4>
     <form class="form" action="/${city}/addPerturbation" method="post">
       <label for="all_trafics_slow_down_name">Name of the perturbation</label>
       <input required type="text" name="name" id="all_trafics_slow_down_name"><br>
-     
+
       <label for="all_trafics_slow_down_times">Times which multiply every traject</label>
       <input required type="number" step="any" min="1" name="times" id="all_trafics_slow_down_times"><br>
 
       <input type="hidden" name="type" value="ALL_TRAFICS_SLOW_DOWN">
       <input type="submit">
     </form>
+    </div>
 
 
     <!-- <form class="form" action="/${city}/addPerturbation" method="post"> -->
