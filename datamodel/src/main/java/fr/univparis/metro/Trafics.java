@@ -1,7 +1,6 @@
 package fr.univparis.metro;
 
 import java.io.InputStream;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.function.BiPredicate;
@@ -22,19 +21,42 @@ public class Trafics {
   private static HashMap< String , WGraph<Station> > initialTrafics;
   private static HashMap<String , HashMap<String , WGraph<Station>>> reverts;
 
+ /**
+  * Return the subway graph of a city which might have been modified with perturbation
+  * @param city the city which we want the graph
+  * @return the subway graph of the city
+  */
   public static WGraph<Station> getGraph(String city) {
     return actualTrafics.get(city);
   }
 
+ /**
+  * Return the original subway graph of a city (without any perturbation)
+  * @param city the city which we want the original graph
+  * @return the original subway graph of the station
+  */
   public static WGraph<Station> getInitialGraph(String city){
     return initialTrafics.get(city);
   }
 
+ /**
+  * Return a set containing all the names of the perturbations
+  * @param city the city in which we want the perturbation
+  * @return a set containing all the names of the perturbations
+  */
   public static Set<String> getPerturbation(String city) {return reverts.get(city).keySet();}
 
+ /**
+  * Return a set of cities that are in the model
+  * @return a set of the cities that are in the model
+  */
   public static Set<String> getCities() {return actualTrafics.keySet();}
 
-  public static void initTrafics() throws IOException {
+ /**
+  * Initialize the trafics with files that are in Configuration
+  * @see Configuration
+  */
+  public static void initTrafics() {
     actualTrafics = new HashMap< String , WGraph<Station> > ();
     initialTrafics = new HashMap< String , WGraph<Station> > ();
 
@@ -50,7 +72,7 @@ public class Trafics {
 
   /**
   * Add a trafic perturbation
-  * The revert graph of this perturbation will be stored in reverts -> city -> (type, name)
+  * The revert graph of this perturbation will be stored in {@link #reverts}
   * @param city the city in which the perturbation occured
   * @param type the type of the perturbation
   * @param name the name of the perturbation
@@ -102,7 +124,6 @@ public class Trafics {
   /**
   * Revert a perturbation
   * @param city the city in which the perturbation occured
-  * @param type the type of the perturbation
   * @param name the name of the perturbation
   */
   public static void revertPerturbation(String city, String name) {

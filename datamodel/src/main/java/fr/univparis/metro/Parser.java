@@ -17,12 +17,12 @@ public class Parser {
 
  /**
   * Create a WGraph using a text file with stations on each line
-  * In station change are weighted by {@value #defaudefaultChangeStationWeight}
-  * Weight between station is {@value #defaultWeight}
-  * @param f is the txt file wich contain the station
+  * In station change are weighted by {@link #defaultChangeStationWeight}
+  * Weight between station is {@link #defaultWeight}
+  * @param is is the txt file wich contain the station
   * @return the WGraph that correspond to the file
   */
-  public static WGraph<Station> loadFrom (InputStream is) throws IOException {
+  public static WGraph<Station> loadFrom (InputStream is) {
     Scanner sc = new Scanner (is);
     WGraph<Station> g = new WGraph<Station>();
     Station prec = null;
