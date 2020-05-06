@@ -8,7 +8,11 @@ import java.util.HashMap;
 import java.util.function.BiPredicate;
 
 public class PathVue {
-
+ /**
+  * Return a description of a time in hour, minutes and seconds
+  * @param time the time (in second) we want a desciption
+  * @return a description of a time in hour, minutes and seconds
+  */
   public static String time(Double time) {
     if (time == Double.POSITIVE_INFINITY) throw new IllegalArgumentException();
     Double[] times = WebserverLib.doubleToTime(time);
@@ -42,7 +46,13 @@ public class PathVue {
     return ret;
   }
 
-
+ /**
+  * Return a description of an itinerary and its time using floyd algorithm
+  * @param g the graph representing the subway
+  * @param from the start sttaion of the itinerary
+  * @param to the destination of the itinerary
+  * @return a description of an itinerary and its time using floyd algorithm
+  */
   public static String limitedConnexionPathWithFloyd(WGraph<Station> g, Station from, Station to){
     String start = from.getName();
     String end = to.getName();
@@ -99,10 +109,17 @@ public class PathVue {
   // limited connection path with BouarahAlgorithm //
   ///////////////////////////////////////////////////
 
-  public static <T> boolean isThereAnyPath(HashMap<T, Double> dist, T to) {
+  private static <T> boolean isThereAnyPath(HashMap<T, Double> dist, T to) {
     return dist.containsKey(to) && !dist.get(to).equals(Double.POSITIVE_INFINITY);
   }
 
+ /**
+  * Return a description of an itinerary and its time using Bouarah algorithm
+  * @param g the graph representing the subway
+  * @param from the start sttaion of the itinerary
+  * @param to the destination of the itinerary
+  * @return a description of an itinerary and its time using Bouarah algorithm
+  */
   public static String limitedConnectionPath(WGraph<Station> g, Station start, Station to) {
     // on lance Dijkstra pour vérifier l'existence du chemin
     HashMap<Station, Station> prev = new HashMap<Station, Station>();
@@ -160,6 +177,13 @@ public class PathVue {
     return res;
   }
 
+ /**
+  * Return descriptions of itineraries using Dijkstra multiple times
+  * @param g the graph representing the subway
+  * @param from the start sttaion of the itineraries
+  * @param to the destination of the itineraries
+  * @return descriptions of itineraries
+  */
   public static String multiplePath(WGraph<Station> g, Station start, Station to) {
     TreeSet<Pair<String, Double>> resAux = new TreeSet<Pair<String, Double>>((p1, p2) -> {
       if (p1.getValue() < p2.getValue()) return -1;
@@ -233,8 +257,5 @@ public class PathVue {
       g.apply(revert);
     }
   }
-
-
-
 
 }
