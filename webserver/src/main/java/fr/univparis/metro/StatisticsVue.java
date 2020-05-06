@@ -1,12 +1,14 @@
 package fr.univparis.metro;
 
 import java.util.HashMap;
-
+/**
+ * Class that store all the Statistics as html String description
+ */
 public class StatisticsVue {
   private static HashMap<String, String> statisticsHtml;
 
 /**
- * Initialize Statistics as String so that they are displayable in the webserver 
+ * Initialize Statistics as String so that they are displayable in the webserver
  */
   public static void initStatistics() {
     statisticsHtml = new HashMap<String, String>();

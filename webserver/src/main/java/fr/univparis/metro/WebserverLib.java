@@ -1,7 +1,9 @@
 package fr.univparis.metro;
 
 import java.util.*;
-
+/**
+ * Librairy class used to tranform format data into html String
+ */
 public class WebserverLib {
 
  /**

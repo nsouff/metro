@@ -4,7 +4,9 @@ import io.javalin.plugin.rendering.template.TemplateUtil;
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
-
+/**
+ * Main class for the Webserver where all the webpages are installed
+ */
 public class Webserver {
   public static void main(String[] args) throws IOException {
     Configuration.loadFrom(Webserver.class.getResourceAsStream("/cities.json"));

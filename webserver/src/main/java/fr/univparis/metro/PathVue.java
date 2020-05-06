@@ -6,7 +6,9 @@ import java.util.Collections;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.function.BiPredicate;
-
+/**
+ * Class used to get an itinerary as an html String which will be used in the webserver
+ */
 public class PathVue {
  /**
   * Return a description of a time in hour, minutes and seconds
