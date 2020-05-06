@@ -5,6 +5,9 @@ import java.util.HashMap;
 public class StatisticsVue {
   private static HashMap<String, String> statisticsHtml;
 
+/**
+ * Initialize Statistics as String so that they are displayable in the webserver 
+ */
   public static void initStatistics() {
     statisticsHtml = new HashMap<String, String>();
     for (String city : Configuration.getCitiesName()) {
