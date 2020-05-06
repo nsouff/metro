@@ -9,7 +9,7 @@
       .suggestions{
         width: 200px;
       }
-      .suggestions > div{
+      .suggestions > div{ 
         padding: 5px;
         font-size: 15px;
         border-top: 1px solid #666;
@@ -44,50 +44,6 @@
       <input type="radio" name="type" value="leastConnexionFloyd" required id="leastConnexionFloyd"> <label for="leastConnexionFloyd">Limited connexion with Floyd's algorithm (Warning : we can not add pertubations with this algorithm)</label><br>
       <input type="submit">
     </form>
-
-    <script type="text/javascript">
-      const listStation = ${arrayStation};
-      const resultsStart = document.getElementById("resultsStart");
-      const resultsEnd = document.getElementById("resultsEnd");
-      const searchInputStart = document.getElementById("start");
-      const searchInputEnd = document.getElementById("end");
-      searchInputStart.addEventListener('keyup', function(){
-        const inputStart = searchInputStart.value;
-        resultsStart.innerHTML = '';
-        if(inputStart.length > 0){
-          const suggestions = listStation.filter(function(station){
-            return station.toLowerCase().startsWith(inputStart);
-          });
-          suggestions.forEach(function(suggested){
-            const div = document.createElement('div');
-            div.innerHTML = suggested;
-            div.addEventListener('click', function(){
-              searchInputStart.value = div.innerHTML;
-              resultsStart.innerHTML = '';
-            });
-            resultsStart.appendChild(div);
-          });
-        }
-      });
-      searchInputEnd.addEventListener('keyup', function(){
-        const inputEnd = searchInputEnd.value;
-        resultsEnd.innerHTML = '';
-        if(inputEnd.length > 0){
-          const suggestions = listStation.filter(function(station){
-            return station.toLowerCase().startsWith(inputEnd);
-          });
-          suggestions.forEach(function(suggested){
-            const div = document.createElement('div');
-            div.innerHTML = suggested;
-            div.addEventListener('click', function(){
-              searchInputEnd.value = div.innerHTML;
-              resultsEnd.innerHTML = '';
-            });
-            resultsEnd.appendChild(div);
-          });
-        }
-      });
-    </script>
 
     <h2>Trafics Perturbation</h2>
     <h3>Current Perturbation</h3>
@@ -128,6 +84,7 @@
 
       <label for="station_shutdown_station_name">Station you want to shutdown</label>
       <input required type="text" name="station_name" id="station_shutdown_station_name"><br>
+      <div class="suggestions" id="results_station_shutdown_station_name"></div>
 
       <input type="hidden" name="type" value="ENTIRE_STATION_SHUT_DOWN">
       <input type="submit">
@@ -139,7 +96,8 @@
       <input required type="text" name="name" id="part_station_shut_down_name"><br>
 
       <label for="part_station_shut_down_station_name">Name of the station you want to shutdown</label>
-      <input required type="text" name="station_name" id="part_station_shut_down_station_name"><br>
+      <input class="autocompletion" required type="text" name="station_name" id="part_station_shut_down_station_name"><br>
+      <div class="suggestions" id="results_part_station_shut_down_station_name"></div>
 
       <label for="part_station_shut_down_station_line">Line you can't use in this station</label>
       <input required type="text" name="station_line" id="part_station_shut_down_station_line"><br>
@@ -157,10 +115,12 @@
       <input required type="text" name="line" id="part_line_shut_down_line"><br>
 
       <label for="part_line_shut_down_start_station">Start of the perturbation</label>
-      <input required type="text" name="start_station" id="part_line_shut_down_start_station"><br>
+      <input class="autocompletion" required type="text" name="start_station" id="part_line_shut_down_start_station"><br>
+      <div class="suggestions" id="results_part_line_shut_down_start_station"></div>
 
       <label for="part_line_shut_down_end_station" >End of the perturbation</label>
-      <input required type="text" name="end_station" id="part_line_shut_down_end_station"><br>
+      <input class="autocompletion" required type="text" name="end_station" id="part_line_shut_down_end_station"><br>
+      <div class="suggestions" id="results_part_line_shut_down_end_station"></div>
 
       <input type="hidden" name="type" value="PART_LINE_SHUT_DOWN">
       <input type="submit">
@@ -175,13 +135,15 @@
       <input required type="text" name="line" id="part_line_slow_down_line"><br>
 
       <label for="part_line_slow_down_start_station">Start of the perturbation</label>
-      <input required type="text" name="start_station" id="part_line_slow_down_start_station"><br>
+      <input class="autocompletion" equired type="text" name="start_station" id="part_line_slow_down_start_station"><br>
+      <div class="suggestions" id="results_part_line_slow_down_start_station"></div>
 
       <label for="part_line_slow_down_end_station">End of the perturbation</label>
-      <input required type="text" name="end_station" id="part_line_slow_down_end_station"><br>
+      <input class="autocompletion" required type="text" name="end_station" id="part_line_slow_down_end_station"><br>
+      <div class="suggestions" id="results_part_line_slow_down_end_station"></div>
 
       <label for="part_line_slow_down_times">Times which multiply every traject in the line</label>
-      <input required type="number" min="1" step="any" name="times" id="part_line_slow_down_times"><br>
+      <input class="autocompletion" required type="number" step="any" name="times" id="part_line_slow_down_times"><br>
 
       <input type="hidden" name="type" value="PART_LINE_SLOW_DOWN">
       <input type="submit">
@@ -191,13 +153,48 @@
     <form class="form" action="/${city}/addPerturbation" method="post">
       <label for="all_trafics_slow_down_name">Name of the perturbation</label>
       <input required type="text" name="name" id="all_trafics_slow_down_name"><br>
-
+     
       <label for="all_trafics_slow_down_times">Times which multiply every traject</label>
       <input required type="number" step="any" min="1" name="times" id="all_trafics_slow_down_times"><br>
 
       <input type="hidden" name="type" value="ALL_TRAFICS_SLOW_DOWN">
       <input type="submit">
     </form>
+
+    <script type="text/javascript">
+    const listStation = ${arrayStation};
+
+    function autocompletion(searchInputID, divResultsID){
+      const results = document.getElementById(divResultsID);
+      const searchInput = document.getElementById(searchInputID);
+      searchInput.addEventListener('keyup', function(){
+        const input = searchInput.value;
+        results.innerHTML = '';
+        if(input.length > 0){
+          const suggestions = listStation.filter(function(station){
+            return station.toLowerCase().startsWith(input);
+          });
+          suggestions.forEach(function(suggested){
+            const div = document.createElement('div');
+            div.innerHTML = suggested;
+            div.addEventListener('click', function(){
+              searchInput.value = div.innerHTML;
+              results.innerHTML = '';
+            });
+            results.appendChild(div);
+          });
+        }
+      });
+    }
+    autocompletion("start", "resultsStart");
+    autocompletion("end", "resultsEnd");
+    autocompletion("station_shutdown_station_name", "results_station_shutdown_station_name");
+    autocompletion("part_station_shut_down_station_name", "results_part_station_shut_down_station_name");
+    autocompletion("part_line_shut_down_start_station", "results_part_line_shut_down_start_station");
+    autocompletion("part_line_shut_down_end_station", "results_part_line_shut_down_end_station");
+    autocompletion("part_line_slow_down_start_station", "results_part_line_slow_down_start_station");
+    autocompletion("part_line_slow_down_end_station", "results_part_line_slow_down_end_station");
+    </script>
     <br>
     <h2>Statistics</h2>
     <p>To acceed to the statistics of the network, click <a href="/${city}/statistics">here</a> and please wait few seconds.</p>
