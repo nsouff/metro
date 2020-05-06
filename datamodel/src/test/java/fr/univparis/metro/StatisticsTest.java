@@ -43,7 +43,7 @@ public class StatisticsTest{
       assertEquals((Double)2160. , (Double)res.get("3"));
       assertEquals((Double)270. , (Double)res.get("3bis"));
       assertEquals((Double)720. , (Double)res.get("14"));
-      assertEquals(1985 , n);
+      assertEquals(1993 , n);
     }
 
     @Test

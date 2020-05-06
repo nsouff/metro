@@ -14,7 +14,7 @@ Une ébauche du cahier des charges se trouve [ici](https://gaufre.informatique.u
 ## Compilation
 
 ### Prérequis
-*  Java JDK (>= 7.0)
+*  Java JDK (>= 8.0)
 *  Maven (>= 3.6)
 *  JUnit (>= 4.11)
 
