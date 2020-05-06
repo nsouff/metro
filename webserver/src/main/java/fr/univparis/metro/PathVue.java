@@ -72,6 +72,7 @@ public class PathVue {
   /**
   * @param prev a HashMap acting like a tree. the root has null parent
   * @param target The targetted node
+  * @param <T> a class that could represent one step of an itinerary
   * @return A list of nodes going from the root of prev to target
   */
   public static <T> LinkedList<T> buildPath(HashMap<T, T> prev, T target) {
@@ -116,7 +117,7 @@ public class PathVue {
  /**
   * Return a description of an itinerary and its time using Bouarah algorithm
   * @param g the graph representing the subway
-  * @param from the start sttaion of the itinerary
+  * @param start the start sttaion of the itinerary
   * @param to the destination of the itinerary
   * @return a description of an itinerary and its time using Bouarah algorithm
   */
@@ -180,7 +181,7 @@ public class PathVue {
  /**
   * Return descriptions of itineraries using Dijkstra multiple times
   * @param g the graph representing the subway
-  * @param from the start sttaion of the itineraries
+  * @param start the start sttaion of the itineraries
   * @param to the destination of the itineraries
   * @return descriptions of itineraries
   */

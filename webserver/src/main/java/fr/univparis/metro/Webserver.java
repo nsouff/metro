@@ -20,7 +20,10 @@ public class Webserver {
     installStatistics(app);
   }
 
-
+ /**
+  * Launch the webserver
+  * @return the javalin app that has be created
+  */
   public static Javalin launch() {
     Javalin app = Javalin.create (config -> {
       // config.addStaticFiles ("public/");
@@ -29,20 +32,20 @@ public class Webserver {
     return app;
   }
 
-  public static void installIndex(Javalin app) {
+  private static void installIndex(Javalin app) {
     app.get("/", ctx -> {
       ctx.render("/public/index.ftl", TemplateUtil.model ( "cities", WebserverLib.toOption() ));
     });
   }
 
-  public static void installToCity(Javalin app) {
+  private static void installToCity(Javalin app) {
     app.post("/toCity", ctx -> {
       ctx.redirect("/" + ctx.formParam("city"));
     });
   }
 
 
-  public static void installItinerary(Javalin app) {
+  private static void installItinerary(Javalin app) {
     app.post("/:city/itinerary", ctx -> {
       WGraph<Station> g = Trafics.getGraph(ctx.pathParam("city")).clone();
       Station start = new Station(ctx.formParam("start"), "Meta Station Start");
@@ -68,7 +71,7 @@ public class Webserver {
   }
 
 
-  public static void installCity(Javalin app) {
+  private static void installCity(Javalin app) {
     app.get("/:city", ctx -> {
       String city = ctx.pathParam("city");
       Set<String> cities = Trafics.getCities();
@@ -85,7 +88,7 @@ public class Webserver {
   }
 
 
-  public static void installAddPerturbation(Javalin app) {
+  private static void installAddPerturbation(Javalin app) {
     app.post("/:city/addPerturbation", ctx -> {
       String city = ctx.pathParam("city");
       String name = ctx.formParam("name");
@@ -125,7 +128,7 @@ public class Webserver {
     });
   }
 
-  public static void installRemovePerturbation(Javalin app) {
+  private static void installRemovePerturbation(Javalin app) {
     app.post("/:city/removePerturbation", ctx -> {
       String city = ctx.pathParam("city");
       List<String> l = ctx.formParams("removePerturbation");
@@ -136,7 +139,7 @@ public class Webserver {
     });
   }
 
-  public static void installStatistics(Javalin app){
+  private static void installStatistics(Javalin app){
     app.get("/:city/statistics", ctx -> {
       String city = ctx.pathParam("city");
       ctx.render("/public/statistics.ftl", TemplateUtil.model(
