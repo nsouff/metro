@@ -66,9 +66,9 @@ public class LimitedConnectionSearch {
     }
 
     /**
-     * @param g
-     * @param start
-     * @param end
+     * @param g the graph of the whole subway network
+     * @param start the name of the station of which we leave
+     * @param end the name of the arrival station
      * @return an arraylist containing the path to get from start to end.
      */
     public static ArrayList<Pair<String, String>> getPath(MatriceWGraph g, String start, String end){

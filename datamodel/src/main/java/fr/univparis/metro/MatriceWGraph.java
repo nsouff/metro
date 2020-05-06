@@ -48,7 +48,10 @@ public class MatriceWGraph{
         return ret;
     }
 
-    //To build a graph of a line
+    /**
+     * To build the graph of a single line
+     * @param g is a graph of single line, under the form of a hashmap
+     */
     private MatriceWGraph(WGraph<Station> g){
         int numVertex = 0;
         this.setOfVertices = new HashMap<String, Integer>();
@@ -104,7 +107,7 @@ public class MatriceWGraph{
 
     /**
      * To build the whole graph.
-     * @param g is the graph under the from of a hashMap from which we build the matrice graph.
+     * @param g is the graph (of the whole subway network) under the from of a hashMap from which we build the matrice graph.
      * @param m contains all the sub graphs representing each lines of the graph g.
      */
     public MatriceWGraph(WGraph<Station> g, HashMap<String, MatriceWGraph> m){
@@ -164,10 +167,6 @@ public class MatriceWGraph{
         }
     }
 
-    /**
-     * @param d
-     * @return
-     */
     private static Double[][] initializeDirectLine(Double[][] d){
         Double[][] copy = new Double[d.length][d.length];
         for(int i = 0; i < copy.length; i++){
@@ -197,6 +196,10 @@ public class MatriceWGraph{
         return ret;
     }
 
+    /**
+     * @return an hashmap containing the sub graphs of each line: the key is the name of the line, the value its corresponding graph.
+     * @param g is a graph under the from of an hashmap from which we build the sub graphs of each line
+     */
     public static HashMap<String, MatriceWGraph> initializeAllLineGraphs(WGraph<Station> g){
         HashMap<String, WGraph<Station>> h = graphsLine(g);
         HashMap<String, MatriceWGraph> ret = new HashMap<String, MatriceWGraph>();

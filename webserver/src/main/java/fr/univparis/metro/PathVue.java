@@ -50,8 +50,8 @@ public class PathVue {
 
  /**
   * Return a description of an itinerary and its time using floyd algorithm
-  * @param g the graph representing the subway
-  * @param from the start sttaion of the itinerary
+  * @param g the graph representing the whole subway network
+  * @param from the start staion of the itinerary
   * @param to the destination of the itinerary
   * @return a description of an itinerary and its time using floyd algorithm
   */
