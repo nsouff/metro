@@ -4,6 +4,7 @@ MVN=mvn
 CLASSPATH=./target/*.jar
 JAVA_OPT=-cp $(CLASSPATH)
 JAVA=java $(JAVA_OPT)
+JAVADOC=$(MVN) javadoc:javadoc
 TARGET=fr.univparis.metro.Webserver
 TERMINAL_TARGET=fr.univparis.metro.App
 
@@ -30,6 +31,13 @@ test:
 	cd datamodel && $(MVN) test
 	cd webserver && $(MVN) test
 
+javadoc_webserver:
+	cd webserver && $(JAVADOC)
+
+javadoc_datamodel:
+	cd datamodel && $(JAVADOC)
+
+javadoc: javadoc_datamodel javadoc_webserver
 # Target clean removes all files produced during build.
 clean :
 	cd datamodel && $(MVN) clean
