@@ -15,7 +15,7 @@ public class FloydAndBouarahComparaisonTest {
 
     @BeforeClass
     public static void loadFile() throws IOException {
-	     g = Parser.loadFrom(BouarahAlgorithmTest.class.getResourceAsStream("/liste.txt"));
+	     g = Parser.loadFrom(BouarahAlgorithmTest.class.getResourceAsStream("/paris.txt"));
     }
 
     @Test

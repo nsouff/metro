@@ -14,15 +14,15 @@ public class BouarahAlgorithmTest {
 
     @BeforeClass
     public static void loadFile() throws IOException {
-	     g = Parser.loadFrom(BouarahAlgorithmTest.class.getResourceAsStream("/liste.txt"));
+	     g = Parser.loadFrom(BouarahAlgorithmTest.class.getResourceAsStream("/paris.txt"));
     }
 
     @Test
     public void shortestPathTest() {
-	Station start = new Station("Courcelles", "Meta Station Start");
-	Station stop1 = new Station("La Défense - Grande Arche", "Meta Station End");
-	Station stop2 = new Station("Nation", "Meta Station End");
-	Station stop3 = new Station("Créteil - Préfecture", "Meta Station End");
+	Station start = new Station("COURCELLES", "Meta Station Start");
+	Station stop1 = new Station("LA DEFENSE - GRANDE ARCHE", "Meta Station End");
+	Station stop2 = new Station("NATION", "Meta Station End");
+	Station stop3 = new Station("CRETEIL - PREFECTURE", "Meta Station End");
 
 	int limit = 2;
 	HashMap<Pair<Station, Integer>, Pair<Station, Integer>> prev = new HashMap<>();
@@ -39,11 +39,11 @@ public class BouarahAlgorithmTest {
 	assertNull(prev.get(tmp));
 
 	tmp = new Pair<>(stop2, 0);
-	assertEquals(1800.0, dist.get(tmp), 0.0); // Reste toujours sur la ligne 2
+	assertEquals(1800.0, dist.get(tmp), 0.0); // Reste toujours sur la Ligne 2
 	assertNotNull(prev.get(tmp));
 
 	tmp = new Pair<>(stop2, 1);
-	assertEquals(16*90.0 + 60.0, dist.get(tmp), 0.0); // Courcelles(2) -> ... -> Charles de Gaulle Etoile(1,2,6) -> ... -> Nation(1)
+	assertEquals(16*90.0 + 60.0, dist.get(tmp), 0.0); // Courcelles(2) -> ... -> Charles de Gaulle Etoile(1,2,6) -> ... -> NATION(1)
 	assertNotNull(prev.get(tmp));
 
 	tmp = new Pair<>(stop3, 1);
