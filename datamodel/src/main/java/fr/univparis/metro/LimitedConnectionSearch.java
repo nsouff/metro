@@ -10,6 +10,7 @@ public class LimitedConnectionSearch {
      * @param direct is a matrice in which the coefficient direct(x, y) is the time it takes to get to the station n°y from the sation n°x.
      * @param via is a matrice in which via(x, y) is the last station we get through to get to the sation n°y from the station n°x
      * @param intermediate is a matrice in which intermediate(x, y) is the number of correspondances to get to the station n°y from the station n°x
+     * @param <T> the type of the vertices (the stations)
      */
     public static <T> void floyd(Double[][] direct, T[][] via, Integer[][] intermediate){
         int n = direct.length;
@@ -42,6 +43,7 @@ public class LimitedConnectionSearch {
     /**
      * this method is used to build the graphs of each lines in the MatriceWGraph class
      * @param d is a matrice in which the coefficient direct(x, y) is the time it takes to get to the station n°y from the sation n°x.
+     * @return A copy of the matrice d, on which Floyd's algorithm is executed
      */
     public static Double[][] floyd(Double[][] d){
         int n = d.length;

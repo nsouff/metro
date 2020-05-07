@@ -28,6 +28,7 @@ public class Dijkstra {
     * @param s    T where we begin our path
     * @param prev HashMap where for each T is associate the previous T for the shortest path since s
     * @param dist HashMap where for each T is associate his distance to s with the shortest path to s
+    * @param <T> the type of the vertex
     */
     public static <T> void shortestPath (WGraph<T> g, T s, HashMap<T, T> prev, HashMap<T, Double> dist) {
       PriorityQueue<T> priQueue = new PriorityQueue<T>();

@@ -12,7 +12,8 @@ public class GraphExporter {
   * @param graph The graph to export to DOT.
   * @param output The file in which we write the result.
   * @param desc The naming function for vertex.
-  * @param T The type of vertex.
+  * @param <T> The type of vertex.
+  * @throws IOException if the file is not correctly opened
   */
   public static <T> void exportToDOT(WGraph<T> graph, File output, Function<T, String> desc) throws IOException {
     FileWriter fw = new FileWriter(output);

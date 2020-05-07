@@ -55,7 +55,7 @@ public class WGraph<T> implements Cloneable{
 
   /**
   * Give the value of a key T vertex in wGraph of the WGraph
-  * @param vertex
+  * @param vertex the vertex of which we want the neighbors
   * @return a list that contains all the vertices we can reach from the vertex "vertex".
   */
   public Set<T> neighbors(T vertex){
@@ -139,6 +139,7 @@ public class WGraph<T> implements Cloneable{
   * @param e the vertex wich we want to add Edge
   * @param weight the weight for the added Edge
   * @param p the Predicate we want that evaluate if we want to add an edge or not for every element of the graph
+  * @return true if we add an edge, false otherwise
   */
   public boolean addDoubleEdge(T e, Double weight, Predicate<T> p) {
     if (!wGraph.containsKey(e)) return false;

@@ -75,6 +75,7 @@ public class Initialize{
 
     /**
      * Print the path dijsktra's algorithm returns according to the destination of the user.
+     * @throws IOException if the file cities.json is not correctly opened
      */
     public static void initialize() throws IOException {
         Configuration.loadFrom(Initialize.class.getResourceAsStream("/cities.json"));

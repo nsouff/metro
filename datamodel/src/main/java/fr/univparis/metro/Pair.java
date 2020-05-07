@@ -8,7 +8,6 @@ public class Pair<T, S>{
     * Construct a Pair with an obj o and a value v
     * @param o  Object T associated to the attribute obj
     * @param v  Object S associated to the attribute value
-    * @return the Pair with the obj o and the value v 
     */
     public Pair(T o, S v){
 	obj=o;

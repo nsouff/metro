@@ -19,7 +19,7 @@ public class Configuration{
     }
 
     /**
-     * @param f is a json file that contains an array of pair city/file.
+     * @param ins is a json file that contains an array of pair city/file.
      * Fills the HashMap cities.
      */
     public static void loadFrom (InputStream ins){

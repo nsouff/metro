@@ -15,6 +15,7 @@ public class Statistics{
   * @param g the graph representing the network
   * @param p1 is the predicate to applicate Dijkstra to an element of the graph
   * @param p2 is the predicate to comparate the weight between two elements of the graph
+  * @param <T> the type of the vertices
   * @return a pair of pair of elements and the weight between these two elements which are the two elements the more distant on the graph
   */
   public static <T> Pair<Pair<T, T>, Double> mostDistantStations(WGraph<T> g, Predicate<T> p1, Predicate<T> p2){
@@ -45,6 +46,7 @@ public class Statistics{
   * @param start indicates wich vertex are start vertex
   * @param end indicates wich vertex are end vertex
   * @param p indicates what is consider as a correspondence
+  * @param <T> the type of the vertices
   * @return the number of minimum correspondence
   */
   public static <T> int minimumCorrespondence(WGraph<T> g, Predicate<T> start, Predicate<T> end, BiPredicate<T, T> p) {
@@ -113,7 +115,7 @@ public class Statistics{
     * Return the time average on each line
     * @param g the graph representing the network
     * @param res is an HashMap with a line associate with the time between the two extremum of it
-    * return the HashMap of the lines and their average time of travel
+    * @return the HashMap of the lines and their average time of travel
     */
   public static int averageTimeOnEachLine(WGraph<Station> g, HashMap<String, Double> res){
         res.clear();

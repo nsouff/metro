@@ -10,7 +10,7 @@ public class ListStation{
   /**
   * @param name the name of the subaway (Paris, Lille ...)
   * @return a string representation of a javascript array containing all the stations
-  * @throws FileNotFoundException
+  * @throws FileNotFoundException if the file is not correctly opened
   */
   public static String getListStation(String name) throws FileNotFoundException{
     String str = "[";
