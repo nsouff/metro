@@ -21,7 +21,7 @@ public class FloydAndBouarahComparaisonTest {
     @Test
     public void comparaisonTest() {
 
-	int limit = 2;
+	int limit = 3;
 	HashMap<Pair<Station, Integer>, Pair<Station, Integer>> prev = new HashMap<>();
 	HashMap<Pair<Station, Integer>, Double> dist = new HashMap<>();
 	Pair<Station, Integer> tmp;
@@ -42,7 +42,6 @@ public class FloydAndBouarahComparaisonTest {
 		for(Station stop : g.getVertices()){
 			if(start.getName().equals(stop.getName()) || !stop.getLine().equals("Meta Station End")) continue;
 			if(m.getSetOfVertices().get(stop.getName()) == null) continue;
-			System.out.println("start " + start.getName() + " end " + stop.getName());
 			tmp = new Pair<>(stop, 0);
 			if(dist.get(tmp) != Double.POSITIVE_INFINITY){
 				connections = m.getIntermediate()[m.getSetOfVertices().get(start.getName())][m.getSetOfVertices().get(stop.getName())] - 1;
@@ -76,7 +75,9 @@ public class FloydAndBouarahComparaisonTest {
 				continue;
 			}
 		}
+
 	}
+
 	}
     
 }
