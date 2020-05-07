@@ -1,131 +1,131 @@
 Ligne 1
 
-Quatre Cantons - Stade Pierre-Mauroy
+QUATRE CANTONS - STADE PIERRE-MAUROY
 
-Cité scientifique - Professeur Gabillard
+CITE SCIENTIFIQUE - PROFESSEUR GABILLARD
 
-Triolo
+TRIOLO
 
-Villeneuve d'Ascq - Hôtel de Ville
+VILLENEUVE D'ASCQ - HOTEL DE VILLE
 
-Pont de Bois
+PONT DE BOIS
 
-Square Flandres
+SQUARE FLANDRES
 
-Mairie d'Hellemes
+MAIRIE D'HELLEMES
 
-Marbrerie
+MARBRERIE
 
-Fives
+FIVES
 
-Caulier
+CAULIER
 
-Gare Lille-Flandres
+GARE LILLE-FLANDRES
 
-Rihour
+RIHOUR
 
-République - Beaux-Arts
+REPUBLIQUE - BEAUX-ARTS
 
-Gambetta
+GAMBETTA
 
-Wazemmes
+WAZEMMES
 
-Porte des Postes
+PORTE DES POSTES
 
-CHU - Centre Oscar-Lambret
+CHU - CENTRE OSCAR-LAMBRET
 
-CHU - Eurasanté
+CHU - EURASANTE
 
 --
 
 Ligne 2
 
-Saint-Philibert
+SAINT-PHILIBERT
 
-Bourg
+BOURG
 
-Maison des Enfants
+MAISON DES ENFANTS
 
-Mitterie
+MITTERIE
 
-Pont Supérieur
+PONT SUPERIEUR
 
-Lomme - Lambersart - Arthur-Notebart
+LOMME - LAMBERSART - ARTHUR-NOTEBART
 
-Canteleu
+CANTELEU
 
-Bois Blancs
+BOIS BLANCS
 
-Port de Lille
+PORT DE LILLE
 
-Cormontaigne
+CORMONTAIGNE
 
-Montebello
+MONTEBELLO
 
-Porte des Postes
+PORTE DES POSTES
 
-Porte d'Arras
+PORTE D'ARRAS
 
-Porte de Douai
+PORTE DE DOUAI
 
-Porte de Valenciennes
+PORTE DE VALENCIENNES
 
-Lille Grand Palais
+LILLE GRAND PALAIS
 
-Mairie de Lille
+MAIRIE DE LILLE
 
-Gare Lille-Flandres
+GARE LILLE-FLANDRES
 
-Gare Lille-Europe
+GARE LILLE-EUROPE
 
-Saint-Maurice Pellevoisin
+SAINT-MAURICE PELLEVOISIN
 
-Mons Sarts
+MONS SARTS
 
-Mairie de Mons
+MAIRIE DE MONS
 
-Fort de Mons
+FORT DE MONS
 
-Les Prés - Edgard-Pisani
+LES PRES - EDGARD-PISANI
 
-Jean-Jaurès
+JEAN-JAURES
 
-Wasquehal - Pavé de Lille
+WASQUEHAL - PAVE DE LILLE
 
-Wasquehal - Hôtel de Ville
+WASQUEHAL - HOTEL DE VILLE
 
-Croix - centre
+CROIX - CENTRE
 
-Mairie de Croix
+MAIRIE DE CROIX
 
-Epeule - Montesquieu
+EPEULE - MONTESQUIEU
 
-Roubaix - Charles-de-Gaulle
+ROUBAIX - CHARLES-DE-GAULLE
 
-Eurotéléport
+EUROTELEPORT
 
-Roubaix - Grand-Place
+ROUBAIX - GRAND-PLACE
 
-Gare Jean-Lebas Roubaix
+GARE JEAN-LEBAS ROUBAIX
 
-Alsace
+ALSACE
 
-Mercure
+MERCURE
 
-Carliers
+CARLIERS
 
-Gare de tourcoing
+GARE DE TOURCOING
 
-Tourcoing - Centre
+TOURCOING - CENTRE
 
-Colbert
+COLBERT
 
-Phalempins
+PHALEMPINS
 
-Pont de Neuville
+PONT DE NEUVILLE
 
-Bourgogne
+BOURGOGNE
 
-CH Dron
+CH DRON
 
 --

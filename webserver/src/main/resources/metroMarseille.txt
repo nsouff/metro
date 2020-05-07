@@ -1,69 +1,69 @@
 Ligne 1
 
-La Rose
+LA ROSE
 
-Frais Vallon
+FRAIS VALLON
 
-Malpassé
+MALPASSE
 
-Saint-Just
+SAINT-JUST
 
-Chartreux
+CHARTREUX
 
-Cinq-Avenues - Longchamp
+CINQ-AVENUES - LONGCHAMP
 
-Réformés - Canebière
+REFORMES - CANEBIERE
 
-Saint-Charles
+SAINT-CHARLES
 
-Colbert
+COLBERT
 
-Vieux-Port
+VIEUX-PORT
 
-Estrangin
+ESTRANGIN
 
-Castellane
+CASTELLANE
 
-Baille
+BAILLE
 
-La Timone
+LA TIMONE
 
-La Blancarde
+LA BLANCARDE
 
-Louis Armand
+LOUIS ARMAND
 
-Saint-Barnabé
+SAINT-BARNABE
 
-La Fourragère
+LA FOURRAGERE
 
 --
 
 Ligne 2
 
-Gèze
+GEZE
 
-Bougainville
+BOUGAINVILLE
 
-National
+NATIONAL
 
-Désirée Clary
+DESIREE CLARY
 
-Joliette
+JOLIETTE
 
-Jules Guesdes
+JULES GUESDES
 
-Saint-Charles
+SAINT-CHARLES
 
-Noailles
+NOAILLES
 
-Notre-Dame-du-Mont - Cours Julien
+NOTRE-DAME-DU-MONT - COURS JULIEN
 
-Castellane
+CASTELLANE
 
-Périer
+PERIER
 
-Rond-point du Prado
+ROND-POINT DU PRADO
 
-Sainte-Marguerite Dromel
+SAINTE-MARGUERITE DROMEL
 
 --
