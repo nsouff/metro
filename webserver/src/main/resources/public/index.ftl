@@ -2,7 +2,7 @@
 <html lang="fr" dir="ltr">
   <head>
     <style>
-        h1{text-align: center;}
+        h1{text-align: center;text-decoration: underline;}
         .form{
           text-align: center;
           border: 2px black double;

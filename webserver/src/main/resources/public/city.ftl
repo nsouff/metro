@@ -24,6 +24,9 @@
       {
         border: 2px black solid;
       }
+      h2{
+        text-decoration: underline;
+      }
     </style>
 
     <meta charset="utf-8">
@@ -32,7 +35,15 @@
     <title>Metro</title>
   </head>
   <body>
-    <h2>Itinerary search</h2>
+    <nav>
+      <ul>
+        <li><a href="#search">Itinerary Search</a></li>
+        <li><a href="#t2">Current Perturbations</a></li>
+        <li><a href="#t3">Add Perturbations</a></li>
+        <li><a href="#stat">Statistics</a></li>
+      </ul>
+    </nav>
+    <h2 id="search">Itinerary search</h2>
     <form class="form" action="/${city}/itinerary" method="post" class="form">
       <label for="start">From</label>
       <div class="container">
@@ -95,9 +106,9 @@
     </script>
 
     <h2>Trafics Perturbation</h2>
-    <h3>Current Perturbation</h3>
+    <h3 id="t2">Current Perturbation</h3>
     ${perturbation}
-    <h3>Add perturbation</h3>
+    <h3 id="t3">Add perturbation</h3>
 
     <div class="traf">
     <h4>Line shutdown</h4>
@@ -262,7 +273,7 @@
       <!-- <input type="submit"> -->
     <!-- </form> -->
     <br>
-    <h2>Statistics</h2>
+    <h2 id="stat">Statistics</h2>
     <p>To acceed to the statistics of the network, click <a href="/${city}/statistics">here</a> and please wait few seconds.</p>
   </body>
 </html>
