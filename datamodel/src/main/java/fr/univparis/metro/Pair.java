@@ -1,6 +1,8 @@
 package fr.univparis.metro;
 import java.util.*;
-
+/**
+ * A generic pair class 
+ */
 public class Pair<T, S>{
     private T obj;
     private S value;

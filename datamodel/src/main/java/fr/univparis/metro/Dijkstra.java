@@ -1,7 +1,9 @@
 package fr.univparis.metro;
 import java.util.HashMap;
 import java.util.*;
-
+/**
+ * Functionnal class where Dijkstra algorithm is implemented
+ */
 public class Dijkstra {
 
    /**

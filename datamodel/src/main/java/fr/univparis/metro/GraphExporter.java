@@ -4,7 +4,9 @@ import java.io.FileWriter;
 import java.io.File;
 import java.io.IOException;
 import java.util.function.Function;
-
+/**
+ * Exporter of a {@link WGraph} to a DOT format
+ */
 public class GraphExporter {
 
   /**

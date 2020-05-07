@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.util.Set;
 
+/**
+ * A configuration class where all the file that can be used to have a city {@link WGraph} are stored
+ */
 public class Configuration{
 
     //Each key is the name of a city, the value is the name of the corresponding file that contains the metro plan

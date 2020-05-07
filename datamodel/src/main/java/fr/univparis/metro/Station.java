@@ -1,7 +1,9 @@
 package fr.univparis.metro;
 
 import java.util.Objects;
-
+/**
+ * Representation of a subway station by a name and a line
+ */
 public class Station {
 
     private final String name;
