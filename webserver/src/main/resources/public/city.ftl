@@ -9,7 +9,7 @@
       .suggestions{
         width: 200px;
       }
-      .suggestions > div{ 
+      .suggestions > div{
         padding: 5px;
         font-size: 15px;
         border-top: 1px solid #666;
@@ -17,6 +17,9 @@
       }
       .suggestions > div:hover{
         background-color: #1e4dd4;
+      }
+      #svp{
+        text-decoration: underline;
       }
     </style>
 
@@ -28,6 +31,7 @@
   </head>
   <body>
     <h2>Itinerary search</h2>
+    <p><em>To make auto-completion work, <span id="svp">please write the stations in lowercase letters.</span></em></p>
     <form class="form" action="/${city}/itinerary" method="post" class="form">
       <label for="start">From</label>
       <div class="container">
@@ -153,7 +157,7 @@
     <form class="form" action="/${city}/addPerturbation" method="post">
       <label for="all_trafics_slow_down_name">Name of the perturbation</label>
       <input required type="text" name="name" id="all_trafics_slow_down_name"><br>
-     
+
       <label for="all_trafics_slow_down_times">Times which multiply every traject</label>
       <input required type="number" step="any" min="1" name="times" id="all_trafics_slow_down_times"><br>
 
