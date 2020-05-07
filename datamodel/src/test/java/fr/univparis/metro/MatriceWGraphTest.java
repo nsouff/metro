@@ -18,6 +18,7 @@ public class MatriceWGraphTest{
     public void matriceWGraphTest(){
         HashMap<String, MatriceWGraph> q = MatriceWGraph.initializeAllLineGraphs(g);
         MatriceWGraph m = new MatriceWGraph(g, q);
+        LimitedConnectionSearch.floyd(m.getDirect(), m.getVia(), m.getIntermediate());
 
         ArrayList<Pair<String, String>> l = LimitedConnectionSearch.getPath(m, "Porte des Lilas", "Temple");
         //for(Pair<String, String> p : l) System.out.println(p.getValue() + " -> " + p.getObj());

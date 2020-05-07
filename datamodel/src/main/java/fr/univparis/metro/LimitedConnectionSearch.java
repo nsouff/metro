@@ -63,7 +63,6 @@ public class LimitedConnectionSearch {
 
 
     public static ArrayList<Pair<String, String>> getPath(MatriceWGraph g, String start, String end){
-        floyd(g.getDirect(), g.getVia(), g.getIntermediate());
         HashMap<String, Integer> h = g.getForkAndCycleStation();
         String strStart = start;
         String strEnd = end;
@@ -82,6 +81,7 @@ public class LimitedConnectionSearch {
         ret.add(new Pair<String, String>(current, currentLine));
         int n = numEnd;
         while(!strStart.equals(current)){
+            //System.out.println(current);
             current = g.getVia()[numStart][n].getName();
             currentLine = g.getVia()[numStart][n].getLine();
             Pair<String, String> p = new Pair<String, String>(current, currentLine);
