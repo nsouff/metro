@@ -156,9 +156,11 @@ public class MatriceWGraph{
                     int y1 = this.setOfVertices.get(s2.getName());
                     int x2 = gm.setOfVertices.get(s1.getName());
                     int y2 = gm.setOfVertices.get(s2.getName());
-                    this.direct[x1][y1] = gm.direct[x2][y2];
-                    this.via[this.setOfVertices.get(s1.getName())][this.setOfVertices.get(s2.getName())] = s1;
-                    this.intermediate[this.setOfVertices.get(s1.getName())][this.setOfVertices.get(s2.getName())] = 1;
+                    if(gm.direct[x2][y2] < this.direct[x1][y1]){
+                        this.direct[x1][y1] = gm.direct[x2][y2];
+                        this.via[this.setOfVertices.get(s1.getName())][this.setOfVertices.get(s2.getName())] = s1;
+                        this.intermediate[this.setOfVertices.get(s1.getName())][this.setOfVertices.get(s2.getName())] = 1;
+                    }
                 }
             }
         }
