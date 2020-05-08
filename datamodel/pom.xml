@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>fr.univparis.metro</groupId>
@@ -38,7 +38,7 @@
   </dependencies>
 
   <build>
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+    <!-- <pluginManagement><!-\- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -\-> -->
       <plugins>
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
         <plugin>
@@ -93,7 +93,28 @@
             </descriptorRefs>
           </configuration>
         </plugin>
+	<plugin>
+	  <groupId>com.iluwatar.urm</groupId>
+	  <artifactId>urm-maven-plugin</artifactId>
+	  <version>1.4.8</version>
+	  <configuration>
+            <!-- if outputDirectory is not set explicitly it will default to your build dir -->
+	    <outputDirectory>../doc/diagram/class-diagram/</outputDirectory>
+            <packages>
+              <param>fr.univparis.metro</param>
+            </packages>
+            <presenter>plantuml</presenter>
+	  </configuration>
+	  <executions>
+            <execution>
+              <phase>process-classes</phase>
+              <goals>
+		<goal>map</goal>
+              </goals>
+            </execution>
+	  </executions>
+	</plugin>
       </plugins>
-    </pluginManagement>
+    <!-- </pluginManagement> -->
   </build>
 </project>
