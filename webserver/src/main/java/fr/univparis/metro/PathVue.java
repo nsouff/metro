@@ -61,6 +61,7 @@ public class PathVue {
     String body = "";
     HashMap<String, MatriceWGraph> lines = MatriceWGraph.initializeAllLineGraphs(g);
     MatriceWGraph matriceGraph = new MatriceWGraph(g, lines);
+    LimitedConnectionSearch.floyd(matriceGraph.getDirect(), matriceGraph.getVia(), matriceGraph.getIntermediate());
     ArrayList<Pair<String, String>> l = LimitedConnectionSearch.getPath(matriceGraph, start, end);
     String str1 = l.get(0).getObj();
     Collections.reverse(l);
