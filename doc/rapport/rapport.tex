@@ -21,11 +21,11 @@
 \begin{document}
 \maketitle
 
-Dans le cadre du Projet Informatique du 4ème semestre, voici le projet Métro. Ce programme permet de donner le trajet le plus court lors d'un déplacement sur un réseau de métro, représenté par un graphe. Ce programme a été codé en Java.  
+Dans le cadre du Projet Informatique du 4ème semestre, voici le projet Métro. Ce programme permet de donner le trajet le plus court lors d'un déplacement sur un réseau de métro, représenté par un graphe. Ce programme a été codé en Java.
 \newpage
 \tableofcontents
 
- 
+
 \newpage
 
 \part{Guide d'utilisation du programme}
@@ -83,12 +83,12 @@ Retournons maintenant à la page d'avant, allons en bas de page, et on peut voir
 
 Voici l'affichage de cette page :
 
-\includegraphics[height=6cm]{images/stats.png} 
+\includegraphics[height=6cm]{images/stats.png}
 
 Voici la fin de cet exemple d'utilisation de "metro" via son webserver.
 
 
- 
+
 \newpage
 
 \part{Projet Métro}
@@ -97,26 +97,26 @@ Dans cette partie est expliqué les différents algorithmes, la structure des cl
 Voici la présentation du projet avec les choix de modélisation que nous avons fait, les problèmes rencontrés durant celui-ci et la manière dont on l'a organisé.
 \subsection{Modélisation}
 %partie de qui veut
-%Expliquer les choix de modélisation qu'on a pris. Pourquoi ceux ci et pas d'autres? 
+%Expliquer les choix de modélisation qu'on a pris. Pourquoi ceux ci et pas d'autres?
 %Le choix de faire des meta station, le choix de mettre des files de propriétés, pq avoir fait deux algos avec correspondance, choix d'implémentation du parser.
 
 \subsection{Organisation}
-Comme vu précédemment, au début du semestre, nous avons dû faire des choix de modélisation et donc réfléchir. Nous avons d'abord créé le graphe(W\-Graph) car ce graphe représente dans notre réseau de métro. 
-Parallèlement nous avons créé un parser pour construire un graphe à partir d'un fichier contenant les stations par ligne, d'un réseau de métro. 
+Comme vu précédemment, au début du semestre, nous avons dû faire des choix de modélisation et donc réfléchir. Nous avons d'abord créé le graphe(W\-Graph) car ce graphe représente dans notre réseau de métro.
+Parallèlement nous avons créé un parser pour construire un graphe à partir d'un fichier contenant les stations par ligne, d'un réseau de métro.
 Nous avons également en un premier temps écrit l'algo de Dijkstra(puis avec la file de priorité).
 Nous avons alors pu commencer à écrire les algorithmes avec une limite de correspondances, l'algorithme de Floyd avec les matrices, et l'"algorithme de Bouarah", dont il est parlé dans la section suivante.
 Nous avons également ajouter un webserver, car cela commençait à faire lourd de toujours tester sur le terminal.
-Nous avons alors rajouté les algorithmes pour les statistiques des réseaux de métro. 
+Nous avons alors rajouté les algorithmes pour les statistiques des réseaux de métro.
 Rajoutons que le programme est en anglais car il peut être utilisé pour tout les réseaux de métro. Ici seul ceux en France sont disponible, mais il n'y a pas de problèmes, car il y a juste à stocker le réseau voulu, par un fichier texte adapté, en objet JSON dans les fichiers JSON correspondants.
 Nous avons ensuite rajouté la possibilité d'ajouter des perturbations sur nos réseaux métro.
 Arrivé à mi-avril, nous avons bien avancé, et il nous reste à améliorer alors notre programme, en rendant un code plus propre et amélioré, améliorer le webserver, régler des bugs, etc...
 
 Notons qu'à chaque tâche attribuée, la personne s'occupant de la tâche doit s'occuper des tests qui vont avec. En général les tâches doivent être faites pour la semaine suivante.
 Notre système nous a été efficace, et permis de travailler dans de bonnes conditions.
-A chaque fin de tâche, la personne s'en occupant devait attribuer une "merge request" à quelqu'un d'autre pour vérifier son travail et avoir un autre point de vue de la question et voir les éventuels problèmes. 
+A chaque fin de tâche, la personne s'en occupant devait attribuer une "merge request" à quelqu'un d'autre pour vérifier son travail et avoir un autre point de vue de la question et voir les éventuels problèmes.
 \subsection{Problèmes rencontrés}
-Certains problèmes ont été rencontrer durant ce projet. 
-Au début du projet nous avions le problème de ne pas savoir par où commencer, ou plutôt nous avions peur de partir trop vite en s'emballant ou d'aller trop lentement et perdre du temps. Nous avons donc eu au début du projet, des semaines où il y avait peu de tâches à effectuer et où nous avions du mal à en trouver. Trouver des tâches précises n'était pas non plus facile. 
+Certains problèmes ont été rencontrer durant ce projet.
+Au début du projet nous avions le problème de ne pas savoir par où commencer, ou plutôt nous avions peur de partir trop vite en s'emballant ou d'aller trop lentement et perdre du temps. Nous avons donc eu au début du projet, des semaines où il y avait peu de tâches à effectuer et où nous avions du mal à en trouver. Trouver des tâches précises n'était pas non plus facile.
 D'où l'importance de s'imprégner vraiment du projet ou d'une partie du projet pour pouvoir décomposer cela en de multiples tâches. Il y a donc eu des tâches trop vagues, et cela a pu être un léger problème par moment. Dans l'implémentation des algorithmes, il y avait ce besoin nécessaire de s'imprégner de l'algorithme pour voir clairement ce que nous voulons. Cela demande un vrai travail de réflexion et de la concentration. Il y a eu une grosse demande de concentration et réflexion pour réussir à faire un bon parser, en cherchant les problèmes qu'il pourrait y avoir dans les modifications que l'on voudrait apporter.
 Un autre problème qui peut intervenir et de replonger dans du code que l'on a écrit quelques mois auparavant ou de se plonger dans du code que nous n'avions pas écrit. Le challenge était donc de se maintenir à jour sur les avancées du projet.
 Pour les algorithmes, ce qui posait problème, était la réflexion autour de la modélisation pour faire marcher les algorithmes, qui en eux-mêmes n'ont pas posé de problèmes d'implémentations.
@@ -125,17 +125,20 @@ Pour les algorithmes, ce qui posait problème, était la réflexion autour de la
 
 \newpage
 \section{Les classes plus en détail}
-Notre programme a de nombreuses classes de code. On peut y trouver un parser, plusieurs algorithmes, une pour les perturbations, et d'autres pour le webserver. Elles vont être expliquées plus en détail pour le parser et les algorithmes ci-dessous. Nous allons également présenter ci-dessous la structure du projet et de ses classes. 
+Notre programme a de nombreuses classes de code. On peut y trouver un parser, plusieurs algorithmes, une pour les perturbations, et d'autres pour le webserver. Elles vont être expliquées plus en détail pour le parser et les algorithmes ci-dessous. Nous allons également présenter ci-dessous la structure du projet et de ses classes.
 \subsection{Le parser}
-%Partie Nathan
+Le Parser s'est écrit en plusieurs fois une première version consistait simplement à lire toutes les stations sans faire attention à fourche ou cycle, et crée des doubles liaisons de poids 90 secondes entre une stations, celle écrites auparavant et la suivante. Au moment où cela a été fait sans s'en rendre compte, il n'y avait aucune liaisons qui était créait entre les différentes lignes, elles étaient toutes isolés.\\
+C'est la semaine suivante où le Parser fut améliorer et était beaucoup plus fonctionnel. En effet la semaine suivante le parser était retravaillé pour créer des correspondances. Pour ce faire un ensemble des noms de stations déjà créée fût ajouté dans toutes les méthodes du parser et lors de la rencontre d'un nom de station qui est déjà dans cet ensemble on liait cette station (avec un poids de changement de ligne de 60 secondes) avec toutes les autres stations qui avait le même nom (on enlèvera plus tard le cas où le nom de ligne commence par "Meta Station"). \\
+Quelque semaine plus tard Dijkstra était implémenter et une première version sur terminal était disponible. Quelque chose nous dérangea dans celle ci, il fallait préciser pour le départ et l'arrivé le nom de la station et la ligne or il parait logique que nous n'ayons qu'à préciser le nom de la station. C'est donc à ce moment que nous avons ajouter des meta stations. Pour chaque station nous avons ajouté une station ayant comme nom de ligne "Meta Station Start" dans laquelle on ne pouvait entrer mais on pouvait aller vers n'importe quelle ligne de la station et une ayant comme ligne "Meta Station End" pour laquelle c'était l'inverse. Toutes ces nouvelles liaisons avait comme poids 0 ce qui faisait qu'elle n'avait aucun poids sur le trajet final. On pouvait désormais lancer les algorithmes de parcours depuis une \emph{meta station start} vers une \emph{meta station end} sans soucis de ligne pour l'utilisateur. \\
+Le parser est alors rester comme cela pendant très longtemps, jusqu'à ce que nous nous rendions compte que des changements n'était pas pris en compte lorsque l'on change de branche d'une fourche ou d'un cycle. Il fallu alors ce replonger dans du code qui était assez ancien et cela fût un peu compliqué. Cette partie du parser est celle qui parût la plus compliqué, en effet il fallait séparer les stations qui précéder et suivait un(e) cycle/fourche et modifié les liaisons à celle ci, tout en gérant le cas où ces stations sont liés à d'autre lignes. Au final cela a été fait en sachant qu'il n'existe donc plus de station comme "Botzaris 7bis" (bien qu'il reste ses meta stations), celle ci ayant été remplacé par Botzaris\$1 et Botzaris\$2. Pour éviter d'avoir une multiplications de cas a gérer il se peut que la modélisation du graph ne représente pas dans ce cas la réalité (qui serait que une station \$1 représente un quai et \$2 l'autre). On peut parfois en effet voir dans le cas de fourche que la station \$1 sert par exemple à rentrer dans les fourches tandis que \$2 sert à en sortir. Cela résultera bien dans les temps de parcours cherché, les deux stations étant bien sûr lié d'un poids de changement (= 60).
 
 \subsection{Les différents algorithmes}
-Voici une présentation des trois algorithmes de plus court chemin que nous avons utilisé dans ce projet: l'algorithme de Dijkstra, celui de Floyd et celui de Bouarah. 
+Voici une présentation des trois algorithmes de plus court chemin que nous avons utilisé dans ce projet: l'algorithme de Dijkstra, celui de Floyd et celui de Bouarah.
 \subsubsection{Dijkstra}
 L'algorithme de Dijkstra ne fût pas forcément facile à comprendre. Mais une fois imprégnés de celui-ci, nous avons pu faire un algorithme clair répondant au problème du plus court chemin. Au départ nous n'utilisions pas de file de priorité.
 Une fois que l'algorithme marchait, nous avons rajouté les files de priorité en guise d'amélioration.
 A partir d'un graphe et d'une station on peut alors lancer l'algorithme avec aussi une hashmap correspondant aux distances des stations par rapport à la station initiale avec le plus court chemin entre elles, et une autre hashmap où chaque clé est une station avec une valeur associée qui est sa station précédente par rapport à la station initiale en prenant le chemin le plus court.
-Avant l'analyse du graphe, il y a initialisation de la hashmap en associant des distances à l'infini en valeur pour chaque station(clé) du graphe, et pareil pour la file de priorité. 
+Avant l'analyse du graphe, il y a initialisation de la hashmap en associant des distances à l'infini en valeur pour chaque station(clé) du graphe, et pareil pour la file de priorité.
 
 \subsubsection{Algorithme de Floyd}
 %Partie Lucas
