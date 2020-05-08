@@ -22,6 +22,9 @@
       }
 
       #svp{
+        text-decoration: underline;
+
+      }
       .traf
       {
         border: 2px black solid;
