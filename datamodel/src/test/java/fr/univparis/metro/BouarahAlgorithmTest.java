@@ -1,6 +1,5 @@
 package fr.univparis.metro;
 
-import java.io.*;
 import java.lang.Double;
 import java.lang.Integer;
 import java.util.HashMap;
@@ -13,7 +12,7 @@ public class BouarahAlgorithmTest {
     static BiPredicate<Station, Station> sameLine = (Station s1, Station s2) -> s1.getLine().equals(s2.getLine()) || s1.getLine().startsWith("Meta Station") || s2.getLine().startsWith("Meta Station");
 
     @BeforeClass
-    public static void loadFile() throws IOException {
+    public static void loadFile() {
 	     g = Parser.loadFrom(BouarahAlgorithmTest.class.getResourceAsStream("/liste.txt"));
     }
 

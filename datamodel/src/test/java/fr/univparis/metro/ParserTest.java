@@ -3,7 +3,6 @@ package fr.univparis.metro;
 import java.util.HashMap;
 import org.junit.*;
 import static org.junit.Assert.*;
-import java.io.*;
 public class ParserTest {
 
   static WGraph<Station> g;
@@ -12,7 +11,7 @@ public class ParserTest {
   static Double NaN             = (Double) Double.NaN;
 
   @BeforeClass
-  public static void loadFile() throws IOException {
+  public static void loadFile(){
     g = Parser.loadFrom(ParserTest.class.getResourceAsStream("/liste.txt"));
   }
 

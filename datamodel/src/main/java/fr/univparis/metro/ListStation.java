@@ -1,6 +1,5 @@
 package fr.univparis.metro;
 
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -14,9 +13,8 @@ public class ListStation{
    * Stores the names of stations in a string representation of a javascript array.
    * @param name the name of the subway (Paris, Lille ...).
    * @return a string representation of a javascript array containing all the stations.
-   * @throws FileNotFoundException if the file is not correctly opened.
   */
-  public static String getListStation(String name) throws FileNotFoundException{
+  public static String getListStation(String name) {
     String str = "[";
     ArrayList<String> l = new ArrayList<>();
     Scanner sc = new Scanner(ListStation.class.getResourceAsStream("/" + Configuration.getFileName(name)));

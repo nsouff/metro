@@ -2,7 +2,6 @@ package fr.univparis.metro;
 
 
 import java.util.HashMap;
-import java.io.IOException;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.BeforeClass;;
@@ -10,11 +9,9 @@ import org.junit.BeforeClass;;
 public class TraficsTest {
 
   @BeforeClass
-  public static void initTest() throws IOException {
+  public static void initTest() {
     Configuration.loadFrom(Trafics.class.getResourceAsStream("/cities.json"));
-    try {
-      Trafics.initTrafics();
-    } catch(Exception e) {e.printStackTrace();}
+    Trafics.initTrafics();
 
   }
 
@@ -168,10 +165,10 @@ public class TraficsTest {
     Trafics.addPerturbation("Paris", Trafics.Perturbation.ALL_TRAFICS_SLOW_DOWN, "Snow on the rails", 2.0);
     assertEquals(180.0, g.weight(m8, c8), 0.0);
     assertEquals(180.0, g.weight(c8, m8), 0.0);
-    
+
     assertEquals(60.0, g.weight(c8, c1), 0.0);
     assertEquals(60.0, g.weight(c1, c8), 0.0);
-    
+
     assertEquals(0.0, g.weight(c8, c), 0.0);
     assertEquals(0.0, g.weight(c1, c), 0.0);
 
@@ -181,9 +178,9 @@ public class TraficsTest {
 
     assertEquals(60.0, g.weight(c8, c1), 0.0);
     assertEquals(60.0, g.weight(c1, c8), 0.0);
-    
+
     assertEquals(0.0, g.weight(c8, c), 0.0);
     assertEquals(0.0, g.weight(c1, c), 0.0);
   }
-    
+
 }

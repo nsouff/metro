@@ -1,10 +1,9 @@
 package fr.univparis.metro;
-import java.io.IOException;
 
 public class PathVueTest {
   /* WARNING: The test takes to much time but gives you an idea of how fast is the algo */
   // @Test
-  public void multiplePathEndsTest() throws IOException{
+  public void multiplePathEndsTest() {
     int count = 0;
     WGraph<Station> g = Parser.loadFrom(this.getClass().getResourceAsStream("/liste.txt"));
     for (Station start : g.getVertices()) {

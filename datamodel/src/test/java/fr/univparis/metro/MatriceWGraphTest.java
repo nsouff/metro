@@ -2,7 +2,6 @@ package fr.univparis.metro;
 
 import org.junit.*;
 import static org.junit.Assert.*;
-import java.io.*;
 import java.util.*;
 
 public class MatriceWGraphTest{
@@ -10,7 +9,7 @@ public class MatriceWGraphTest{
     static WGraph<Station> g;
 
     @BeforeClass
-    public static void loadFile() throws IOException {
+    public static void loadFile() {
         g = Parser.loadFrom(MatriceWGraph.class.getResourceAsStream("/liste.txt"));
     }
 
