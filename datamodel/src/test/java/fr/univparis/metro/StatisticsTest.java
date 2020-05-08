@@ -10,7 +10,7 @@ public class StatisticsTest{
 
     @BeforeClass
     public static void loadFile() {
-      InputStream i = ParserTest.class.getResourceAsStream("/liste.txt");
+      InputStream i = ParserTest.class.getResourceAsStream("/paris.txt");
       g = Parser.loadFrom(i);
     }
 

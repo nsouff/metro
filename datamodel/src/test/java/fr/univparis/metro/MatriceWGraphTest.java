@@ -10,7 +10,7 @@ public class MatriceWGraphTest{
 
     @BeforeClass
     public static void loadFile() {
-        g = Parser.loadFrom(MatriceWGraph.class.getResourceAsStream("/liste.txt"));
+        g = Parser.loadFrom(MatriceWGraph.class.getResourceAsStream("/paris.txt"));
     }
 
     @Test

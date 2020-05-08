@@ -12,7 +12,7 @@ public class ParserTest {
 
   @BeforeClass
   public static void loadFile(){
-    g = Parser.loadFrom(ParserTest.class.getResourceAsStream("/liste.txt"));
+    g = Parser.loadFrom(ParserTest.class.getResourceAsStream("/paris.txt"));
   }
 
 
