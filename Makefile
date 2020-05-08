@@ -35,10 +35,14 @@ test:
 	cd webserver && $(MVN) test
 
 javadoc_webserver:
-	cd webserver && $(JAVADOC)
+	rm -rf doc/api/webserver
+	mkdir -p doc/api/webserver/
+	cd webserver && $(JAVADOC) && mv target/site/apidocs/* ../doc/api/webserver/
 
 javadoc_datamodel:
-	cd datamodel && $(JAVADOC)
+	rm -rf doc/api/datamodel/
+	mkdir -p doc/api/datamodel/
+	cd datamodel && $(JAVADOC) && mv target/site/apidocs/* ../doc/api/datamodel/
 
 javadoc: javadoc_datamodel javadoc_webserver
 # Target clean removes all files produced during build.
