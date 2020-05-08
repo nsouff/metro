@@ -2,7 +2,6 @@ package fr.univparis.metro;
 
 
 import java.util.HashMap;
-import java.io.IOException;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.BeforeClass;;
@@ -10,11 +9,9 @@ import org.junit.BeforeClass;;
 public class TraficsTest {
 
   @BeforeClass
-  public static void initTest() throws IOException {
+  public static void initTest() {
     Configuration.loadFrom(Trafics.class.getResourceAsStream("/cities.json"));
-    try {
-      Trafics.initTrafics();
-    } catch(Exception e) {e.printStackTrace();}
+    Trafics.initTrafics();
 
   }
 

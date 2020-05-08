@@ -4,6 +4,7 @@ MVN=mvn
 CLASSPATH=./target/*.jar
 JAVA_OPT=-cp $(CLASSPATH)
 JAVA=java $(JAVA_OPT)
+JAVADOC=$(MVN) javadoc:javadoc
 TARGET=fr.univparis.metro.Webserver
 TERMINAL_TARGET=fr.univparis.metro.App
 GRAPH_EXPORTER_TARGET=fr.univparis.metro.GraphExporter
@@ -33,6 +34,18 @@ test:
 	cd datamodel && $(MVN) test
 	cd webserver && $(MVN) test
 
+javadoc_webserver:
+	rm -rf doc/api/webserver
+	mkdir -p doc/api/webserver/
+	cd webserver && $(JAVADOC) && mv target/site/apidocs/* ../doc/api/webserver/
+
+javadoc_datamodel:
+	rm -rf doc/api/datamodel/
+	mkdir -p doc/api/datamodel/
+	cd datamodel && $(JAVADOC) && mv target/site/apidocs/* ../doc/api/datamodel/
+
+javadoc: javadoc_datamodel javadoc_webserver
+	
 diagram:
 	cd datamodel && $(MVN) process-classes
 

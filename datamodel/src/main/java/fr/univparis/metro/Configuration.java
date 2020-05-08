@@ -7,11 +7,12 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.util.Set;
 
+/**
+ * A configuration class where all the file that can be used to have a city {@link WGraph} are stored
+ */
 public class Configuration{
 
-    /**
-     * Each key is the name of a city, the value is the name of the corresponding file that contains the metro plan
-     */
+    //Each key is the name of a city, the value is the name of the corresponding file that contains the metro plan
     private static HashMap<String, String> cities = new HashMap<String, String>();
 
     public static String getFileName(String s){return cities.get(s);}
@@ -21,7 +22,7 @@ public class Configuration{
     }
 
     /**
-     * @param f is a json file that contains an array of pair city/file.
+     * @param ins is a json file that contains an array of pair city/file.
      * Fills the HashMap cities.
      */
     public static void loadFrom (InputStream ins){

@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"fr.univparis.metro","l":"PathVue"},{"p":"fr.univparis.metro","l":"StatisticsVue"},{"p":"fr.univparis.metro","l":"Webserver"},{"p":"fr.univparis.metro","l":"WebserverLib"}]

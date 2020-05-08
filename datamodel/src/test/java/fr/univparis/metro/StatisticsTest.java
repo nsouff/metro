@@ -2,7 +2,6 @@ package fr.univparis.metro;
 import org.junit.*;
 import static org.junit.Assert.*;
 import java.io.*;
-import java.io.IOException;
 import java.lang.Double;
 import java.util.HashMap;
 
@@ -10,8 +9,8 @@ public class StatisticsTest{
     static WGraph<Station> g;
 
     @BeforeClass
-    public static void loadFile() throws IOException{
-      InputStream i = ParserTest.class.getResourceAsStream("/paris.txt");
+    public static void loadFile() {
+      InputStream i = ParserTest.class.getResourceAsStream("/liste.txt");
       g = Parser.loadFrom(i);
     }
 

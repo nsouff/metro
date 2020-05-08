@@ -3,6 +3,26 @@ package fr.univparis.metro;
 import java.util.*;
 import java.io.*;
 
+/**
+ * Tranform a file into a {@link WGraph}.
+ * The file must be in the following format:
+ * <ul>
+ * <li>A line starts with "Ligne number" where number is the number of the line and ends with --.</li>
+ * <li>Then every station is linked to the next station and his predecessor (one station per line).</li>
+ * <li>One sided cycle (as in line 10 of parisian subway) can be added by having a "{" line.</li>
+ * <li>Then the station will only be linked to the next line of the File.</li>
+ * <li>To indicate that the first branch of the cycle has ended insert a "\" line.</li>
+ * <li>The next station will be the station that can end the cycle (link to the station before the begining of the cylce).</li>
+ * <li>Write the station of the other branch knowing that every station will be linked to his predecessor in the file.</li>
+ * <li>To end the cylce enter a "}" line</li>
+ * <li>Double sided fork (as in line 7 of the parisian subway) can also be added, it should start with "[".</li>
+ * <li>Then add all the station of the first branch.</li>
+ * <li>To end the branch insert "||" in a line.</li>
+ * <li>Then starts the other branch from the begining and add all the stations of that branch.</li>
+ * <li>To end the fork insert a "]" line.</li>
+ * <li>Note that a fork can't be in the middle of a line.</li>
+ * </ul>
+ */
 public class Parser {
 
  /**
@@ -17,12 +37,12 @@ public class Parser {
 
  /**
   * Create a WGraph using a text file with stations on each line
-  * In station change are weighted by {@value #defaudefaultChangeStationWeight}
-  * Weight between station is {@value #defaultWeight}
-  * @param f is the txt file wich contain the station
+  * In station change are weighted by {@link #defaultChangeStationWeight}
+  * Weight between station is {@link #defaultWeight}
+  * @param is is the txt file wich contain the station
   * @return the WGraph that correspond to the file
   */
-  public static WGraph<Station> loadFrom (InputStream is) throws IOException {
+  public static WGraph<Station> loadFrom (InputStream is) {
     Scanner sc = new Scanner (is);
     WGraph<Station> g = new WGraph<Station>();
     Station prec = null;

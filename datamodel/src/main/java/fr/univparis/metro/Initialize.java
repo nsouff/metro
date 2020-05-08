@@ -5,10 +5,12 @@ import java.util.LinkedList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Set;
-import java.io.File;
 import java.io.IOException;
 import java.util.AbstractMap.SimpleEntry;
-
+/**
+ * Terminal interface class where the user is asked where he wants to go.
+ * WARNING: all the features of the project are not in this version.
+ */
 public class Initialize{
 
     /**
@@ -76,7 +78,7 @@ public class Initialize{
     /**
      * Print the path dijsktra's algorithm returns according to the destination of the user.
      */
-    public static void initialize() throws IOException {
+    public static void initialize() {
         Configuration.loadFrom(Initialize.class.getResourceAsStream("/cities.json"));
         SimpleEntry<String, String> s = whichCity();
         WGraph<Station> g = Parser.loadFrom(Initialize.class.getResourceAsStream("/" + s.getValue()));

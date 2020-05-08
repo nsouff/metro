@@ -3,13 +3,17 @@ package fr.univparis.metro;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
+/**
+ * An implemetation of Floyd's algorithm to find an itinerary that limits the number of correspondances.
+ */
 public class LimitedConnectionSearch {
 
     /**
+     * Execute Floyd's algorithm on graph represented by matrices to determine the time and number of correspondances of any itinerary.
      * @param direct is a matrice in which the coefficient direct(x, y) is the time it takes to get to the station n°y from the sation n°x.
-     * @param via is a matrice in which via(x, y) is the last station we get through to get to the sation n°y from the station n°x
-     * @param intermediate is a matrice in which intermediate(x, y) is the number of station we get through to get to the station n°y from the station n°x
+     * @param via is a matrice in which via(x, y) is the last station we get through to get to the sation n°y from the station n°x.
+     * @param intermediate is a matrice in which intermediate(x, y) is the number of correspondances to get to the station n°y from the station n°x.
+     * @param <T> the type of the vertices (the stations).
      */
     public static <T> void floyd(Double[][] direct, T[][] via, Integer[][] intermediate){
         int n = direct.length;
@@ -39,6 +43,11 @@ public class LimitedConnectionSearch {
         }
     }
 
+    /**
+     * this method is used to build the graphs of each lines in the MatriceWGraph class. It determines the time of the itinerary between two stations that are on the same line.
+     * @param d is a matrice in which the coefficient direct(x, y) is the time it takes to get to the station n°y from the sation n°x.
+     * @return A copy of the matrice d, on which Floyd's algorithm is executed.
+     */
     public static Double[][] floyd(Double[][] d){
         int n = d.length;
         Double[][] ret = new Double[n][n];
@@ -61,7 +70,13 @@ public class LimitedConnectionSearch {
         return ret;
     }
 
-
+    /**
+     * Store the itinerary to get from a station to an other in a arraylist of string, each string being a name of a station.
+     * @param g the graph of the whole subway network.
+     * @param start the name of the station of which we leave.
+     * @param end the name of the arrival station.
+     * @return an arraylist containing the path to get from start to end.
+     */
     public static ArrayList<Pair<String, String>> getPath(MatriceWGraph g, String start, String end){
         HashMap<String, Integer> h = g.getForkAndCycleStation();
         String strStart = start;

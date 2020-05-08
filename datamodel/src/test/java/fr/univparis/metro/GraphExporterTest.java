@@ -37,7 +37,7 @@ public class GraphExporterTest {
     }
 
     @Test
-    public void exportToDOTTest() throws IOException {
+    public void exportToDOTTest() {
 	WGraph<Station> graph = new WGraph<Station>();
 
 	graph = Parser.loadFrom(this.getClass().getResourceAsStream("/paris.txt"));
