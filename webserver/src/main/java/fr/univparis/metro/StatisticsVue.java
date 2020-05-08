@@ -35,12 +35,12 @@ public class StatisticsVue {
     Double[] time8 = WebserverLib.doubleToTime(stat8.getValue());
     return "<h3>The longest traject between two stations :</h3>Traject : " + stat1.getObj().getObj().getName() + " to " + stat1.getObj().getValue().getName()
     + "<br>Time : " + time1[0] + "h "+ time1[1] + "min " + time1[2] + "sec<br>" +
-    "<h3>Number minimum of correspondence to do all the possible trajects on the network : " + stat2 +"</h3><br>" +
-    "<h3> The average number of stations per line : " + stat6 + "</h3><br><h3>The line with the most stations : line " + stat3 + "</h3><br>" +
-    "<h3>The line with the least stations : line " + stat4 + "</h3><br>" +
-    "<h3>The average time from one terminus of a line to the other : " + time5[0] + "h "+ time5[1] + "min " + time5[2] + "sec</h3><br>" +
-    "<h3>The longest(duration) line : line " + stat7.getObj() + " in " + time7[0] + "h "+ time7[1] + "min " + time7[2] + "sec</h3><br>" +
-    "<h3>The shortest(duration) line : line " + stat8.getObj() + " in "+ time8[0] + "h "+ time8[1] + "min " + time8[2] + "sec</h3><br>" ;
+    "<h3>Number minimum of correspondence to do all the possible trajects on the network :</h3> " + stat2 +"<br>" +
+    "<h3> The average number of stations per line :</h3> " + stat6 + "<br><h3>The line with the most stations :</h3> line " + stat3 + "<br>" +
+    "<h3>The line with the least stations :</h3> line " + stat4 + "<br>" +
+    "<h3>The average time from one terminus of a line to the other :</h3> " + time5[0] + "h "+ time5[1] + "min " + time5[2] + "sec<br>" +
+    "<h3>The longest(duration) line :</h3> line " + stat7.getObj() + " in " + time7[0] + "h "+ time7[1] + "min " + time7[2] + "sec<br>" +
+    "<h3>The shortest(duration) line :</h3> line " + stat8.getObj() + " in "+ time8[0] + "h "+ time8[1] + "min " + time8[2] + "sec<br>" ;
 
   }
   /**

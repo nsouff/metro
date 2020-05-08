@@ -18,8 +18,8 @@ public class ParserTest {
 
   @Test
   public void sizeTest() {
-    assertEquals("Wrong size for line 3bis, here are the station found: \n" + g.vertexToString((t -> t.getLine().equals("3bis"))), 4, g.nbVertex((t -> t.getLine().equals("3bis"))));
-    assertEquals("Wrong size for line 7bis, here are the station found: \n" + g.vertexToString((t -> t.getLine().equals("7bis"))), 8, g.nbVertex((t -> t.getLine().equals("7bis") && !t.getName().contains("$2"))));
+    assertEquals("Wrong size for line 3BIS, here are the station found: \n" + g.vertexToString((t -> t.getLine().equals("3BIS"))), 4, g.nbVertex((t -> t.getLine().equals("3BIS"))));
+    assertEquals("Wrong size for line 7BIS, here are the station found: \n" + g.vertexToString((t -> t.getLine().equals("7BIS"))), 8, g.nbVertex((t -> t.getLine().equals("7BIS") && !t.getName().contains("$2"))));
     int[] linesize = {25, 25, 25, 26, 22, 28, 38, 37, 37, 23, 13, 28, 32, 9};
     for (int i = 0; i < 14; i++){
       String line = "" + (i+1);
@@ -29,11 +29,11 @@ public class ParserTest {
 
   @Test
   public void basicStationTest() {
-    Station nation1      = new Station("Nation", "1");
-    Station nation2      = new Station("Nation", "2");
-    Station avron        = new Station("Avron", "2");
+    Station nation1      = new Station("NATION", "1");
+    Station nation2      = new Station("NATION", "2");
+    Station avron        = new Station("AVRON", "2");
     assertEquals(5, g.neighbors(nation2).size());
-    assertEquals(inStationWieght, g.weight(new Station("Nation", "1"), nation2));
+    assertEquals(inStationWieght, g.weight(new Station("NATION", "1"), nation2));
     assertEquals(defaultWeight, g.weight(avron, nation2));
     assertEquals(defaultWeight, g.weight(nation2, avron));
     assertEquals(NaN, g.weight(nation1, avron));
@@ -42,12 +42,12 @@ public class ParserTest {
 
   @Test
   public void cycleTest() {
-    Station psg1      = new Station("Pré Saint-Gervais$1", "7bis");
-    Station psg2      = new Station("Pré Saint-Gervais$2", "7bis");
-    Station pdf       = new Station("Place des Fêtes", "7bis");
-    Station danube    = new Station("Danube", "7bis");
-    Station botzaris1 = new Station("Botzaris$1", "7bis");
-    Station botzaris2 = new Station("Botzaris$2", "7bis");
+    Station psg1      = new Station("PRE SAINT-GERVAIS$1", "7BIS");
+    Station psg2      = new Station("PRE SAINT-GERVAIS$2", "7BIS");
+    Station pdf       = new Station("PLACE DES FETES", "7BIS");
+    Station danube    = new Station("DANUBE", "7BIS");
+    Station botzaris1 = new Station("BOTZARIS$1", "7BIS");
+    Station botzaris2 = new Station("BOTZARIS$2", "7BIS");
     assertEquals(2, g.neighbors(psg1).size());
     assertEquals(3, g.neighbors(psg2).size());
     assertEquals(3, g.neighbors(pdf).size());
@@ -59,11 +59,11 @@ public class ParserTest {
     assertEquals(inStationWieght, g.weight(botzaris2, botzaris1));
     assertEquals(inStationWieght, g.weight(psg1, psg2));
     assertEquals(inStationWieght, g.weight(psg2, psg1));
-    assertEquals(defaultWeight, g.weight(botzaris1, new Station("Buttes Chaumont", "7bis")));
-    assertEquals(defaultWeight, g.weight(botzaris2, new Station("Buttes Chaumont", "7bis")));
+    assertEquals(defaultWeight, g.weight(botzaris1, new Station("BUTTES CHAUMONT", "7BIS")));
+    assertEquals(defaultWeight, g.weight(botzaris2, new Station("BUTTES CHAUMONT", "7BIS")));
     assertEquals(Double.NaN, g.weight(botzaris1, pdf), 0.0);
     assertEquals(defaultWeight, g.weight(botzaris2, pdf));
-    assertEquals(inStationWieght, g.weight(pdf, new Station("Place des Fêtes", "11")));
+    assertEquals(inStationWieght, g.weight(pdf, new Station("PLACE DES FETES", "11")));
     assertEquals(defaultWeight, g.weight(pdf, psg1));
     assertEquals(defaultWeight, g.weight(psg2, danube));
     assertEquals(Double.NaN, g.weight(psg1, danube), 0.0);
@@ -72,36 +72,36 @@ public class ParserTest {
 
   @Test
   public void forkTest() {
-    Station sdu      = new Station("Saint-Denis - Université", "13");
-    Station aglc     = new Station("Asnières - Gennevilliers - Les Courtilles", "13");
-    Station gm       = new Station("Guy Môquet", "13");
-    Station brochant = new Station("Brochant", "13");
-    Station lf1       = new Station("La Fourche$1", "13");
-    Station lf2       = new Station("La Fourche$2", "13");
+    Station sdu      = new Station("SAINT-DENIS - UNIVERSITE", "13");
+    Station aglc     = new Station("ASNIERES - GENNEVILLIERS - LES COURTILLES", "13");
+    Station gm       = new Station("GUY MOQUET", "13");
+    Station brochant = new Station("BROCHANT", "13");
+    Station lf1       = new Station("LA FOURCHE$1", "13");
+    Station lf2       = new Station("LA FOURCHE$2", "13");
     assertEquals(2, g.neighbors(sdu).size());
     assertEquals(2, g.neighbors(aglc).size());
     assertEquals(3, g.neighbors(gm).size());
     assertEquals(3, g.neighbors(brochant).size());
     assertEquals(4, g.neighbors(lf1).size());
     assertEquals(4, g.neighbors(lf2).size());
-    assertEquals(defaultWeight, g.weight(sdu, new Station("Basilique de Saint-Denis", "13")));
-    assertEquals(defaultWeight, g.weight(aglc, new Station("Les Agnettes", "13")));
+    assertEquals(defaultWeight, g.weight(sdu, new Station("BASILIQUE DE SAINT-DENIS", "13")));
+    assertEquals(defaultWeight, g.weight(aglc, new Station("LES AGNETTES", "13")));
     assertEquals(defaultWeight, g.weight(gm, lf1));
-    assertEquals(defaultWeight, g.weight(gm, new Station("Porte de Saint-Ouen", "13")));
+    assertEquals(defaultWeight, g.weight(gm, new Station("PORTE DE SAINT-OUEN", "13")));
     assertEquals(Double.NaN, g.weight(brochant, lf1), 0.0);
     assertEquals(defaultWeight, g.weight(brochant, lf2), 0.0);
-    assertEquals(defaultWeight, g.weight(brochant, new Station("Porte de Clichy", "13")));
+    assertEquals(defaultWeight, g.weight(brochant, new Station("PORTE DE CLICHY", "13")));
     assertEquals(Double.NaN, g.weight(lf1, brochant), 0.0);
     assertEquals(defaultWeight, g.weight(lf2, brochant));
     assertEquals(defaultWeight, g.weight(lf1, gm));
-    assertEquals(defaultWeight, g.weight(lf1, new Station("Place de Clichy", "13")));
+    assertEquals(defaultWeight, g.weight(lf1, new Station("PLACE DE CLICHY", "13")));
 
     HashMap<Station, Double> dist = new HashMap<Station, Double>();
     HashMap<Station, Station> prev = new HashMap<Station, Station>();
-    Station ptiS = new Station("Porte d'Italie", "Meta Station Start");
-    Station ptiE = new Station("Porte d'Italie", "Meta Station End");
-    Station kbS = new Station("Le Kremlin-Bicêtre", "Meta Station Start");
-    Station kbE = new Station("Le Kremlin-Bicêtre", "Meta Station End");
+    Station ptiS = new Station("PORTE D'ITALIE", "Meta Station Start");
+    Station ptiE = new Station("PORTE D'ITALIE", "Meta Station End");
+    Station kbS = new Station("LE KREMLIN-BICETRE", "Meta Station Start");
+    Station kbE = new Station("LE KREMLIN-BICETRE", "Meta Station End");
 
     Dijkstra.shortestPath(g, ptiS, prev, dist);
     assertEquals(240.0, dist.get(kbE), 0.0);
@@ -112,12 +112,12 @@ public class ParserTest {
 
   @Test
   public void metaStatTest() {
-    Station cStart = new Station("Châtelet", "Meta Station Start");
-    Station cEnd   = new Station("Châtelet", "Meta Station End");
+    Station cStart = new Station("CHATELET", "Meta Station Start");
+    Station cEnd   = new Station("CHATELET", "Meta Station End");
     assertEquals(5, g.neighbors(cStart).size());
     assertEquals(0, g.neighbors(cEnd).size());
-    assertEquals((Double) 0.0, g.weight(new Station("Châtelet", "4"), cEnd));
-    assertEquals((Double) 0.0, g.weight(cStart, new Station("Châtelet", "4")));
+    assertEquals((Double) 0.0, g.weight(new Station("CHATELET", "4"), cEnd));
+    assertEquals((Double) 0.0, g.weight(cStart, new Station("CHATELET", "4")));
 
   }
 

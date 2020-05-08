@@ -1,67 +1,67 @@
 Ligne A
 
-J.F. Kennedy
+J.F. KENNEDY
 
-Villejean-Université
+VILLEJEAN-UNIVERSITE
 
-Pontchaillou
+PONTCHAILLOU
 
-Anatole France
+ANATOLE FRANCE
 
-Sainte-Anne
+SAINTE-ANNE
 
-République
+REPUBLIQUE
 
-Charles de Gaulle
+CHARLES DE GAULLE
 
-Gares
+GARES
 
-Jacques Cartier
+JACQUES CARTIER
 
-Clemenceau
+CLEMENCEAU
 
-Henri Fréville
+HENRI FREVILLE
 
-Italie
+ITALIE
 
-Triangle
+TRIANGLE
 
-Le Blosne
+LE BLOSNE
 
-La Poterie
+LA POTERIE
 
 --
 
 Ligne B
 
-Saint-Jacques-Gaîté
+SAINT-JACQUES-GAITE
 
-La Courrouze
+LA COURROUZE
 
-Cleunay
+CLEUNAY
 
-Mabilais
+MABILAIS
 
-Colombier
+COLOMBIER
 
-Gares
+GARES
 
-Saint-Germain
+SAINT-GERMAIN
 
-Sainte-Anne
+SAINTE-ANNE
 
-Jules Ferry
+JULES FERRY
 
-Gros Chêne
+GROS CHENE
 
-Les Gayeulles
+LES GAYEULLES
 
-Joliot-Curie - Chateaubriand
+JOLIOT-CURIE - CHATEAUBRIAND
 
-Beaulieu-Université
+BEAULIEU-UNIVERSITE
 
-Atalante
+ATALANTE
 
-Cesson-Viasilva
+CESSON-VIASILVA
 
 --

@@ -45,6 +45,10 @@ javadoc_datamodel:
 	cd datamodel && $(JAVADOC) && mv target/site/apidocs/* ../doc/api/datamodel/
 
 javadoc: javadoc_datamodel javadoc_webserver
+	
+diagram:
+	cd datamodel && $(MVN) process-classes
+
 # Target clean removes all files produced during build.
 clean :
 	cd datamodel && $(MVN) clean
