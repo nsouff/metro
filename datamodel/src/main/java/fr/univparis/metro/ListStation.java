@@ -4,13 +4,17 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-//Class used for the autocompletion of the webserver
+/**
+ * Class used for the autocompletion of the webserver.
+ * It allows us to read in text files and store the names of every stations that are in the file.
+ */
 public class ListStation{
 
   /**
-  * @param name the name of the subaway (Paris, Lille ...)
-  * @return a string representation of a javascript array containing all the stations
-  * @throws FileNotFoundException if the file is not correctly opened
+   * Stores the names of stations in a string representation of a javascript array.
+   * @param name the name of the subway (Paris, Lille ...).
+   * @return a string representation of a javascript array containing all the stations.
+   * @throws FileNotFoundException if the file is not correctly opened.
   */
   public static String getListStation(String name) throws FileNotFoundException{
     String str = "[";

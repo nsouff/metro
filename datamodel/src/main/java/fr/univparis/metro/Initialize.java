@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.AbstractMap.SimpleEntry;
 /**
  * Terminal interface class where the user is asked where he wants to go.
- * WARNING: all the features of the project are not in this version
+ * WARNING: all the features of the project are not in this version.
  */
 public class Initialize{
 
@@ -77,7 +77,7 @@ public class Initialize{
 
     /**
      * Print the path dijsktra's algorithm returns according to the destination of the user.
-     * @throws IOException if the file cities.json is not correctly opened
+     * @throws IOException if the file cities.json is not correctly opened.
      */
     public static void initialize() throws IOException {
         Configuration.loadFrom(Initialize.class.getResourceAsStream("/cities.json"));

@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.function.BiPredicate;
 
+/**
+ * Allows the set up of trafics pertubations.
+ */
 public class Trafics {
 
   public enum Perturbation {

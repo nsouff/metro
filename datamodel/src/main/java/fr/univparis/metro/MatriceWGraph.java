@@ -2,6 +2,11 @@ package fr.univparis.metro;
 
 import java.util.*;
 
+/**
+ * Models a graph thanks to matrices (array of arrays).
+ * Here, a graph under the form of matrices contains less informations than a graph represented by a hashmap (like in the WGraph class).
+ * It only contains the informations to get the path from a station to an other that has the least correspondances possible.
+ */
 public class MatriceWGraph{
 
     private HashMap<String, Integer> setOfVertices;
@@ -14,19 +19,32 @@ public class MatriceWGraph{
         return this.setOfVertices;
     }
 
+    /**
+     * Returns the matrice double that contains the time of every itineray.
+     * @return the matrice double.
+     */
     public Double[][] getDirect(){
         return this.direct;
     }
 
+    /**
+     * Returns the matrice via.
+     * @return matrice via.
+     */
     public Station[][] getVia(){
         return this.via;
     }
 
+    /**
+     * Returns the matrice intermediate that contains the number of correspondances of every itinerary.
+     * @return matrice intermediate.
+     */
     public Integer[][] getIntermediate(){
         return this.intermediate;
     }
 
     /**
+     * Store all the name of the stations that are initiating a fork or a cycle.
      * @return an hashmap containing all the stations initiating a fork or a cycle
      */
     public HashMap<String, Integer> getForkAndCycleStation(){
@@ -106,7 +124,7 @@ public class MatriceWGraph{
     }
 
     /**
-     * To build the whole graph.
+     * To build the graph of the whole subway network.
      * @param g is the graph (of the whole subway network) under the from of a hashMap from which we build the matrice graph.
      * @param m contains all the sub graphs representing each lines of the graph g.
      */
@@ -197,6 +215,7 @@ public class MatriceWGraph{
     }
 
     /**
+     * Allows us to build the sub graphs, represented by matrices, of each line of the subway network and store them in an hashmap.
      * @return an hashmap containing the sub graphs of each line: the key is the name of the line, the value its corresponding graph.
      * @param g is a graph under the from of an hashmap from which we build the sub graphs of each line
      */
