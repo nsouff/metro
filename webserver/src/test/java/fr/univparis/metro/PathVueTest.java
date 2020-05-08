@@ -6,7 +6,7 @@ public class PathVueTest {
   // @Test
   public void multiplePathEndsTest() throws IOException{
     int count = 0;
-    WGraph<Station> g = Parser.loadFrom(this.getClass().getResourceAsStream("/liste.txt"));
+    WGraph<Station> g = Parser.loadFrom(this.getClass().getResourceAsStream("/paris.txt"));
     for (Station start : g.getVertices()) {
       if (! start.getLine().equals("Meta Station Start")) continue;
       System.out.println(count++);

@@ -1,103 +1,103 @@
 Ligne A
 
-Perrache
+PERRACHE
 
-Ampère - Victor Hugo
+AMPERE - VICTOR HUGO
 
-Bellecour
+BELLECOUR
 
-Cordeliers
+CORDELIERS
 
-Hôtel de Ville - Louis Pradel
+HOTEL DE VILLE - LOUIS PRADEL
 
-Foch
+FOCH
 
-Masséna
+MASSENA
 
-Charpennes - Charles Hernu
+CHARPENNES - CHARLES HERNU
 
-République - Villeurbanne
+REPUBLIQUE - VILLEURBANNE
 
-Gratte-Ciel
+GRATTE-CIEL
 
-Flachet - Alain Gilles
+FLACHET - ALAIN GILLES
 
-Cusset
+CUSSET
 
-Laurent Bonnevay - Astroballe
+LAURENT BONNEVAY - ASTROBALLE
 
-Vaulx-en-Velin - La Soie
+VAULX-EN-VELIN - LA SOIE
 
 --
 
 Ligne B
 
-Charpennes - Charles Hernu
+CHARPENNES - CHARLES HERNU
 
-Brotteaux
+BROTTEAUX
 
-Gare Part-Dieu - Vivier Merle
+GARE PART-DIEU - VIVIER MERLE
 
-Place Guichard - Bourse du Travail
+PLACE GUICHARD - BOURSE DU TRAVAIL
 
-Saxe - Gambetta
+SAXE - GAMBETTA
 
-Jean Macé
+JEAN MACE
 
-Place Jean Jaurès
+PLACE JEAN JAURES
 
-Debourg
+DEBOURG
 
-Stade de Gerland
+STADE DE GERLAND
 
-Gare d'Oullins
+GARE D'OULLINS
 
 --
 
 Ligne C
 
-Hôtel de Ville - Louis Pradel
+HOTEL DE VILLE - LOUIS PRADEL
 
-Croix-Paquet
+CROIX-PAQUET
 
-Croix-Rousse
+CROIX-ROUSSE
 
-Hénon
+HENON
 
-Cuire
+CUIRE
 
 --
 
 Ligne D
 
-Gare de Vaise
+GARE DE VAISE
 
-Valmy
+VALMY
 
-Gorge de Loup
+GORGE DE LOUP
 
-Vieux Lyon - Cathédrale Saint-Jean
+VIEUX LYON - CATHEDRALE SAINT-JEAN
 
-Bellecour
+BELLECOUR
 
-Guillotière - Gabriel Péri
+GUILLOTIERE - GABRIEL PERI
 
-Saxe - Gambetta
+SAXE - GAMBETTA
 
-Garibaldi
+GARIBALDI
 
-Sans Souci
+SANS SOUCI
 
-Monplaisir - Lumière
+MONPLAISIR - LUMIERE
 
-Grange Blanche
+GRANGE BLANCHE
 
-Laënnec
+LAENNEC
 
-Mermoz - Pinel
+MERMOZ - PINEL
 
-Parilly
+PARILLY
 
-Gare de Vénissieux
+GARE DE VENISSIEUX
 
 --

@@ -15,7 +15,7 @@ public class Station {
      */
     Station(String n, String l) {
 	if (l == null || l.isEmpty() || n == null || n.isEmpty())
-	    throw new IllegalArgumentException("Station name and line can't be null or empty");
+	  throw new IllegalArgumentException("Station name and line can't be null or empty" + n + l);
 	name = n;
 	line = l;
     }

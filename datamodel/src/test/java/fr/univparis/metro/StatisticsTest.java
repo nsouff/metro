@@ -11,7 +11,7 @@ public class StatisticsTest{
 
     @BeforeClass
     public static void loadFile() throws IOException{
-      InputStream i = ParserTest.class.getResourceAsStream("/liste.txt");
+      InputStream i = ParserTest.class.getResourceAsStream("/paris.txt");
       g = Parser.loadFrom(i);
     }
 
@@ -19,8 +19,11 @@ public class StatisticsTest{
     public void mostDistantStationsTest(){
       Pair<Pair<Station, Station>, Double> res= Statistics.mostDistantStations(g, (s -> !s.getLine().equals("Meta Station Start")), (t -> t.getLine().equals("Meta Station End")));
       assertEquals((Double)3270. , res.getValue());
-      assertEquals("Pont de Sèvres", res.getObj().getObj().getName());
-      assertEquals("Créteil - Préfecture", res.getObj().getValue().getName());
+      String s1 = res.getObj().getObj().getName();
+      String s2 = res.getObj().getValue().getName();
+
+      assertTrue(s1.equals("PONT DE SEVRES") || s2.equals("PONT DE SEVRES"));
+      assertTrue(s1.equals("CRETEIL - PREFECTURE") || s2.equals("CRETEIL - PREFECTURE"));
     }
 
     @Test
@@ -30,7 +33,7 @@ public class StatisticsTest{
 
     @Test
     public void extremumLineTest() {
-      assertEquals("3bis", Statistics.extremumLine(g, false));
+      assertEquals("3BIS", Statistics.extremumLine(g, false));
       assertEquals("7", Statistics.extremumLine(g, true));
     }
 
@@ -41,14 +44,14 @@ public class StatisticsTest{
       assertEquals((Double)2160. , (Double)res.get("1"));
       assertEquals((Double)2160. , (Double)res.get("2"));
       assertEquals((Double)2160. , (Double)res.get("3"));
-      assertEquals((Double)270. , (Double)res.get("3bis"));
+      assertEquals((Double)270. , (Double)res.get("3BIS"));
       assertEquals((Double)720. , (Double)res.get("14"));
       assertEquals(1993 , n);
     }
 
     @Test
     public void shortestTimeTravelLineTest(){
-      assertEquals("3bis", Statistics.shortestTimeTravelLine(g).getObj());
+      assertEquals("3BIS", Statistics.shortestTimeTravelLine(g).getObj());
       assertEquals((Double)270., Statistics.shortestTimeTravelLine(g).getValue());
     }
 

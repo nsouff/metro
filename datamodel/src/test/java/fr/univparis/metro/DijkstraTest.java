@@ -11,29 +11,29 @@ public class DijkstraTest{
   @BeforeClass
   public static void loadFile() throws IOException {
     try {
-      w = Parser.loadFrom(DijkstraTest.class.getResourceAsStream("/liste.txt"));
+      w = Parser.loadFrom(DijkstraTest.class.getResourceAsStream("/paris.txt"));
     } catch(Exception e) {e.printStackTrace();}
   }
 
   @Test
   public void shortestPathTest(){
-    Station a1                  = new Station("Saint-Lazare", "14");
-    Station a2                  = new Station("Châtelet", "14");
-    Station a3                  = new Station("Châtelet", "4");
-    Station a4                  = new Station("Saint-Placide", "4");
+    Station a1                  = new Station("SAINT-LAZARE", "14");
+    Station a2                  = new Station("CHATELET", "14");
+    Station a3                  = new Station("CHATELET", "4");
+    Station a4                  = new Station("SAINT-PLACIDE", "4");
     HashMap<Station, Station> prev = new HashMap<Station, Station>();
     HashMap<Station, Double> dist  = new HashMap<Station, Double>();
-    Station laumS = new Station("Laumière", "Meta Station Start");
-    Station mdiE = new Station("Mairie d'Issy", "Meta Station End");
+    Station laumS = new Station("LAUMIERE", "Meta Station Start");
+    Station mdiE = new Station("MAIRIE D'ISSY", "Meta Station End");
 
     Dijkstra.shortestPath(w, a1, prev, dist);
     assertEquals((Double) 270.0,  dist.get(a2));
     assertEquals((Double) 330.0, dist.get(a3));
     assertEquals((Double) 0.0, dist.get(a1));
     assertEquals((Double) 840.0, dist.get(a4));
-    assertEquals(new Station("Montparnasse - Bienvenüe", "4"), prev.get(a4));
-    assertEquals(new Station("Châtelet", "14"), prev.get(a3));
-    assertEquals(new Station("Pyramides", "14"), prev.get(a2));
+    assertEquals(new Station("MONTPARNASSE - BIENVENUE", "4"), prev.get(a4));
+    assertEquals(new Station("CHATELET", "14"), prev.get(a3));
+    assertEquals(new Station("PYRAMIDES", "14"), prev.get(a2));
     Dijkstra.shortestPath(w, laumS, prev, dist);
     assertEquals((Double) 2340.0, dist.get(mdiE));
 

@@ -11,17 +11,17 @@ public class WGraphTest{
   @Before
   public void initializeGraph(){
     g = new WGraph<String>();
-    g.addVertex("Ourcq");
-    g.addVertex("Laumière");
+    g.addVertex("OURCQ");
+    g.addVertex("LAUMIERE");
     g.addVertex("Jaures");
-    g.addVertex("Porte de Pantin");
+    g.addVertex("PORTE DE PANTIN");
     g.addVertex("Fac des Maths-Info");
     g.addVertex("Stade de rugby");
     g.addVertex("Rattrapages");
     g.addVertex("Objectif 20/20 au projet");
-    g.addEdge("Ourcq", "Laumière", 70.0);
-    g.addEdge("Laumière", "Jaures", 75.0);
-    g.addDoubleEdge("Ourcq", 60., (t -> t.equals("Porte de Pantin")));
+    g.addEdge("OURCQ", "LAUMIERE", 70.0);
+    g.addEdge("LAUMIERE", "Jaures", 75.0);
+    g.addDoubleEdge("OURCQ", 60., (t -> t.equals("PORTE DE PANTIN")));
     g.addDoubleEdge("Jaures", 50., (t -> t.equals("Stade de rugby")));
     g.addDoubleEdge("Stade de rugby", 100., (t -> t.equals("Fac des Maths-Info")));
     g.addDoubleEdge("Fac des Maths-Info", 20., (t -> t.equals("Rattrapages")));
@@ -32,19 +32,19 @@ public class WGraphTest{
   public void cloneTest(){
     WGraph<String> h = g.clone();
     assertTrue(g.equals(h));
-    assertTrue(g.neighbors("Ourcq").contains("Laumière"));
-    assertTrue(h.neighbors("Ourcq").contains("Laumière"));
-    h.removeEdge("Ourcq", "Laumière");
-    assertTrue(g.neighbors("Ourcq").contains("Laumière"));
-    assertFalse(h.neighbors("Ourcq").contains("Laumière"));
+    assertTrue(g.neighbors("OURCQ").contains("LAUMIERE"));
+    assertTrue(h.neighbors("OURCQ").contains("LAUMIERE"));
+    h.removeEdge("OURCQ", "LAUMIERE");
+    assertTrue(g.neighbors("OURCQ").contains("LAUMIERE"));
+    assertFalse(h.neighbors("OURCQ").contains("LAUMIERE"));
   }
 
   @Test
   public void weightTest(){
-    assertEquals(70.0, g.weight("Ourcq", "Laumière"), 0.0);
-    assertEquals(75.0, g.weight("Laumière", "Jaures"), 0.0);
-    assertEquals(60.0, g.weight("Ourcq", "Porte de Pantin"), 0.0);
-    assertEquals(60.0, g.weight("Porte de Pantin", "Ourcq"), 0.0);
+    assertEquals(70.0, g.weight("OURCQ", "LAUMIERE"), 0.0);
+    assertEquals(75.0, g.weight("LAUMIERE", "Jaures"), 0.0);
+    assertEquals(60.0, g.weight("OURCQ", "PORTE DE PANTIN"), 0.0);
+    assertEquals(60.0, g.weight("PORTE DE PANTIN", "OURCQ"), 0.0);
     assertEquals(50.0, g.weight("Jaures", "Stade de rugby"), 0.0);
     assertEquals(50.0, g.weight("Stade de rugby", "Jaures"), 0.0);
     assertEquals(100.0, g.weight("Stade de rugby", "Fac des Maths-Info"), 0.0);
@@ -57,8 +57,8 @@ public class WGraphTest{
 
   @Test
   public void addVertexTest(){
-    assertEquals(true, g.containsVertex("Ourcq"));
-    assertEquals(true, g.containsVertex("Laumière")&& g.containsVertex("Porte de Pantin"));
+    assertEquals(true, g.containsVertex("OURCQ"));
+    assertEquals(true, g.containsVertex("LAUMIERE")&& g.containsVertex("PORTE DE PANTIN"));
     assertEquals(true, g.containsVertex("Jaures"));
 
     assertEquals(false, g.containsVertex("Gare du Nord"));
@@ -69,20 +69,20 @@ public class WGraphTest{
     g.deleteVertex("Jaures");
 
     assertFalse(g.containsVertex("Jaures"));
-    assertEquals(Double.NaN, g.weight("Laumière", "Jaures"), 0.0);
+    assertEquals(Double.NaN, g.weight("LAUMIERE", "Jaures"), 0.0);
   }
 
   @Test
   public void addEdgeTest() {
-    assertTrue(g.neighbors("Ourcq").contains("Laumière"));
-    assertTrue(g.neighbors("Laumière").contains("Jaures"));
+    assertTrue(g.neighbors("OURCQ").contains("LAUMIERE"));
+    assertTrue(g.neighbors("LAUMIERE").contains("Jaures"));
   }
 
   @Test
   public void removeEdgeTest(){
-    g.removeEdge("Ourcq", "Laumière");
-    g.removeEdge("Ourcq", "Porte de Pantin");
-    assertTrue(g.neighbors("Ourcq").isEmpty());
+    g.removeEdge("OURCQ", "LAUMIERE");
+    g.removeEdge("OURCQ", "PORTE DE PANTIN");
+    assertTrue(g.neighbors("OURCQ").isEmpty());
   }
 
   @Test
@@ -90,8 +90,8 @@ public class WGraphTest{
 
     // Value of the weight are tested on weightTest
 
-    assertTrue(g.neighbors("Porte de Pantin").contains("Ourcq"));
-    assertTrue(g.neighbors("Ourcq").contains("Porte de Pantin"));
+    assertTrue(g.neighbors("PORTE DE PANTIN").contains("OURCQ"));
+    assertTrue(g.neighbors("OURCQ").contains("PORTE DE PANTIN"));
 
     assertTrue(g.neighbors("Jaures").contains("Stade de rugby"));
     assertTrue(g.neighbors("Stade de rugby").contains("Jaures"));
@@ -116,42 +116,42 @@ public class WGraphTest{
   @Test
   public void applyTest() {
     WGraph<String> other = new WGraph<String>();
-    other.addVertex("Bastille");
-    other.addVertex("Ourcq");
-    other.addVertex("Porte de Pantin");
-    other.addEdge("Bastille", "Ourcq", 21.0);
-    other.addEdge("Porte de Pantin", "Bastille", 5.0);
-    other.addEdge("Ourcq", "Porte de Pantin", 10.0);
+    other.addVertex("BASTILLE");
+    other.addVertex("OURCQ");
+    other.addVertex("PORTE DE PANTIN");
+    other.addEdge("BASTILLE", "OURCQ", 21.0);
+    other.addEdge("PORTE DE PANTIN", "BASTILLE", 5.0);
+    other.addEdge("OURCQ", "PORTE DE PANTIN", 10.0);
 
     g.apply(other);
-    assertTrue(g.containsVertex("Bastille"));
-    assertEquals(21.0, g.weight("Bastille", "Ourcq"), 0.0);
-    assertEquals(Double.NaN, g.weight("Ourcq", "Bastille"), 0.0);
-    assertEquals(60.0, g.weight("Porte de Pantin", "Ourcq"), 0.0);
-    assertEquals(10.0, g.weight("Ourcq", "Porte de Pantin"), 0.0);
-    assertEquals(1, g.neighbors("Bastille").size());
-    assertEquals(10.0, g.weight("Ourcq", "Porte de Pantin"), 0.0);
-    assertEquals(5.0, g.weight("Porte de Pantin", "Bastille"), 0.0);
+    assertTrue(g.containsVertex("BASTILLE"));
+    assertEquals(21.0, g.weight("BASTILLE", "OURCQ"), 0.0);
+    assertEquals(Double.NaN, g.weight("OURCQ", "BASTILLE"), 0.0);
+    assertEquals(60.0, g.weight("PORTE DE PANTIN", "OURCQ"), 0.0);
+    assertEquals(10.0, g.weight("OURCQ", "PORTE DE PANTIN"), 0.0);
+    assertEquals(1, g.neighbors("BASTILLE").size());
+    assertEquals(10.0, g.weight("OURCQ", "PORTE DE PANTIN"), 0.0);
+    assertEquals(5.0, g.weight("PORTE DE PANTIN", "BASTILLE"), 0.0);
 
     // other not modified test
     assertEquals(3, other.nbVertex());
-    assertEquals(21.0, other.weight("Bastille", "Ourcq"), 0.0);
-    assertEquals(5.0, other.weight("Porte de Pantin", "Bastille"), 0.0);
-    assertEquals(10.0, other.weight("Ourcq", "Porte de Pantin"), 0.0);
+    assertEquals(21.0, other.weight("BASTILLE", "OURCQ"), 0.0);
+    assertEquals(5.0, other.weight("PORTE DE PANTIN", "BASTILLE"), 0.0);
+    assertEquals(10.0, other.weight("OURCQ", "PORTE DE PANTIN"), 0.0);
   }
 
   @Test
   public void splitVertexTest() {
-    String b = "Laumière";
-    String split1 = "Laumière1";
-    String split2 = "Laumière2";
+    String b = "LAUMIERE";
+    String split1 = "LAUMIERE1";
+    String split2 = "LAUMIERE2";
     g.splitVertex(b, split1, split2);
 
     assertFalse(g.containsVertex(b));
     assertTrue(g.containsVertex(split1));
     assertTrue(g.containsVertex(split2));
-    assertEquals(70.0, g.weight("Ourcq", split1), 0.0);
-    assertEquals(70.0, g.weight("Ourcq", split2), 0.0);
+    assertEquals(70.0, g.weight("OURCQ", split1), 0.0);
+    assertEquals(70.0, g.weight("OURCQ", split2), 0.0);
     assertEquals(75.0, g.weight(split1, "Jaures"), 0.0);
     assertEquals(75.0, g.weight(split2, "Jaures"), 0.0);
 

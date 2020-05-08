@@ -1,130 +1,130 @@
 Ligne A
 
-Basso Cambo
+BASSO CAMBO
 
-Bellefontaine
+BELLEFONTAINE
 
-Reynerie
+REYNERIE
 
-Mirail-Université
+MIRAIL-UNIVERSITE
 
-Bagatelle
+BAGATELLE
 
-Mermoz
+MERMOZ
 
-Fontaine Lestang
+FONTAINE LESTANG
 
-Arènes
+ARENES
 
-Patte d'Oie
+PATTE D'OIE
 
-Saint-Cyprien - République
+SAINT-CYPRIEN - REPUBLIQUE
 
-Esquirol
+ESQUIROL
 
-Capitole
+CAPITOLE
 
-Jean Jaurès
+JEAN JAURES
 
-Marengo - SNCF
+MARENGO - SNCF
 
-Jolimont
+JOLIMONT
 
-Roseraie
+ROSERAIE
 
-Argoulets
+ARGOULETS
 
-Balma-Gramont
+BALMA-GRAMONT
 
 --
 
 Ligne B
 
-Borderouge
+BORDEROUGE
 
-Trois Cocus
+TROIS COCUS
 
-La Vache
+LA VACHE
 
-Barrière de Paris
+BARRIERE DE PARIS
 
-Minimes - Claude Nougaro
+MINIMES - CLAUDE NOUGARO
 
-Canal du Midi
+CANAL DU MIDI
 
-Compans Caffarelli
+COMPANS CAFFARELLI
 
-Jeanne d'Arc
+JEANNE D'ARC
 
-Jean Jaurès
+JEAN JAURES
 
-François Verdier
+FRANCOIS VERDIER
 
-Carmes
+CARMES
 
-Palais de Justice
+PALAIS DE JUSTICE
 
-Saint-Michel - Marcel Langer
+SAINT-MICHEL - MARCEL LANGER
 
-Empalot
+EMPALOT
 
-Saint-Agne - SNCF
+SAINT-AGNE - SNCF
 
-Saouzelong
+SAOUZELONG
 
-Rangueil
+RANGUEIL
 
-Faculté de Pharmacie
+FACULTE DE PHARMACIE
 
-Université Paul Sabatier
+UNIVERSITE PAUL SABATIER
 
-Ramonville
+RAMONVILLE
 
 --
 
 Ligne TAE
 
-Colomiers-Gare
+COLOMIERS-GARE
 
-Airbus Colomiers Ramassiers
+AIRBUS COLOMIERS RAMASSIERS
 
-Airbus Saint-Martin
+AIRBUS SAINT-MARTIN
 
-Jean-Maga
+JEAN-MAGA
 
-Sept-Deniers Stade Toulousain
+SEPT-DENIERS STADE TOULOUSAIN
 
-Boulevard-de-Suisse - Ponts-Jumeaux
+BOULEVARD-DE-SUISSE - PONTS-JUMEAUX
 
-Fondeyre
+FONDEYRE
 
-La Vache - Nord Toulousain
+LA VACHE - NORD TOULOUSAIN
 
-Toulouse-Lautrec
+TOULOUSE-LAUTREC
 
-Raynal
+RAYNAL
 
-Bonnefoy
+BONNEFOY
 
-Marengo-Matabiau
+MARENGO-MATABIAU
 
-François Verdier
+FRANCOIS VERDIER
 
-Jean-Rieux
+JEAN-RIEUX
 
-Limayrac - Cité de l'Espace
+LIMAYRAC - CITE DE L'ESPACE
 
-L'Ormereau
+L'ORMEREAU
 
-Montaudran - Piste des Géants
+MONTAUDRAN - PISTE DES GEANTS
 
-Montaudran Innovation Campus Airbus Defense & Space
+MONTAUDRAN INNOVATION CAMPUS AIRBUS DEFENSE & SPACE
 
 INPT
 
-Labège Enova
+LABEGE ENOVA
 
-Labège La Cadène
+LABEGE LA CADENE
 
 --
 

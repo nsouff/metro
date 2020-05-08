@@ -8,6 +8,6 @@ public class ConfigurationTest{
     @Test
     public void loadFromTest(){
         Configuration.loadFrom(ConfigurationTest.class.getResourceAsStream("/cities.json"));
-        assertEquals("liste.txt", Configuration.getFileName("Paris"));
+        assertEquals("paris.txt", Configuration.getFileName("Paris"));
     }
 }

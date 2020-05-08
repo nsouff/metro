@@ -20,6 +20,11 @@
       .suggestions > div:hover{
         background-color: #1e4dd4;
       }
+
+      #svp{
+        text-decoration: underline;
+
+      }
       .traf
       {
         border: 2px black solid;
@@ -35,6 +40,8 @@
     <title>Metro</title>
   </head>
   <body>
+    <h2>Itinerary search</h2>
+    <p><em>To make auto-completion work, <span id="svp">please write the stations in lowercase letters.</span></em></p>
     <nav>
       <ul>
         <li><a href="#search">Itinerary Search</a></li>
@@ -45,8 +52,8 @@
     </nav>
     <h2 id="search">Itinerary search</h2>
     <form class="form" action="/${city}/itinerary" method="post" class="form">
-      <label for="start">From</label>
       <div class="container">
+      <label for="start">From</label>
         <input id="start" type="text" name="start" autocomplete="off" required>
         <div class="suggestions" id="resultsStart"></div>
         <br>
