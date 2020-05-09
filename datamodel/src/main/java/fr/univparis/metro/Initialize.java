@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Set;
-import java.io.IOException;
 import java.util.AbstractMap.SimpleEntry;
 /**
  * Terminal interface class where the user is asked where he wants to go.

@@ -92,7 +92,6 @@ public class Webserver {
   private static void installAddPerturbation(Javalin app) {
     app.post("/:city/addPerturbation", ctx -> {
       String city = ctx.pathParam("city");
-      String name = ctx.formParam("name");
       Trafics.Perturbation type = Trafics.Perturbation.valueOf(ctx.formParam("type"));
       Object parameter = null;
       switch (type) {
@@ -124,7 +123,7 @@ public class Webserver {
         break;
       }
 
-      Trafics.addPerturbation(city, type, name, parameter);
+      Trafics.addPerturbation(city, type, parameter);
       ctx.redirect("/" + city);
     });
   }

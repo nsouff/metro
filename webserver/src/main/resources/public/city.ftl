@@ -76,9 +76,6 @@
     <div class="traf">
     <h4>Line shutdown</h4>
     <form class="form" action="/${city}/addPerturbation" method="post">
-      <label for="line_shutdown_name">Name of the perturbation</label>
-      <input required type="text" name="name" id="line_shutdown_name"><br>
-
       <label for="line_shutdown_line">Line you want to shutdown</label>
       <input required type="text" name="line" id="line_shutdown_line"><br>
 
@@ -90,8 +87,6 @@
     <div class="traf">
     <h4>Line slowdown</h4>
     <form class="form" action="/${city}/addPerturbation" method="post">
-      <label for="line_slow_down_name">Name of the perturbation</label>
-      <input required type="text" name="name" id="line_slow_down_name"><br>
 
       <label for="line_slow_down_line">Line you want to slow down</label>
       <input required type="text" name="line" id="line_slow_down_line"><br>
@@ -107,9 +102,6 @@
     <div class="traf">
     <h4>Station shutdown</h4>
     <form class="form" action="/${city}/addPerturbation" method="post">
-      <label for="station_shutdown_name">Name of the perturbation</label>
-      <input required type="text" name="name" id="station_shutdown_name"><br>
-
       <label for="station_shutdown_station_name">Station you want to shutdown</label>
       <input required type="text" name="station_name" id="station_shutdown_station_name"><br>
       <div class="suggestions" id="results_station_shutdown_station_name"></div>
@@ -122,9 +114,6 @@
     <div class="traf">
     <h4>One line of station shutdown</h4>
     <form class="form" action="/${city}/addPerturbation" method="post">
-      <label for="part_station_shut_down_name">Name of the perturbation</label>
-      <input required type="text" name="name" id="part_station_shut_down_name"><br>
-
       <label for="part_station_shut_down_station_name">Name of the station you want to shutdown</label>
       <input class="autocompletion" required type="text" name="station_name" id="part_station_shut_down_station_name"><br>
       <div class="suggestions" id="results_part_station_shut_down_station_name"></div>
@@ -140,9 +129,6 @@
     <div class="traf">
     <h4>Part of a line shutdown</h4>
     <form class="form" action="/${city}/addPerturbation" method="post">
-      <label for="part_line_shut_down_name">Name of the perturbation</label>
-      <input required type="text" name="name" id="part_line_shut_down_name"><br>
-
       <label for="part_line_shut_down_line">Line concerned</label>
       <input required type="text" name="line" id="part_line_shut_down_line"><br>
 
@@ -162,9 +148,6 @@
     <div class="traf">
     <h4>Part of a line slowdown</h4>
     <form class="form" action="/${city}/addPerturbation" method="post">
-      <label for="part_line_slow_down_name">Name of the perturbation</label>
-      <input required type="text" name="name" id="part_line_slow_down_name"><br>
-
       <label for="part_line_slow_down_line">Line concerned</label>
       <input required type="text" name="line" id="part_line_slow_down_line"><br>
 
@@ -187,9 +170,6 @@
     <div class="traf">
     <h4>All trafics slowdown</h4>
     <form class="form" action="/${city}/addPerturbation" method="post">
-      <label for="all_trafics_slow_down_name">Name of the perturbation</label>
-      <input required type="text" name="name" id="all_trafics_slow_down_name"><br>
-
       <label for="all_trafics_slow_down_times">Times which multiply every traject</label>
       <input required type="number" step="any" min="1" name="times" id="all_trafics_slow_down_times"><br>
 
