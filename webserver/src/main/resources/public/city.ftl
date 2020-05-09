@@ -47,7 +47,7 @@
         <li><a href="#search">Itinerary Search</a></li>
         <li><a href="#t2">Current Perturbations</a></li>
         <li><a href="#t3">Add Perturbations</a></li>
-        <li><a href="#stat">Statistics</a></li>
+        <li><a href="${city}/statistics">Statistics</a></li>
       </ul>
     </nav>
     <h2 id="search">Itinerary search</h2>
@@ -212,8 +212,5 @@
     autocompletion("part_line_slow_down_start_station", "results_part_line_slow_down_start_station");
     autocompletion("part_line_slow_down_end_station", "results_part_line_slow_down_end_station");
     </script>
-    <br>
-    <h2 id="stat">Statistics</h2>
-    <p>To acceed to the statistics of the network, click <a href="/${city}/statistics">here</a> and please wait few seconds.</p>
   </body>
 </html>
