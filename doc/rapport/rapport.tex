@@ -4,6 +4,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[french]{babel}
 
+\usepackage{listings}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
@@ -62,37 +63,38 @@ Nous avons également l'option d'afficher le graphe du réseau d'une ville en ut
 \section{Exemple d'exécution}
 Nous compilons donc avec la commande "make".
 Nous lançons ensuite l'exécution avec "make run".
+Apparaît alors un lien :
 
-\includegraphics[height=5cm]{images/execute.png}
+\begin{lstlisting}
+[main] INFO io.javalin.Javalin - Listening on 
+http://localhost:8080/
+\end{lstlisting}
 
-Il faut alors copier le lien(2ème ligne partant du bas) dans un navigateur web pour accéder au webserver de "metro". Cette page ci-dessous s'affiche et on sélectionne alors la ville de notre choix parmi celles possibles. On prend Paris dans cet exemple.
+Il faut alors copier le lien dans un navigateur web pour accéder au webserver de "metro". Cette page ci-dessous s'affiche et on sélectionne alors la ville de notre choix parmi celles possibles. On prend Paris dans cet exemple.
 
-\includegraphics[height=3cm]{images/pageDAccueil.png}
+\includegraphics[width=12cm]{images/index.png}
 
-Nous pouvons alors rechercher un itinéraire. Ici de Wagram à Ourcq. Trois options s'offrent à nous : utiliser Dijkstra(Shortest) pour trouver le plus court chemin, l'algorithme de Floyd ou l'algorithme de Bouarah pour trouver le plus court chemin avec un plafond de nombre de correspondances.
+Nous pouvons alors rechercher un itinéraire. Ici de Wagram à Ourcq(Re-marquons qu'il y a autocomplétion de nos stations quand on les recherche). Trois options s'offrent à nous : utiliser Dijkstra(Shortest) pour trouver le plus court chemin, l'algorithme de Floyd ou l'algorithme de Bouarah pour trouver le plus court chemin avec un plafond de nombre de correspondances.
 
-\includegraphics[height=3cm]{images/research.png}
+\includegraphics[height=8cm]{images/researchwithoutpert.png}
 
 Nous faisons ici une recherche avec Shortest. S'affichent alors plusieurs itinéraires dans l'ordre croissant en fonction des temps de trajets.
 
-\includegraphics[height=8cm]{images/itineraryWithoutPbs.png}
+\includegraphics[height=8cm]{images/resultwithoutperturb.png}
 
 Retournons à la page d'avant, on remarque la possibilité d'ajouter des perturbations de trafics. On peut arrêter ou ralentir une ligne ou une partie d'une ligne, fermer une station, fermer une ligne dans une station. Notre itinéraire précédent nous faisais passer par la ligne 2. Fermons donc la ligne 2 puis effectuons la même recherche de trajet entre Wagram et Ourcq.
 
-\includegraphics[height=4cm]{images/traficsPerturb.png}
-\includegraphics[height=4cm]{images/researchWithPbs.png}
+\includegraphics[height=4cm]{images/addpert.png}
+\includegraphics[height=6cm]{images/itiwithpert.png}
 
 On peut à présent voir le trajet le plus court sachant que la ligne 2 est fermée.
 
-\includegraphics[height=8cm]{images/itineraryWithPbs.png}
+\includegraphics[height=8cm]{images/resultswithpert.png}
 
-Retournons maintenant à la page d'avant, allons en bas de page, et on peut voir qu'une section "Statistics" propose un lien vers une page affichant les statistiques du réseau de métro de la ville sélectionnée au préalable.
-
-\includegraphics[width=12cm]{images/acceedStats.png}
-
+Retournons maintenant à la page d'avant, on peut voir tout en haut un menu avec une option "Statistics" qui est alors un lien vers une page affichant les statistiques du réseau de métro de la ville sélectionnée au préalable.
 Voici l'affichage de cette page :
 
-\includegraphics[height=6cm]{images/stats.png}
+\includegraphics[height=6cm]{images/stat.png}
 
 Voici la fin de cet exemple d'utilisation de "metro" via son webserver.
 
@@ -172,8 +174,12 @@ Bien que cet algorithme travaille directement sur le graphe, il y a, hélas, enc
 La solution fut alors de multiplier le graphe par un nombre maximal de correspondances, en faisant cela des noeuds atteints avec un nombre de correspondances différents pouvaient exister ensemble.
 Au final, le groupe était redevenu optimiste car nous avions échappé à la ``tempête Floyd''.
 
+\newpage
 \subsection{Structure des classes}
 %Diagramme des classes à rajouter
+Voici donc la version du diagramme uml des classes du projet, on peut également le trouver sur le projet dans le dossier dossier doc/diagram. Il y a donc les classes WGraph et Parser qui permmettent la construction de graphes à partir de fichiers textes. Les classes Dijkstra(PriorityQueue est utilisé dedans), BouarahAlgorithm, MatriceWgraph, LimitedConnectionResearch qui sont les classes des algorithmes de recherches de plus court chemin. Il y a la classe Trafics pour ajouter des perturbations, Initialize pour l'exécution sur terminal, App pour qui a un seul main appelé lors de l'exécution sur terminal. Statistics est la classe où sont regroupés tout les algorithmes de statistiques. Il y a la classe Configuration pour les villes avec un réseau de métro, GraphExporter pour se représenter visuellement le graphe. La classe Station elle, représente l'objet station, avec un nom de station et une ligne associée.
 
+
+\rotatebox{90}{\includegraphics[width=20cm]{images/diagram08052020}}
 
 \end{document}
