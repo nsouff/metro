@@ -78,35 +78,40 @@ public class Trafics {
   * The revert graph of this perturbation will be stored in {@link #reverts}
   * @param city the city in which the perturbation occured
   * @param type the type of the perturbation
-  * @param name the name of the perturbation
   * @param parameter is the paramerer of the perturbation (for example the name of the line not working)
   */
-  public static void addPerturbation(String city, Perturbation type, String name, Object parameter) {
+  public static void addPerturbation(String city, Perturbation type, Object parameter) {
     if (! actualTrafics.containsKey(city)) throw new IllegalArgumentException();
     WGraph<Station> revert = null;
+    String name = "";
     switch (type) {
       case LINE_SHUTDOWN:
         if (! ( parameter instanceof String)) throw new IllegalArgumentException();
+        name = "Line " + (String) parameter + " shutdown";
         revert = lineShutdown(city, (String) parameter);
         break;
       case LINE_SLOW_DOWN:
         if (! (parameter instanceof Pair<?, ?>)) throw new IllegalArgumentException();
         Pair<?,?> p1 = (Pair<?,?>) parameter;
         if (! (p1.getObj() instanceof String || ! (p1.getValue() instanceof Double) )) throw new IllegalArgumentException();
+        name = "Line " + (String) p1.getObj() + " slowed down by " + (Double) p1.getValue();
         revert = lineSlowDown(city, (String) p1.getObj(), (Double) p1.getValue());
         break;
       case ENTIRE_STATION_SHUT_DOWN:
         if (! (parameter instanceof String)) throw new IllegalArgumentException();
+        name = "Station " + (String) parameter + " shutdown";
         revert = entireStationShutDown(city, (String) parameter);
         break;
       case PART_STATION_SHUT_DOWN:
         if (! (parameter instanceof Station)) throw new IllegalArgumentException();
+        name = "Line " + ((Station) parameter).getLine() + " of station " + ((Station) parameter).getName() + " shutdown";
         revert = partOfStationShutDown(city, (Station) parameter);
         break;
       case PART_LINE_SHUT_DOWN:
         if (! (parameter instanceof Pair<?, ?>)) throw new IllegalArgumentException();
         Pair<?, ?> p2 = (Pair<?, ?>) parameter;
         if (! (p2.getObj() instanceof Station) || ! (p2.getValue() instanceof Station)) throw new IllegalArgumentException();
+        name = "Line " + ((Station) p2.getObj()).getLine() + " between " + ((Station) p2.getObj()).getName() + " and " + ((Station) p2.getValue()).getName() + " is shutdown";
         revert = partOfLineShutDown(city, (Station) p2.getObj(), (Station) p2.getValue());
         break;
       case PART_LINE_SLOW_DOWN:
@@ -114,11 +119,13 @@ public class Trafics {
         Object[] objs = (Object[]) parameter;
         if (objs.length != 3) throw new IllegalArgumentException();
         if (! (objs[0] instanceof Station) || ! (objs[1] instanceof Station) || ! (objs[2] instanceof Double)) throw new IllegalArgumentException();
+        name = "Trafic is slowed down by " + (Double) objs[2] + " in line " + ((Station)objs[0]).getLine() + " between " + ((Station)objs[0]).getName() + " and " + ((Station)objs[1]).getName();
         revert = partOfLineSlowDown(city, (Station) objs[0], (Station) objs[1], (Double) objs[2]);
         break;
       case ALL_TRAFICS_SLOW_DOWN:
         if (! ( parameter instanceof Double)) throw new IllegalArgumentException();
-	revert = allTraficsSlowDown(city, (Double) parameter);
+        name = "Trafic is slowed down by " + (Double) parameter + " everywhere";
+	      revert = allTraficsSlowDown(city, (Double) parameter);
 	break;
     }
     if (revert != null) reverts.get(city).put(name, revert);
@@ -131,8 +138,6 @@ public class Trafics {
   */
   public static void revertPerturbation(String city, String name) {
     if (! reverts.containsKey(city) || !reverts.get(city).containsKey(name)) {
-      System.out.println(city);
-      System.out.println(name);
       return;
     }
     actualTrafics.get(city).apply(reverts.get(city).get(name));
