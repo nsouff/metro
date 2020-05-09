@@ -150,7 +150,13 @@ A partir d'un graphe et d'une station on peut alors lancer l'algorithme avec aus
 Avant l'analyse du graphe, il y a initialisation de la hashmap en associant des distances à l'infini en valeur pour chaque station(clé) du graphe, et pareil pour la file de priorité.
 
 \subsubsection{Algorithme de Floyd}
-%Partie Lucas
+Comme dit précédemment, l'algorithme de Floyd a l'avantage d'être relativement simple à comprendre, mais surtout très facile à coder, à condition d'avoir une bonne modélisation d'un graphe sous forme de matrices.
+La principale difficulté pour implémenter cet algorithme a donc été la création de ce que nous appellerons des "graphes matrices". Nous avons longtemps hésité entre deux manières de créer de tels graphe: nous avions le choix entre se servir des graphes 
+renvoyés par le parser créé pour l'algorithme de Dijsktra, et écrire un nouveau parser que nous utiliserions exclusivement pour l'alogorithme de Floyd. Nous avons opté pour la première option, et le constructeur de la classe MatriceWGraph prend comme arguement, entre autres,
+un graphe modélisé par une hashmap. Un graphe matrices est composé de trois matrices: une matrice Direct, où Direct[x][y] = temps de trajet pour aller de la station n'x à la station n'y, une matrice Via, où
+Via[x][y] = la dernière station par laquelle on fait un changement pour aller de la station n'x à la station n'y (si il n'ya pas de changement à faire, Via[x][y] = station n'x), et enfin une matrice Intermediate, où
+Intermediate[x][y] = nombre de correspondance pour aller de la station n'x à la station n'y (si les deux stations sont sur la même ligne, on a tout simplement Intermediate[x][y] = 1$, et $Intermediate[x][x] = 0).
+Seuls les coefficients correspondant faisant le lien entre deux stations sur la même ligne sont au départ initialisés. Ces l'algorithme de Floyd, que nous lançons sur ces trois matrices, qui nous permet de remplir tous les coefficients.  
 
 \subsubsection{Algorithme de Romain Bouarah}
 L'algorithme de Romain Bouarah est une alternative à l'algorithme de Floyd pour trouver des chemins en un nombre limité de correspondances.
