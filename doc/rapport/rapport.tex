@@ -2,12 +2,14 @@
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
-%\usepackage{babel}
 \usepackage{hyperref}
 \usepackage{graphicx}
+
 
 \title{Rapport Projet Informatique du Métro}
 \author{
@@ -19,15 +21,22 @@
 
 
 \begin{document}
-\maketitle
 
-Dans le cadre du Projet Informatique du 4ème semestre, voici le projet Métro. Ce programme permet de donner le trajet le plus court lors d'un déplacement sur un réseau de métro, représenté par un graphe. Ce programme a été codé en Java.
+\maketitle
+\begin{abstract}
+  Dans le cadre du Projet Informatique du 4ème semestre, voici le projet Métro.
+  Ce programme permet de donner le trajet le plus court lors d'un déplacement sur un réseau de métro, représenté par un graphe.
+  Ce programme a été développé en Java.
+\end{abstract}
+
+
+
 \newpage
 \tableofcontents
 
 
-\newpage
 
+\newpage
 \part{Guide d'utilisation du programme}
 Voici des indications pour utiliser notre programme "metro". Nous l'avons conçu avec Maven, JUnit et Java.
 
@@ -133,7 +142,7 @@ Quelque semaine plus tard Dijkstra était implémenter et une première version 
 Le parser est alors rester comme cela pendant très longtemps, jusqu'à ce que nous nous rendions compte que des changements n'était pas pris en compte lorsque l'on change de branche d'une fourche ou d'un cycle. Il fallu alors ce replonger dans du code qui était assez ancien et cela fût un peu compliqué. Cette partie du parser est celle qui parût la plus compliqué, en effet il fallait séparer les stations qui précéder et suivait un(e) cycle/fourche et modifié les liaisons à celle ci, tout en gérant le cas où ces stations sont liés à d'autre lignes. Au final cela a été fait en sachant qu'il n'existe donc plus de station comme "Botzaris 7bis" (bien qu'il reste ses meta stations), celle ci ayant été remplacé par Botzaris\$1 et Botzaris\$2. Pour éviter d'avoir une multiplications de cas a gérer il se peut que la modélisation du graph ne représente pas dans ce cas la réalité (qui serait que une station \$1 représente un quai et \$2 l'autre). On peut parfois en effet voir dans le cas de fourche que la station \$1 sert par exemple à rentrer dans les fourches tandis que \$2 sert à en sortir. Cela résultera bien dans les temps de parcours cherché, les deux stations étant bien sûr lié d'un poids de changement (= 60).
 
 \subsection{Les différents algorithmes}
-Voici une présentation des trois algorithmes de plus court chemin que nous avons utilisé dans ce projet: l'algorithme de Dijkstra, celui de Floyd et celui de Bouarah.
+Voici une présentation des trois algorithmes de plus court chemin que nous avons utilisé dans ce projet: l'algorithme de Dijkstra, celui de Floyd et celui de Romain Bouarah.
 \subsubsection{Dijkstra}
 L'algorithme de Dijkstra ne fût pas forcément facile à comprendre. Mais une fois imprégnés de celui-ci, nous avons pu faire un algorithme clair répondant au problème du plus court chemin. Au départ nous n'utilisions pas de file de priorité.
 Une fois que l'algorithme marchait, nous avons rajouté les files de priorité en guise d'amélioration.
@@ -143,8 +152,25 @@ Avant l'analyse du graphe, il y a initialisation de la hashmap en associant des 
 \subsubsection{Algorithme de Floyd}
 %Partie Lucas
 
-\subsubsection{Algorithme de Bouarah}
-%Partie romain
+\subsubsection{Algorithme de Romain Bouarah}
+L'algorithme de Romain Bouarah est une alternative à l'algorithme de Floyd pour trouver des chemins en un nombre limité de correspondances.
+
+\paragraph{Origine}
+Cet algorithme est une réponse au besoin pressant d'obtenir des chemins avec un minimum de correspondances.
+En effet, l'implémentation de l'algorithme de Floyd était difficile et ça faisait presque 3 semaines que nous travaillions dessus avec ardeur.
+La construction du graphe sous forme de matrice posait problème notamment les cycles, fourches et stations partagées par plusieurs lignes.
+C'est pour cela que cet algorithme a été imaginé.
+
+\paragraph{Difficultés}
+Bien que cet algorithme travaille directement sur le graphe, il y a, hélas, encore quelques cas à prendre en compte :
+
+\begin{quote}  
+  La principale difficulté était de faire cohabiter des chemins courts avec un nombre de correspondances élevé avec des mêmes chemins plus long mais avec moins de correspondances, en effet il était impossible de garder qu'un seul type de chemin au risque d'élaguer une grande partie de l'arbre d'exploration.
+\end{quote}
+
+\paragraph{Solution}
+La solution fut alors de multiplier le graphe par un nombre maximal de correspondances, en faisant cela des noeuds atteints avec un nombre de correspondances différents pouvaient exister ensemble.
+Au final, le groupe était redevenu optimiste car nous avions échappé à la ``tempête Floyd''.
 
 \subsection{Structure des classes}
 %Diagramme des classes à rajouter
