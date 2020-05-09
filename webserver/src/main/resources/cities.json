@@ -27,10 +27,6 @@
     {
       "city" : "Orly",
       "metroPlan" : "Orlyval.txt"
-    },
-    {
-      "city" : "CDG Airport",
-      "metroPlan" : "CDGVAL.txt"
     }
   ]
 }
