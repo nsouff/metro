@@ -9,9 +9,6 @@
 \usepackage{hyperref}
 \usepackage{graphicx}
 
-\usepackage{tikz}
-\usetikzlibrary{arrows.meta}
-
 \title{Rapport Projet Informatique du Métro}
 \author{
   Bouarah Romain \and
@@ -180,7 +177,12 @@ La solution fut alors de multiplier le graphe par un nombre maximal de correspon
 \newpage
 \subsection{Structure des classes}
 %Diagramme des classes à rajouter
-Voici donc la version du diagramme uml des classes du projet, on peut également le trouver sur le projet dans le dossier dossier doc/diagram. Il y a donc les classes WGraph et Parser qui permmettent la construction de graphes à partir de fichiers textes. Les classes Dijkstra(PriorityQueue est utilisé dedans), BouarahAlgorithm, MatriceWgraph, LimitedConnectionResearch qui sont les classes des algorithmes de recherches de plus court chemin. Il y a la classe Trafics pour ajouter des perturbations, Initialize pour l'exécution sur terminal, App pour qui a un seul main appelé lors de l'exécution sur terminal. Statistics est la classe où sont regroupés tout les algorithmes de statistiques. Il y a la classe Configuration pour les villes avec un réseau de métro, GraphExporter pour se représenter visuellement le graphe. La classe Station elle, représente l'objet station, avec un nom de station et une ligne associée.
+Voici donc la version du diagramme uml des classes du projet, on peut également le trouver sur le projet dans le dossier dossier doc/diagram. Il y a donc les classes WGraph et Parser qui permettent la construction de graphes à partir de fichiers textes. Les classes Dijkstra(PriorityQueue est utilisé dedans), BouarahAlgorithm, MatriceWgraph, LimitedConnectionResearch qui sont les classes des algorithmes de recherches de plus court chemin. Il y a la classe Trafics pour ajouter des perturbations, Initialize pour l'exécution sur terminal, App dans laquelle il n'y a que le main, qui est appelé lors de l'exécution sur terminal. Statistics est la classe où sont regroupés tout les algorithmes de statistiques. Il y a la classe Configuration pour les villes avec un réseau de métro, GraphExporter pour se représenter visuellement le graphe. La classe Station elle, représente l'objet station, avec un nom de station et une ligne associée.
+
+On peut retrouver les graphes visuelles des réseaux de métro de toutes les villes dans doc/networksModelisation.
+
+Le diagramme est également accessible dans doc/diagram ou ci-dessous pour les vues excellentes.
+
 
 
 \rotatebox{90}{\includegraphics[width=20cm]{images/diagram08052020}}
