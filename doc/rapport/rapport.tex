@@ -5,12 +5,12 @@
 \usepackage[french]{babel}
 
 \usepackage{listings}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsthm}
+
 \usepackage{hyperref}
 \usepackage{graphicx}
 
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
 
 \title{Rapport Projet Informatique du Métro}
 \author{
@@ -161,7 +161,7 @@ L'algorithme de Romain Bouarah est une alternative à l'algorithme de Floyd pour
 
 \paragraph{Origine}
 Cet algorithme est une réponse au besoin pressant d'obtenir des chemins avec un minimum de correspondances.
-En effet, l'implémentation de l'algorithme de Floyd était difficile et ça faisait presque 3 semaines que nous travaillions dessus avec ardeur.
+En effet, l'implémentation de l'algorithme de Floyd était difficile et ça faisait presque 2 semaines que nous travaillions dessus avec ardeur.
 La construction du graphe sous forme de matrice posait problème notamment les cycles, fourches et stations partagées par plusieurs lignes.
 C'est pour cela que cet algorithme a été imaginé.
 
@@ -174,7 +174,8 @@ Bien que cet algorithme travaille directement sur le graphe, il y a, hélas, enc
 
 \paragraph{Solution}
 La solution fut alors de multiplier le graphe par un nombre maximal de correspondances, en faisant cela des noeuds atteints avec un nombre de correspondances différents pouvaient exister ensemble.
-Au final, le groupe était redevenu optimiste car nous avions échappé à la ``tempête Floyd''.
+%Au final, le groupe était redevenu optimiste car nous avions échappé à la ``tempête Floyd''.
+
 
 \newpage
 \subsection{Structure des classes}
