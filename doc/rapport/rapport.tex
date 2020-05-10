@@ -6,6 +6,8 @@
 
 \usepackage{listings}
 
+\usepackage{url}
+
 \usepackage{hyperref}
 \usepackage{graphicx}
 
@@ -126,7 +128,6 @@ Un autre problème qui peut intervenir et de replonger dans du code que l'on a �
 Pour les algorithmes, ce qui posait problème, était la réflexion autour de la modélisation pour faire marcher les algorithmes, qui en eux-mêmes n'ont pas posé de problèmes d'implémentations.
 
 
-
 \newpage
 \section{Les classes plus en détail}
 Notre programme a de nombreuses classes de code. On peut y trouver un parser, plusieurs algorithmes, une pour les perturbations, et d'autres pour le webserver. Elles vont être expliquées plus en détail pour le parser et les algorithmes ci-dessous. Nous allons également présenter ci-dessous la structure du projet et de ses classes.
@@ -135,6 +136,13 @@ Le Parser s'est écrit en plusieurs fois une première version consistait simple
 C'est la semaine suivante où le Parser fut améliorer et était beaucoup plus fonctionnel. En effet la semaine suivante le parser était retravaillé pour créer des correspondances. Pour ce faire un ensemble des noms de stations déjà créée fût ajouté dans toutes les méthodes du parser et lors de la rencontre d'un nom de station qui est déjà dans cet ensemble on liait cette station (avec un poids de changement de ligne de 60 secondes) avec toutes les autres stations qui avait le même nom (on enlèvera plus tard le cas où le nom de ligne commence par "Meta Station"). \\
 Quelque semaine plus tard Dijkstra était implémenter et une première version sur terminal était disponible. Quelque chose nous dérangea dans celle ci, il fallait préciser pour le départ et l'arrivé le nom de la station et la ligne or il parait logique que nous n'ayons qu'à préciser le nom de la station. C'est donc à ce moment que nous avons ajouter des meta stations. Pour chaque station nous avons ajouté une station ayant comme nom de ligne "Meta Station Start" dans laquelle on ne pouvait entrer mais on pouvait aller vers n'importe quelle ligne de la station et une ayant comme ligne "Meta Station End" pour laquelle c'était l'inverse. Toutes ces nouvelles liaisons avait comme poids 0 ce qui faisait qu'elle n'avait aucun poids sur le trajet final. On pouvait désormais lancer les algorithmes de parcours depuis une \emph{meta station start} vers une \emph{meta station end} sans soucis de ligne pour l'utilisateur. \\
 Le parser est alors rester comme cela pendant très longtemps, jusqu'à ce que nous nous rendions compte que des changements n'était pas pris en compte lorsque l'on change de branche d'une fourche ou d'un cycle. Il fallu alors ce replonger dans du code qui était assez ancien et cela fût un peu compliqué. Cette partie du parser est celle qui parût la plus compliqué, en effet il fallait séparer les stations qui précéder et suivait un(e) cycle/fourche et modifié les liaisons à celle ci, tout en gérant le cas où ces stations sont liés à d'autre lignes. Au final cela a été fait en sachant qu'il n'existe donc plus de station comme "Botzaris 7bis" (bien qu'il reste ses meta stations), celle ci ayant été remplacé par Botzaris\$1 et Botzaris\$2. Pour éviter d'avoir une multiplications de cas a gérer il se peut que la modélisation du graph ne représente pas dans ce cas la réalité (qui serait que une station \$1 représente un quai et \$2 l'autre). On peut parfois en effet voir dans le cas de fourche que la station \$1 sert par exemple à rentrer dans les fourches tandis que \$2 sert à en sortir. Cela résultera bien dans les temps de parcours cherché, les deux stations étant bien sûr lié d'un poids de changement (= 60).
+
+\subsection{Le graphe}
+Le métro parisien est un graphe petit, c'est à dire que le nombre d'arêtes est très inférieur au nombre d'arêtes maximal. De plus, le métro parisien contient des cycles et des fourches.
+Nous nous sommes naturellement tournés vers l'utilisation d'une liste d'adjacence pour représenter notre graphe orienté pondéré.
+
+C'est la classe WGraph qui représente ce graphe. Dans cette classe, cette liste d'adjacence est implémenté par une HashMap de HashMap.
+
 
 \subsection{Les différents algorithmes}
 Voici une présentation des trois algorithmes de plus court chemin que nous avons utilisé dans ce projet: l'algorithme de Dijkstra, celui de Floyd et celui de Romain Bouarah.
@@ -177,11 +185,17 @@ La solution fut alors de multiplier le graphe par un nombre maximal de correspon
 \newpage
 \subsection{Structure des classes}
 %Diagramme des classes à rajouter
-Voici donc la version du diagramme uml des classes du projet, on peut également le trouver sur le projet dans le dossier dossier doc/diagram. Il y a donc les classes WGraph et Parser qui permettent la construction de graphes à partir de fichiers textes. Les classes Dijkstra(PriorityQueue est utilisé dedans), BouarahAlgorithm, MatriceWgraph, LimitedConnectionResearch qui sont les classes des algorithmes de recherches de plus court chemin. Il y a la classe Trafics pour ajouter des perturbations, Initialize pour l'exécution sur terminal, App dans laquelle il n'y a que le main, qui est appelé lors de l'exécution sur terminal. Statistics est la classe où sont regroupés tout les algorithmes de statistiques. Il y a la classe Configuration pour les villes avec un réseau de métro, GraphExporter pour se représenter visuellement le graphe. La classe Station elle, représente l'objet station, avec un nom de station et une ligne associée.
+Voici donc la version du diagramme uml des classes du projet.
+Il y a donc les classes WGraph et Parser qui permettent la construction de graphes à partir de fichiers textes. Les classes Dijkstra(PriorityQueue est utilisé dedans), BouarahAlgorithm, MatriceWgraph, LimitedConnectionResearch qui sont les classes des algorithmes de recherches de plus court chemin. Il y a la classe Trafics pour ajouter des perturbations, Initialize pour l'exécution sur terminal, App dans laquelle il n'y a que le main, qui est appelé lors de l'exécution sur terminal. Statistics est la classe où sont regroupés tout les algorithmes de statistiques. Il y a la classe Configuration pour les villes avec un réseau de métro, GraphExporter pour se représenter visuellement le graphe. La classe Station elle, représente l'objet station, avec un nom de station et une ligne associée.
 
-On peut retrouver les graphes visuelles des réseaux de métro de toutes les villes dans doc/networksModelisation.
+On peut retrouver :
+\begin{itemize}
+\item les graphes visuelles des réseaux de métro de toutes les villes dans \url{doc/networksModelisation}
+\item la javadoc dans \url{doc/api}
+\item le diagramme dans \url{doc/diagram} ou ci-dessous pour les vues excellentes.
+\end{itemize}
 
-Le diagramme est également accessible dans doc/diagram ou ci-dessous pour les vues excellentes.
+
 
 
 
